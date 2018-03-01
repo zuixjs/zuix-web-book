@@ -31,4 +31,4 @@ Feel free to use and abuse this template for your next website **: )**
 
 ### Got any question or request?
 
-File a ticket on the [https://github.com/genielabs/zuix-web-template](github repository).
+File a ticket via the repository [issue tracker](https://github.com/genielabs/zuix-web-template).

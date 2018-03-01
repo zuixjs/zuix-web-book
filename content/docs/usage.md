@@ -13,4 +13,10 @@ The site is based on a `JSON` configuration file that is located in the root fol
 
 ## Content management
 
-`// TODO: ...`
+`// TODO: how to edit/add content`
+
+`// TODO: content capabilities: mixed markdown-html, material design components and icons, prism, zUIx components, ...`
+
+## Bundling
+
+`// TODO: how to bundle website into a single file`
