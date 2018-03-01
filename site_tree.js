@@ -42,37 +42,18 @@ var contentTree = {
                         link: '#/docs/customization',
                         file: 'content/docs/customization.md'
                     }
-                },
-                {
-                    id: 'components',
-                    template: 'app/layout/side_menu_subitem',
-                    data: {
-                        title: 'Components',
-                        link: '#/docs/components',
-                        file: 'content/docs/components.md'
-                    }
                 }
             ]
         },
         {
-            id: 'resources',
+            id: 'components',
             template: 'app/layout/side_menu_item',
             data: {
-                title: 'Resources',
+                title: 'Components',
                 icon: 'extension',
-                link: '#/resources/github'
-            },
-            list: [
-                {
-                    id: 'github',
-                    template: 'app/layout/side_menu_subitem',
-                    data: {
-                        title: 'GitHub page',
-                        link: 'https://github.com/genielabs/zuix-web-book',
-                        attr: 'target="_blank"'
-                    }
-                }
-            ]
+                link: '#/components',
+                file: 'content/components.md'
+            }
         }
     ]
 

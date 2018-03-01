@@ -96,6 +96,17 @@ var contentOptions = {
                     if (eol) showPage(contentLoader.path());
                 });
         }
+    },
+    imageTicker: {
+        ready: function(ctx) {
+            ctx.on('ticker:click', function(e) {
+                var data = e.detail;
+                zuix.context('slide-show')
+                    .items(data.list)
+                    .current(data.current)
+                    .open();
+            });
+        }
     }
 };
 

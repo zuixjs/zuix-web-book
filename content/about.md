@@ -1,12 +1,15 @@
 ## About
 
-This is a ready to use responsive site template powered by <a href="http://www.zuix.it" class="mdl-color-text--accent" target="_blank" rel="noopener noreferrer">zUIx</a>.
+This is a ready to use responsive site template powered by
+<a href="http://www.zuix.it" class="mdl-color-text--accent" target="_blank" rel="noopener noreferrer">zUIx</a>.
+The site structure and content management is based on a
+simple configuration file.
+Setup and usage of this template require only basic web development
+knowledge and zero server side scripting.
 
 ### Features
 
 - Responsive design, best fit all device sizes
-- Site structure and content management based on a simple configuration file
-- Setup requires only basic web development knowledge and zero server side scripting
 - Supports markdown and configurable braces **{variables}**
 - The whole site can be bundled into a single file
 - PWA friendly
