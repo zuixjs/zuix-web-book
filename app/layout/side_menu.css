@@ -1,0 +1,44 @@
+. {
+    position: fixed;
+    width: 250px;
+    top:64px; left:0; bottom:0;
+    overflow: visible;
+}
+
+.side-menu {
+    overflow-y: auto;
+    padding: 16px 0 48px;
+    font-family: 'Roboto Condensed', serif !important;
+    font-size:110%;
+    z-index: 10;
+}
+
+.side-menu .material-icons {
+    font-size: 150%;
+    margin-right: 16px;
+}
+
+.side-menu a {
+    padding: 8px 8px 8px 24px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.side-menu a:hover {
+    background-color: rgba(132, 184, 209, 0.5);
+    color: #101035;
+}
+
+.side-menu a.sub_item span {
+    margin-left: 16px;
+    padding-left: 16px;
+    font-size: 90%;
+    border-left: dotted 3px rgba(150,150,150,0.5);
+}
+
+.current {
+    background-color: rgba(132, 184, 209, 0.25);
+    color: #101035;
+}
+.current span {
+    font-weight: bolder;
+}

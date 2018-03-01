@@ -1,0 +1,156 @@
+html, body {
+    font-family: 'Lora', serif !important;
+    font-size: 18px;
+    line-height: 140%;
+}
+
+i.material-icons {
+    vertical-align: middle;
+}
+
+a {
+    color: indigo;
+    text-decoration: none;
+}
+a h3 {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-size: 110%;
+    line-height: 160%;
+    margin: 0 0 24px;
+}
+p code {
+    font-size: 85%;
+    opacity: 0.8;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed', serif !important;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-transform: none;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 220%;
+}
+h2 {
+    font-size: 190%;
+}
+h3 {
+    font-size: 160%;
+}
+h4 {
+    font-size: 150%;
+    color: rgb(100,100,100);
+}
+h5 {
+    font-size: 140%;
+}
+h6 {
+    font-size: 130%;
+}
+
+ul, li {
+    list-style-type: circle;
+    font-size: 100%;
+    line-height: 200%;
+}
+
+pre {
+    margin: 24px !important;
+}
+
+main {
+    z-index: -1;
+}
+
+.content-padding {
+    padding: 48px;
+}
+
+.content-margin {
+    margin: 48px;
+}
+
+.media-container {
+    text-align: center;
+    margin: 48px;
+}
+
+.truncate {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media only screen and (max-width: 640px) {
+    .content-padding {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+/* Layout Animations */
+
+/* Side menu and content page show/hide */
+div[data-ui-field="content-pages"] {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+div[data-ui-field="content-pages"] .page {
+    padding-top: 112px;
+}
+@keyframes main-expand-anim {
+    from { margin-left: 250px;}
+    to { margin-left: 0;}
+}
+@keyframes main-collapse-anim {
+    from { margin-left: 0;}
+    to { margin-left: 250px;}
+}
+.main-side-menu-off {
+    animation-name: main-expand-anim;
+    animation-duration: 0.5s;
+    margin-left: 0;
+    width: 100%;
+}
+.main-side-menu {
+    animation-name: main-collapse-anim;
+    animation-duration: 0.5s;
+    margin-left: 250px;
+    width: 100%;
+}
+.main-side-menu-pull {
+    animation-name: main-collapse-anim;
+    animation-duration: 0.5s;
+    margin-left: 250px;
+}
+
+/* Top bar shrink/expand */
+@keyframes header-collapse-anim {
+    from { top: 0; }
+    to { top: -64px; }
+}
+@keyframes header-expand-anim {
+    from { top: -64px; }
+    to { top: 0; }
+}
+.header-collapse {
+    animation-name: header-collapse-anim;
+    animation-duration: 0.5s;
+    top: -64px;
+}
+.header-expand {
+    animation-name: header-expand-anim;
+    animation-duration: 0.5s;
+    top: 0;
+}

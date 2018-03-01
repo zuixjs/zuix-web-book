@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Simple book template</title>
+
+    <meta name="description" content="Simple book template with markdown support. Powered by ZUIX" />
+    <meta name="keywords" lang="en-us" content="book,blog,template,markdown,zuix" />
+
+    <meta name="author" content="Just Me" />
+
+    <meta http-equiv="Content-Language" content="en-us" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- Custom Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <!--link href="https://fonts.googleapis.com/css?family=Mouse+Memoirs" rel="stylesheet"-->
+    <!-- Material icons and theme -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Google Material Design Lite -->
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_green-pink.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <!-- Flex Layout Attributes -->
+    <link rel="stylesheet" href="css/flex-layout-attribute.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!-- ShowDown - MarkDown --->
+    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.6.3/dist/showdown.min.js"></script>
+    <!-- Prism Syntax Highlighter -->
+    <script type="text/javascript" src="js/prism/clipboard.min.js?"></script>
+    <script type="text/javascript" src="js/prism/prism.js"></script>
+    <link rel="stylesheet" href="js/prism/prism.css">
+
+    <!-- ZUIX -->
+    <!--script src="https://genielabs.github.io/zuix/js/zuix.min.js"></script-->
+    <script src="js/zuix/zuix.js"></script>
+
+</head>
+<body>
+
+    <header data-ui-include="app/layout/header"
+            data-ui-context="header"
+            data-ui-options="contentOptions.bracesVars"
+            class="mdl-shadow--8dp"></header>
+
+    <main data-ui-field="main" class="mdl-color--grey-100">
+
+        <div data-ui-field="content-pages"></div>
+
+    </main>
+
+    <div data-ui-include="app/layout/side_menu"
+         data-ui-field="side-menu"
+         class="side-menu mdl-shadow--8dp"
+         layout="column center-spread"></div>
+
+    <div data-ui-load="app/components/content_loader"
+         data-ui-options="contentOptions.contentLoader"><!-- no-view --></div>
+
+    <div data-ui-load="app/components/side_panel"
+         data-ui-options="contentOptions.sidePanel"><!-- no-view --></div>
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='https://www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-70634540-1','auto');ga('send','pageview');
+    </script>
+
+
+    <!-- ZUIX Simple Blog: main CSS and JavaScript -->
+    <link rel="stylesheet" href="app/main.css">
+    <script src="site_tree.js"></script>
+    <script src="app/main.js"></script>
+
+</body>
+</html>

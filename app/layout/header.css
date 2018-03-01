@@ -1,0 +1,60 @@
+. {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.first-row {
+    height: 64px;
+    width: 100%;
+}
+.second-row {
+    height: 64px;
+    width: 100%;
+}
+
+.second-row .title {
+    font-size: 130%;
+}
+
+.title .menu-toggle {
+    width: 56px;
+    text-align: center;
+    margin-right: 8px;
+    cursor: pointer;
+}
+.sharing {
+    margin-right: 16px;
+    font-size:120%;
+}
+
+.logo {
+    font-weight: 400;
+    font-size: 200%;
+    line-height: 200%;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.logo a {
+    color: white;
+}
+.logo-caption {
+    font-size: 80%;
+}
+
+.subtitle {
+    font-size: 140%;
+    line-height: 200%;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+@media only screen and (max-width: 640px) {
+    .logo {
+        font-size: 160%;
+    }
+    .subtitle {
+        font-size: 130%;
+    }
+}

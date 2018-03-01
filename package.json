@@ -1,0 +1,30 @@
+{
+  "name": "zuix-simple-blog",
+  "version": "1.0.0",
+  "description": "Simple blog template with markdown support, powered by ZUIX.",
+  "author": "Generoso Martello <gene@glabs.it>",
+  "contributors": [],
+  "bin": {},
+  "scripts": {
+    "test": "echo \"Error: not implemented\" && exit 1",
+    "start": "http-server ./"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "npm-cli": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/genielabs/zuix-simple-blog"
+  },
+  "keywords": [
+    "ZUIX",
+    "blog",
+    "book",
+    "markdown",
+    "simple",
+    "web"
+  ],
+  "license": "Apache-2.0"
+}
