@@ -22,7 +22,7 @@ var contentTree = {
             data: {
                 title: 'Insights',
                 icon: 'import_contacts',
-                link: '#/insights/linking'
+                link: '#/insights/components'
             },
             list: [
                 {
