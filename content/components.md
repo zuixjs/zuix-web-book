@@ -6,8 +6,10 @@
 `// TODO: include media-browser and other zUIx components too`
 
 
+<div layout="columns center-center">
 <div data-ui-load="https://genielabs.github.io/glabs.it/ui/controllers/image_ticker"
-     data-ui-options="contentOptions.imageTicker">
+     data-ui-options="contentOptions.imageTicker"
+     class="max-width-400">
 
     <img src="https://picsum.photos/400/300/?image=10"
          data-src-full="https://picsum.photos/1600/1200/?image=10">
@@ -22,5 +24,5 @@
     <img src="https://picsum.photos/400/300/?image=60"
          data-src-full="https://picsum.photos/1600/1200/?image=60">
 
-</div>
+</div></div>
 
