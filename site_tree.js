@@ -35,21 +35,21 @@ var contentTree = {
                     }
                 },
                 {
+                    id: 'customization',
+                    template: 'app/layout/side_menu_subitem',
+                    data: {
+                        title: 'Customization',
+                        link: '#/docs/customization',
+                        file: 'content/docs/customization.md'
+                    }
+                },
+                {
                     id: 'components',
                     template: 'app/layout/side_menu_subitem',
                     data: {
                         title: 'Components',
                         link: '#/docs/components',
                         file: 'content/docs/components.md'
-                    }
-                },
-                {
-                    id: 'linking',
-                    template: 'app/layout/side_menu_subitem',
-                    data: {
-                        title: 'Local links',
-                        link: '#/docs/linking',
-                        file: 'content/docs/linking.md'
                     }
                 }
             ]

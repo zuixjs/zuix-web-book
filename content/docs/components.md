@@ -1,8 +1,8 @@
 # Components
 
 
-`// TODO: ....`
+`// TODO: describe components used in this template....`
 
-`// TODO: add media-browser and other zUIx components too`
+`// TODO: include media-browser and other zUIx components too`
 
 

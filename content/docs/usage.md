@@ -11,5 +11,6 @@ The site is based on a `JSON` configuration file that is located in the root fol
     configuration file as an example.
 </div>
 
+## Content management
 
 `// TODO: ...`

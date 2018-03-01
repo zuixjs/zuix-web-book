@@ -5,8 +5,11 @@ This is a ready to use responsive site template powered by <a href="http://www.z
 ### Features
 
 - Responsive design, best fit all device sizes
-- Site structure based on a simple configuration file
+- Site structure and content management based on a simple configuration file
+- Setup requires only basic web development knowledge and zero server side scripting
 - Supports markdown and configurable braces **{variables}**
+- The whole site can be bundled into a single file
+- PWA friendly
 - Includes following products
     - Material Design Lite<br/>
       <i class="material-icons">link</i> [https://getmdl.io](https://getmdl.io)
@@ -18,7 +21,5 @@ This is a ready to use responsive site template powered by <a href="http://www.z
       <i class="material-icons">link</i> [http://showdownjs.com](http://showdownjs.com)
     - Prism<br/>
       <i class="material-icons">link</i> [http://prismjs.com](http://prismjs.com)
-    - And off course zUIx :)<br/>
+    - ...and off course zUIx :)<br/>
       <i class="material-icons">link</i> [http://zuix.it](http://zuix.it)
-- The whole site can be bundled into a single file
-- PWA friendly
