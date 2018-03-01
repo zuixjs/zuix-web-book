@@ -1,7 +1,7 @@
 {
-  "name": "zuix-simple-blog",
+  "name": "zuix-web-template",
   "version": "1.0.0",
-  "description": "Simple blog template with markdown support, powered by ZUIX.",
+  "description": "Simple website template with markdown support, powered by zUIx.",
   "author": "Generoso Martello <gene@glabs.it>",
   "contributors": [],
   "bin": {},
@@ -16,15 +16,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/genielabs/zuix-simple-blog"
+    "url": "https://github.com/genielabs/zuix-web-template"
   },
   "keywords": [
-    "ZUIX",
-    "blog",
-    "book",
+    "zuix",
+    "website",
+    "template",
     "markdown",
+    "mdl",
+    "material design",
+    "pwa",
     "simple",
-    "web"
+    "webapp",
+    "blog",
+    "book"
   ],
   "license": "Apache-2.0"
 }

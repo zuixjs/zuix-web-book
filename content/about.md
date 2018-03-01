@@ -1,17 +1,19 @@
-## About
+## Website Template
 
-This is a ready to use responsive site template powered by
-<a href="http://www.zuix.it" class="mdl-color-text--accent" target="_blank" rel="noopener noreferrer">zUIx</a>.
-The site structure and content management is based on a
-simple configuration file.
+This is a ready to use website template powered by **zUIx**.
+Its structure and content management are based on a simple configuration file.
+
 Setup and usage of this template require only basic web development
-knowledge and zero server side scripting.
+knowledge and zero server-side scripting.
+
+Feel free to use and abuse this template for your next website **: )**
 
 ### Features
 
 - Responsive design, best fit all device sizes
 - Supports markdown and configurable braces **{variables}**
 - The whole site can be bundled into a single file
+  and also run locally without a web server
 - PWA friendly
 - Includes following products
     - Material Design Lite<br/>
@@ -26,3 +28,7 @@ knowledge and zero server side scripting.
       <i class="material-icons">link</i> [http://prismjs.com](http://prismjs.com)
     - ...and off course zUIx :)<br/>
       <i class="material-icons">link</i> [http://zuix.it](http://zuix.it)
+
+### Got any question or request?
+
+File a ticket on the [https://github.com/genielabs/zuix-web-template](github repository).

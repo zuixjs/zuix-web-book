@@ -1,6 +1,6 @@
-// TODO: use config object instead of contstants
+// TODO: use config object instead of constants
 var CONST_BASE_URL = '/';
-var CONST_SITE_TITLE = 'Web Book';
+var CONST_SITE_TITLE = 'Website Demo';
 var CONST_STARTPAGE = '#/about';
 
 var contentTree = {
