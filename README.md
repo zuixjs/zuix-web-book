@@ -17,17 +17,17 @@ Feel free to use and abuse this template for your next website **: )**
 - PWA friendly
 - Includes following products
     - Material Design Lite<br/>
-      <i class="material-icons">link</i> [https://getmdl.io](https://getmdl.io)
+      [https://getmdl.io](https://getmdl.io)
     - Flex Layout Attribute (FLA)<br/>
-      <i class="material-icons">link</i> [http://progressivered.com/fla](http://progressivered.com/fla)
+      [http://progressivered.com/fla](http://progressivered.com/fla)
     - AnimateCSS<br/>
-      <i class="material-icons">link</i> [https://daneden.github.io/animate.css](https://daneden.github.io/animate.css)
+      [https://daneden.github.io/animate.css](https://daneden.github.io/animate.css)
     - Showdown<br/>
-      <i class="material-icons">link</i> [http://showdownjs.com](http://showdownjs.com)
+      [http://showdownjs.com](http://showdownjs.com)
     - Prism<br/>
-      <i class="material-icons">link</i> [http://prismjs.com](http://prismjs.com)
+      [http://prismjs.com](http://prismjs.com)
     - ...and off course zUIx :)<br/>
-      <i class="material-icons">link</i> [http://zuix.it](http://zuix.it)
+      [http://zuix.it](http://zuix.it)
 
 ### Usage / Contributing
 
