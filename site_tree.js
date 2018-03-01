@@ -10,28 +10,37 @@ var contentTree = {
             id: 'about',
             template: 'app/layout/side_menu_item',
             data: {
-                title: 'Introduction',
+                title: 'About',
                 icon: 'info_outline',
                 link: '#/about',
                 file: 'content/about.md'
             }
         },
         {
-            id: 'insights',
+            id: 'docs',
             template: 'app/layout/side_menu_item',
             data: {
-                title: 'Insights',
+                title: 'Documentation',
                 icon: 'import_contacts',
-                link: '#/insights/components'
+                link: '#/docs/usage'
             },
             list: [
+                {
+                    id: 'usage',
+                    template: 'app/layout/side_menu_subitem',
+                    data: {
+                        title: 'Usage',
+                        link: '#/docs/usage',
+                        file: 'content/docs/usage.md'
+                    }
+                },
                 {
                     id: 'components',
                     template: 'app/layout/side_menu_subitem',
                     data: {
                         title: 'Components',
-                        link: '#/insights/components',
-                        file: 'content/insights/components.md'
+                        link: '#/docs/components',
+                        file: 'content/docs/components.md'
                     }
                 },
                 {
@@ -39,8 +48,8 @@ var contentTree = {
                     template: 'app/layout/side_menu_subitem',
                     data: {
                         title: 'Local links',
-                        link: '#/insights/linking',
-                        file: 'content/insights/linking.md'
+                        link: '#/docs/linking',
+                        file: 'content/docs/linking.md'
                     }
                 }
             ]
