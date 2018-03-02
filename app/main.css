@@ -112,7 +112,7 @@ div[data-ui-field="content-pages"] {
     bottom: 0;
 }
 div[data-ui-field="content-pages"] .page {
-    padding-top: 112px;
+    padding-top: 128px;
 }
 @keyframes main-expand-anim {
     from { margin-left: 250px;}

@@ -1,11 +1,6 @@
-// TODO: use config object instead of constants
-var CONST_BASE_URL = '/';
-var CONST_SITE_TITLE = 'Website Demo';
-var CONST_STARTPAGE = '#/about';
+var siteConfig = {
 
-var contentTree = {
-
-    main: [
+    content: [
         {
             id: 'about',
             template: 'app/layout/side_menu_item',
@@ -55,6 +50,12 @@ var contentTree = {
                 file: 'content/components.md'
             }
         }
-    ]
+    ],
+
+    strings: {
+        startPage: '#/about',
+        baseUrl: '/',
+        title: 'Website Demo'
+    }
 
 };

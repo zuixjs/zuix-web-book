@@ -1,4 +1,4 @@
-## Website Template
+# About
 
 This is a ready to use website template powered by **zUIx**.
 Its structure and content management are based on a simple configuration file.
@@ -31,4 +31,4 @@ Feel free to use and abuse this template for your next website **: )**
 
 ### Got any question or request?
 
-File a ticket via the repository [issue tracker](https://github.com/genielabs/zuix-web-template).
+File a ticket via the repository [issue tracker](https://github.com/genielabs/zuix-web-template/issues).

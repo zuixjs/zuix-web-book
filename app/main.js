@@ -79,11 +79,11 @@ var contentOptions = {
         },
         ready: function (ctx) {
             contentLoader = ctx;
-            contentLoader.data(contentTree);
+            contentLoader.data(siteConfig);
             var showDelay = 0;
             contentLoader.list(
                 // the list items to load
-                contentTree.main,
+                siteConfig.content,
                 // the container where to append items
                 zuix.field('menu'),
                 // the callback function to call once each item is loaded
@@ -134,14 +134,10 @@ zuix.hook('html:parse', function (data) {
     if (this.options().braces != null) {
         var _vars = this.options().braces;
         var parsedHtml = zuix.$.replaceBraces(data.content, function (varName) {
-            switch (varName) {
-                case 'app.title':
-                    return CONST_SITE_TITLE;
-                case 'site.baseurl':
-                    return CONST_BASE_URL;
-                default:
-                    if (_vars[varName])
-                        return _vars[varName];
+            if(varName.startsWith('strings.') && siteConfig.strings[varName.substring(8)]) {
+                return siteConfig.strings[varName.substring(8)];
+            } else if (_vars[varName]) {
+                return _vars[varName];
             }
         });
         if (parsedHtml != null)
@@ -199,7 +195,7 @@ function sideMenuClose(e, status) {
 function showPage(e, path) {
     // parse path or use default
     if (path == null || path.length === 0)
-        path = CONST_STARTPAGE;
+        path = siteConfig.strings.startPage;
     if (path.lastIndexOf('?') > 0) {
         // TODO: should parse query string, not used in this version though
         path = path.substring(0, path.lastIndexOf('?'));
@@ -252,7 +248,7 @@ function makeScrollable(div) {
 }
 
 function getItemFromPath(path) {
-    var item = null, list = contentTree.main;
+    var item = null, list = siteConfig.content;
     for(var p = 0; p < path.length; p++) {
         zuix.$.each(list, function (k, v) {
             if (v.id === path[p]) {
