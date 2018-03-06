@@ -21,23 +21,42 @@ var siteConfig = {
             },
             list: [
                 {
-                    id: 'usage',
+                    id: 'content_loading',
                     template: 'app/layout/side_menu_subitem',
                     data: {
-                        title: 'Usage',
-                        link: '#/docs/usage',
-                        file: 'content/docs/usage.md'
+                        title: 'Content loading',
+                        link: '#/docs/content_loading',
+                        file: 'content/docs/content_loading.md'
                     }
                 },
                 {
-                    id: 'customization',
+                    id: 'side_menu',
                     template: 'app/layout/side_menu_subitem',
                     data: {
-                        title: 'Customization',
-                        link: '#/docs/customization',
-                        file: 'content/docs/customization.md'
+                        title: 'Side menu',
+                        link: '#/docs/side_menu',
+                        file: 'content/docs/side_menu.md'
+                    }
+                },
+                {
+                    id: 'theme',
+                    template: 'app/layout/side_menu_subitem',
+                    data: {
+                        title: 'Theme',
+                        link: '#/docs/theme',
+                        file: 'content/docs/theme.md'
+                    }
+                },
+                {
+                    id: 'site_bundling',
+                    template: 'app/layout/side_menu_subitem',
+                    data: {
+                        title: 'Bundling',
+                        link: '#/docs/site_bundling',
+                        file: 'content/docs/site_bundling.md'
                     }
                 }
+
             ]
         },
         {

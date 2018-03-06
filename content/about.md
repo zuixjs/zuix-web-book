@@ -1,4 +1,4 @@
-# About
+# {title}
 
 This is a ready to use website template powered by **zUIx**.
 Its structure and content management are based on a simple configuration file.

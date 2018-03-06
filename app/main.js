@@ -134,7 +134,10 @@ zuix.hook('html:parse', function (data) {
     if (this.options().braces != null) {
         var _vars = this.options().braces;
         var parsedHtml = zuix.$.replaceBraces(data.content, function (varName) {
-            if(varName.startsWith('strings.') && siteConfig.strings[varName.substring(8)]) {
+            if (varName[0] === '-') {
+                // ignore braces if starting with '-'
+                return '{'+varName.substring(1)+'}';
+            } else if(varName.startsWith('strings.') && siteConfig.strings[varName.substring(8)]) {
                 return siteConfig.strings[varName.substring(8)];
             } else if (_vars[varName]) {
                 return _vars[varName];
@@ -208,7 +211,7 @@ function showPage(e, path) {
         return;
     }
     // get and show the page
-    contentLoader.getContent(item.data.file, function(pageContext, isNew){
+    contentLoader.getContent(item.data, function(pageContext, isNew){
         if (isNew) {
             makeScrollable(pageContext.view());
             pageContainer.append(pageContext.view());

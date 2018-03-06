@@ -80,7 +80,8 @@ zuix.controller(function (cp) {
         });
     }
 
-    function getContent(path, callback) {
+    function getContent(data, callback) {
+        var path = data.file;
         // exit if no content path specified
         if (path == null || path.length == 0) return;
         var content = zuix.context(path);
@@ -90,6 +91,7 @@ zuix.controller(function (cp) {
                 wrapContent: true,
                 markdown: true,
                 prism: true,
+                braces: data,
                 css: false,
                 cext: '',
                 controller: contentController,
