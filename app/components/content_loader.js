@@ -7,13 +7,13 @@ zuix.controller(function (cp) {
 
     cp.create = function () {
         window.onhashchange = function () {
-            var path = getCurrentPath();
-            cp.trigger('path_change', path);
+            navigate();
         };
         cp.expose('data', data);
         cp.expose('path', getCurrentPath);
         cp.expose('list', list);
         cp.expose('getContent', getContent);
+        cp.expose('navigate', navigate);
     };
 
 
@@ -107,5 +107,9 @@ zuix.controller(function (cp) {
         }
     }
 
+    function navigate() {
+        var path = getCurrentPath();
+        cp.trigger('path_change', path);
+    }
 
 });

@@ -17,16 +17,16 @@ var siteConfig = {
             data: {
                 title: 'Documentation',
                 icon: 'import_contacts',
-                link: '#/docs/usage'
+                link: '#/docs/content_files'
             },
             list: [
                 {
-                    id: 'content_loading',
+                    id: 'content_files',
                     template: 'app/layout/side_menu_subitem',
                     data: {
-                        title: 'Content loading',
-                        link: '#/docs/content_loading',
-                        file: 'content/docs/content_loading.md'
+                        title: 'Content files',
+                        link: '#/docs/content_files',
+                        file: 'content/docs/content_files.md'
                     }
                 },
                 {

@@ -93,7 +93,9 @@ var contentOptions = {
                         .animateCss('bounceInLeft', { delay: showDelay+'s' });
                     showDelay += 0.1;
                     // load page content once menu has completed loading
-                    if (eol) showPage(contentLoader.path());
+                    if (eol) {setTimeout(function(){
+                        contentLoader.navigate();
+                    }, 1000);}
                 });
         }
     },
@@ -158,7 +160,7 @@ zuix.hook('html:parse', function (data) {
     }
 
     // Force opening of all non-local links in a new window
-    zuix.$('a[href*="://"]:not([target])').attr('target','_blank');
+    view.find('a[href*="://"]:not([target])').attr('target','_blank');
 
     // Material Design Light integration - DOM upgrade
     if (/*this.options().mdl &&*/ typeof componentHandler !== 'undefined')
@@ -204,7 +206,7 @@ function showPage(e, path) {
         path = path.substring(0, path.lastIndexOf('?'));
     }
     path = path.replace('#/', '').split('/');
-    // get item data
+    // get content item by path
     var item = getItemFromPath(path);
     if (item == null) {
         alert('Error parsing path.');
@@ -228,12 +230,15 @@ function showPage(e, path) {
 }
 
 function revealPage(pageContext) {
-    var crossFadeDuration = '0.05s';
-    if (currentPage != null)
-        zuix.$(currentPage.view()).animateCss('fadeOut', function () {
-            this.hide();
-        }, { duration: crossFadeDuration });
-    zuix.$(pageContext.view()).show().animateCss('fadeIn', null, { duration: crossFadeDuration });
+    var crossFadeDuration = '0.5s';
+    if (currentPage != null) {
+        var oldPage = currentPage;
+        zuix.$(oldPage.view()).animateCss('fadeOut', { duration: crossFadeDuration }, function () {
+            if (oldPage !== currentPage) this.hide();
+        });
+    }
+    zuix.$(pageContext.view()).animateCss('fadeIn', { duration: crossFadeDuration })
+        .show();
     currentPage = pageContext;
 }
 
