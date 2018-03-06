@@ -215,9 +215,12 @@ function showPage(e, path) {
     // get and show the page
     contentLoader.getContent(item.data, function(pageContext, isNew){
         if (isNew) {
-            makeScrollable(pageContext.view());
-            pageContainer.append(pageContext.view());
-            zuix.componentize(pageContext.view());
+            var view = pageContext.view();
+            makeScrollable(view);
+            pageContainer.append(view);
+            zuix.componentize(view);
+            // mdl accent color for anchor links
+            zuix.$(view).find('a').addClass('mdl-color-text--accent');
         }
         revealPage(pageContext);
     });
