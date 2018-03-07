@@ -10,12 +10,8 @@
     width: 100%;
 }
 .second-row {
-    height: 64px;
+    height: 32px;
     width: 100%;
-}
-
-.second-row .title {
-    font-size: 130%;
 }
 
 .title .menu-toggle {
@@ -44,7 +40,7 @@
 }
 
 .subtitle {
-    font-size: 140%;
+    font-size: 120%;
     line-height: 200%;
     padding-left: 16px;
     padding-right: 16px;
@@ -55,6 +51,6 @@
         font-size: 160%;
     }
     .subtitle {
-        font-size: 130%;
+        font-size: 100%;
     }
 }

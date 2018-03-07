@@ -102,10 +102,19 @@ main {
 }
 
 /* Navigate Next Button */
-div[data-ui-field="fab-next"] {
+div[data-ui-field="fab-navigation"] {
     position: fixed;
-    bottom: 48px;
-    right: 48px;
+    bottom: 32px;
+    right: 32px;
+    width: 112px;
+    height: 56px;
+}
+div[data-ui-field="fab-navigation"] a {
+    margin-left:8px;
+    margin-right:8px;
+}
+div[data-ui-field="fab-navigation"] a:last-child {
+    float: right;
 }
 
 /* Layout Animations */
@@ -119,7 +128,7 @@ div[data-ui-field="content-pages"] {
     bottom: 0;
 }
 div[data-ui-field="content-pages"] .page {
-    padding-top: 128px;
+    padding-top: 96px;
 }
 @keyframes main-expand-anim {
     from { margin-left: 250px;}

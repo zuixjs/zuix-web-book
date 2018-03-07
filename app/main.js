@@ -79,8 +79,8 @@ var contentOptions = {
                     }
                 }
                 if (data.event === 'hitBottom') {
-                    showNavigateNext();
-                } else hideNavigateNext();
+                    showNavigation();
+                } else hideNavigation();
             }
         },
         ready: function (ctx) {
@@ -172,6 +172,18 @@ zuix.hook('html:parse', function (data) {
 });
 
 
+// Index content
+var index = 0;
+zuix.$.each(siteConfig.content, function (k, v) {
+    v.index = index++;
+    if (v.list != null) {
+        zuix.$.each(v.list, function (k1, v1) {
+            v1.index = index++;
+        });
+    }
+});
+
+
 // Other utility methods
 
 
@@ -179,7 +191,7 @@ function sideMenuOpen(e, status) {
     if (status.smallScreen) {
         pageContainer.addClass('main-side-menu-pull');
         headerTitle.parent().addClass('main-side-menu-off main-side-menu-pull');
-    }
+    } else showHeader();
     menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('arrow_back').animateCss('rotateIn', { duration: '0.25s' });
     });
@@ -218,6 +230,7 @@ function showPage(e, path) {
             zuix.componentize(view);
             // mdl accent color for anchor links
             zuix.$(view).find('a').addClass('mdl-color-text--accent');
+            pageContext.index = item.index;
         }
         revealPage(pageContext);
     });
@@ -230,16 +243,21 @@ function showPage(e, path) {
 }
 
 function revealPage(pageContext) {
+    var directionOut = 'Left';
+    var directionIn = 'Right';
     var crossFadeDuration = '0.5s';
     if (currentPage != null) {
         var oldPage = currentPage;
-        zuix.$(oldPage.view()).animateCss('fadeOut', { duration: crossFadeDuration }, function () {
+        if (pageContext.index < oldPage.index) {
+            directionOut = 'Right';
+            directionIn = 'Left';
+        }
+        zuix.$(oldPage.view()).animateCss('fadeOut'+directionOut, { duration: crossFadeDuration }, function () {
             if (oldPage !== currentPage) this.hide();
         });
     }
-    zuix.$(pageContext.view()).animateCss('fadeIn', { duration: crossFadeDuration }).show();
+    zuix.$(pageContext.view()).animateCss('fadeIn'+directionIn, { duration: crossFadeDuration }).show();
     currentPage = pageContext;
-    showHeader();
     updateNavigation();
 }
 
@@ -263,15 +281,16 @@ function getItemFromPath(path) {
             if (v.id === path[p]) {
                 item = v;
                 list = item.list;
-                return true;
+                return false;
             }
         });
     }
     return item;
 }
 
-function getNextItemFromLocation() {
-    var item = null, list = siteConfig.content;
+function getPrevNextFromLocation() {
+    var nextItem = null, prevItem = null;
+    var list = siteConfig.content;
     var path = window.location.hash;
     if (path === '')
         path = siteConfig.strings.startPage;
@@ -282,20 +301,25 @@ function getNextItemFromLocation() {
                 if (v1.data != null && v1.data.link === path) {
                     pickNext = true;
                 } else if (pickNext) {
-                    item = v1;
+                    nextItem = v1;
                     return false;
                 }
+                if (!pickNext) {
+                    prevItem = v1;
+                }
             });
-            if (item != null)
-                return false;
+            return nextItem == null;
         } else if (v.data != null && v.data.link === path) {
             pickNext = true;
         } else if (pickNext) {
-            item = v;
+            nextItem = v;
             return false;
         }
+        if (!pickNext) {
+            prevItem = v;
+        }
     });
-    return item;
+    return { prev: prevItem, next: nextItem };
 }
 
 function parseBraces(content, braces) {
@@ -311,30 +335,36 @@ function parseBraces(content, braces) {
     });
 }
 
-var navigateNextButton = zuix.field('fab-next').hide();
+var navigationButtons = zuix.field('fab-navigation').hide();
+var navigateBack = navigationButtons.find('a').eq(0);
+var navigateNext = navigationButtons.find('a').eq(1);
 function updateNavigation() {
-    var next = getNextItemFromLocation();
-    if (next != null) {
-        navigateNextButton.find('a')
-            .attr('href', next.data.link);
+    var prevNext = getPrevNextFromLocation();
+    if (prevNext.next != null) {
+        navigateNext.attr('href', prevNext.next.data.link).show();
     } else {
-        navigateNextButton.find('a')
-            .attr('href', '');
+        navigateNext.attr('href', '').hide();
     }
-    hideNavigateNext();
-}
-function showNavigateNext() {
-    if (navigateNextButton.find('a').attr('href') !== '') {
-        if (navigateNextButton.display() === 'none') {
-            navigateNextButton.show()
-                .animateCss('fadeInUp');
-        }
-    } else hideNavigateNext();
+    if (prevNext.prev != null) {
+        navigateBack.attr('href', prevNext.prev.data.link).show();
+    } else {
+        navigateBack.attr('href', '').hide();
+    }
+    hideNavigation();
+}    showHeader();
+
+function showNavigation() {
+
+    if (navigationButtons.display() === 'none') {
+        navigationButtons.show()
+            .animateCss('fadeInUp');
+    }
+    else hideNavigation();
 }
 
-function hideNavigateNext() {
-    if (navigateNextButton.display() !== 'none' && !navigateNextButton.hasClass('animated')) {
-        navigateNextButton.animateCss('fadeOutDown', { duration: '0.3s' }, function () {
+function hideNavigation() {
+    if (navigationButtons.display() !== 'none' && !navigationButtons.hasClass('animated')) {
+        navigationButtons.animateCss('fadeOutDown', { duration: '0.3s' }, function () {
             this.hide();
         });
     }
@@ -350,8 +380,10 @@ function hideHeader() {
 }
 
 function toggleControls() {
-    if (navigateNextButton.display() !== 'none')
-        hideNavigateNext();
-    else
-        showNavigateNext();
+    if (navigationButtons.display() !== 'none') {
+        hideNavigation();
+    } else {
+        showHeader();
+        showNavigation();
+    }
 }
