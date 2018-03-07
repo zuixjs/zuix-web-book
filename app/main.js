@@ -341,17 +341,25 @@ var navigateNext = navigationButtons.find('a').eq(1);
 function updateNavigation() {
     var prevNext = getPrevNextFromLocation();
     if (prevNext.next != null) {
-        navigateNext.attr('href', prevNext.next.data.link).show();
+        navigateNext.parent().show()
+            .find('label').html(prevNext.next.data.title);
+        navigateNext
+            .attr('href', prevNext.next.data.link)
+            .attr('title', 'Next: '+prevNext.next.data.title);
     } else {
-        navigateNext.attr('href', '').hide();
+        navigateNext.attr('href', '').parent().hide();
     }
     if (prevNext.prev != null) {
-        navigateBack.attr('href', prevNext.prev.data.link).show();
+        navigateBack.parent().show()
+            .find('label').html(prevNext.prev.data.title);
+        navigateBack
+            .attr('href', prevNext.prev.data.link)
+            .attr('title', 'Previous: '+prevNext.prev.data.title);
     } else {
-        navigateBack.attr('href', '').hide();
+        navigateBack.attr('href', '').parent().hide();
     }
     hideNavigation();
-}    showHeader();
+}
 
 function showNavigation() {
 

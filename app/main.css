@@ -104,22 +104,19 @@ main {
 /* Navigate Next Button */
 div[data-ui-field="fab-navigation"] {
     position: fixed;
-    bottom: 32px;
-    right: 32px;
-    width: 112px;
-    height: 56px;
+    bottom: 0px;
+    left:0;
+    right: 0;
+    height: 72px;
+    text-transform: uppercase;
+    font-size: 80%;
+    z-index: 10;
 }
 div[data-ui-field="fab-navigation"] a {
-    margin-left:8px;
-    margin-right:8px;
-}
-div[data-ui-field="fab-navigation"] a:last-child {
-    float: right;
+    margin-left:12px;
+    margin-right:12px;
 }
 
-/* Layout Animations */
-
-/* Side menu and content page show/hide */
 div[data-ui-field="content-pages"] {
     position: fixed;
     left: 0;
@@ -128,8 +125,19 @@ div[data-ui-field="content-pages"] {
     bottom: 0;
 }
 div[data-ui-field="content-pages"] .page {
-    padding-top: 96px;
+    padding-top: 72px;
+    padding-bottom: 112px;
 }
+@media only screen and (max-width: 800px) {
+    div[data-ui-field="content-pages"] .page {
+        padding-top: 104px;
+    }
+}
+
+/* Layout Animations */
+
+/* Side menu and content page show/hide */
+
 @keyframes main-expand-anim {
     from { margin-left: 250px;}
     to { margin-left: 0;}

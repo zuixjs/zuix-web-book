@@ -10,8 +10,12 @@
     width: 100%;
 }
 .second-row {
+    font-size: 80%;
     height: 32px;
     width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    display: none;
 }
 
 .title .menu-toggle {
@@ -52,5 +56,10 @@
     }
     .subtitle {
         font-size: 100%;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .second-row {
+        display: block;
     }
 }

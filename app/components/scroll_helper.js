@@ -41,14 +41,14 @@ zuix.controller(function (cp) {
         }
 
         var now = new Date().getTime();
-        if (scrollInfo.timeout != null)
-            clearTimeout(scrollInfo.timeout);
+        //if (scrollInfo.timeout != null)
+        //    clearTimeout(scrollInfo.timeout);
         var endScroll = scrollHeight-scrollTop-visibleHeight;
         var dy = scrollTop - scrollInfo.lastTop;
         if ((endScroll === 0 || scrollTop === 0)) {
-            scrollInfo.timeout = setTimeout(function () {
+            //scrollInfo.timeout = setTimeout(function () {
                 cp.trigger('scroll_change', { event: scrollTop === 0 ? 'hitTop' : 'hitBottom', delta: dy });
-            }, 100);
+            //}, 100);
         } else if (now - scrollInfo.timestamp > 200) {
             scrollInfo.timestamp = now;
             //if (Math.abs(dy) > 20) {
