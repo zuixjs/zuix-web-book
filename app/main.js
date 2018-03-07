@@ -65,16 +65,22 @@ var contentOptions = {
     contentLoader: {
         on: {
             'path_change': showPage,
+            'page_tap': function () {
+                toggleControls();
+            },
             'page_scroll': function (e, data) {
                 if (pageContainer.hasClass('main-side-menu-off')) {
                     if (data.event === 'moving' || data.event === 'hitTop' || data.event === 'hitBottom') {
                         if (data.delta < 0) {
-                            zuix.$.find('header').removeClass('header-collapse').addClass('header-expand');
+                            showHeader();
                         } else {
-                            zuix.$.find('header').removeClass('header-expand').addClass('header-collapse');
+                            hideHeader();
                         }
                     }
                 }
+                if (data.event === 'hitBottom') {
+                    showNavigateNext();
+                } else hideNavigateNext();
             }
         },
         ready: function (ctx) {
@@ -135,16 +141,7 @@ zuix.hook('html:parse', function (data) {
     }
     if (this.options().braces != null) {
         var _vars = this.options().braces;
-        var parsedHtml = zuix.$.replaceBraces(data.content, function (varName) {
-            if (varName[0] === '-') {
-                // ignore braces if starting with '-'
-                return '{'+varName.substring(1)+'}';
-            } else if(varName.startsWith('strings.') && siteConfig.strings[varName.substring(8)]) {
-                return siteConfig.strings[varName.substring(8)];
-            } else if (_vars[varName]) {
-                return _vars[varName];
-            }
-        });
+        var parsedHtml = parseBraces(data.content, _vars);
         if (parsedHtml != null)
             data.content = parsedHtml;
     }
@@ -172,6 +169,18 @@ zuix.hook('html:parse', function (data) {
 
     console.log("Component loaded", ctx);
 
+});
+
+
+// Cache 'Next button' template
+var navigateNextTemplate;
+zuix.load('app/layout/navigate_next', {
+    css: false,
+    controller: function(ctx) {},
+    ready: function(ctx) {
+        navigateNextTemplate = ctx.view().innerHTML;
+        zuix.unload(ctx);
+    }
 });
 
 
@@ -240,22 +249,23 @@ function revealPage(pageContext) {
             if (oldPage !== currentPage) this.hide();
         });
     }
-    zuix.$(pageContext.view()).animateCss('fadeIn', { duration: crossFadeDuration })
-        .show();
+    zuix.$(pageContext.view()).animateCss('fadeIn', { duration: crossFadeDuration }).show();
     currentPage = pageContext;
+    showHeader();
+    updateNavigation();
 }
 
 function makeScrollable(div) {
     // turn content into an absolute positioned and scrollable element
     // so each page has its own independent scroll
     div.style.position = 'absolute';
-    div.style.left = 0;
-    div.style.right = 0;
-    div.style.bottom = 0;
-    div.style.top = 0;
+    div.style.left = '0';
+    div.style.right = '0';
+    div.style.bottom = '0';
+    div.style.top = '0';
     div.style['overflow'] = 'hidden';
     div.style['overflow-y'] = 'auto';
-    div.setAttribute('layout', 'column top-center');
+    div.setAttribute('layout', 'columns stretch-center');
 }
 
 function getItemFromPath(path) {
@@ -272,3 +282,88 @@ function getItemFromPath(path) {
     return item;
 }
 
+function getNextItemFromLocation() {
+    var item = null, list = siteConfig.content;
+    var path = window.location.hash;
+    if (path === '')
+        path = siteConfig.strings.startPage;
+    var pickNext = false;
+    zuix.$.each(list, function (k, v) {
+        if (v.list != null) {
+            zuix.$.each(v.list, function(k1,v1){
+                if (v1.data != null && v1.data.link === path) {
+                    pickNext = true;
+                } else if (pickNext) {
+                    item = v1;
+                    return false;
+                }
+            });
+            if (item != null)
+                return false;
+        } else if (v.data != null && v.data.link === path) {
+            pickNext = true;
+        } else if (pickNext) {
+            item = v;
+            return false;
+        }
+    });
+    return item;
+}
+
+function parseBraces(content, braces) {
+    return zuix.$.replaceBraces(content, function (varName) {
+        if (varName[0] === '-') {
+            // ignore braces if starting with '-'
+            return '{' + varName.substring(1) + '}';
+        } else if(varName.startsWith('strings.') && siteConfig.strings[varName.substring(8)]) {
+            return siteConfig.strings[varName.substring(8)];
+        } else if (braces[varName]) {
+            return braces[varName];
+        }
+    });
+}
+
+var navigateNextButton = zuix.field('fab-next').hide();
+function updateNavigation() {
+    var next = getNextItemFromLocation();
+    if (next != null) {
+        navigateNextButton.find('a')
+            .attr('href', next.data.link);
+    } else {
+        navigateNextButton.find('a')
+            .attr('href', '');
+    }
+    hideNavigateNext();
+}
+function showNavigateNext() {
+    if (navigateNextButton.find('a').attr('href') !== '') {
+        if (navigateNextButton.display() === 'none') {
+            navigateNextButton.show()
+                .animateCss('fadeInUp');
+        }
+    } else hideNavigateNext();
+}
+
+function hideNavigateNext() {
+    if (navigateNextButton.display() !== 'none' && !navigateNextButton.hasClass('animated')) {
+        navigateNextButton.animateCss('fadeOutDown', { duration: '0.3s' }, function () {
+            this.hide();
+        });
+    }
+}
+
+function showHeader() {
+    if (headerElement.hasClass('header-collapse')) {
+        headerElement.removeClass('header-collapse').addClass('header-expand');
+    }
+}
+function hideHeader() {
+    headerElement.removeClass('header-expand').addClass('header-collapse');
+}
+
+function toggleControls() {
+    if (navigateNextButton.display() !== 'none')
+        hideNavigateNext();
+    else
+        showNavigateNext();
+}

@@ -24,7 +24,7 @@ var siteConfig = {
                     id: 'content_files',
                     template: 'app/layout/side_menu_subitem',
                     data: {
-                        title: 'Content files',
+                        title: 'Content',
                         link: '#/docs/content_files',
                         file: 'content/docs/content_files.md'
                     }

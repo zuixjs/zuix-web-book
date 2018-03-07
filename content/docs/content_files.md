@@ -11,7 +11,7 @@ This is described in the next chapter.
 
 ### Content loading
 
-To open a file in the website the following URL is used:
+To open a content in the website the following URL is used:
 
 ```javascript
 /#[/section_id]/<file_id>

@@ -25,4 +25,3 @@
          data-src-full="https://picsum.photos/1600/1200/?image=60">
 
 </div></div>
-

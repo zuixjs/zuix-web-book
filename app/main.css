@@ -101,6 +101,13 @@ main {
     }
 }
 
+/* Navigate Next Button */
+div[data-ui-field="fab-next"] {
+    position: fixed;
+    bottom: 48px;
+    right: 48px;
+}
+
 /* Layout Animations */
 
 /* Side menu and content page show/hide */

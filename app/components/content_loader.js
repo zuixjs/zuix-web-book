@@ -24,6 +24,9 @@ zuix.controller(function (cp) {
     var contentController = zuix.controller(function(contentCtx){
         contentCtx.create = function () {
             contentCtx.view().hide();
+            contentCtx.view().on('click', function () {
+                cp.trigger('page_tap');
+            });
             zuix.load('app/components/scroll_helper', {
                 view: contentCtx.view(),
                 ready: function (scrollCtx) {
