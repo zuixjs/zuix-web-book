@@ -172,18 +172,6 @@ zuix.hook('html:parse', function (data) {
 });
 
 
-// Cache 'Next button' template
-var navigateNextTemplate;
-zuix.load('app/layout/navigate_next', {
-    css: false,
-    controller: function(ctx) {},
-    ready: function(ctx) {
-        navigateNextTemplate = ctx.view().innerHTML;
-        zuix.unload(ctx);
-    }
-});
-
-
 // Other utility methods
 
 
