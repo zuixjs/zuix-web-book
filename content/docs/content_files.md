@@ -17,6 +17,6 @@ To open a content in the website the following URL is used:
 /#[/section_id]/<file_id>
 ```
 
-For instance, this is the URL to open the *Theme* page: [/#/docs/theme](/#/docs/theme) .
+For instance, this is the URL to open the *Theme* page: [./#/docs/theme](./#/docs/theme) .
 Where `docs` is the `id` assigned to the documentation section and `theme` the `id`
 of the *Theme* page.
