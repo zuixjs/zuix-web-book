@@ -396,3 +396,27 @@ function toggleControls() {
         showNavigation();
     }
 }
+
+var scrollEndTs, scrollInterval;
+function scrollTo(to, duration) {
+    if (to instanceof Element) {
+        to = currentPage.view().scrollTop + zuix.$(to).position().y-100;
+    }
+    if (scrollInterval != null) {
+        clearTimeout(scrollInterval);
+    }
+    var currentTs = Date.now();
+    if (duration != null) {
+        scrollEndTs = currentTs + duration;
+    }
+    duration = scrollEndTs-currentTs;
+    if (duration <= 0) {
+        currentPage.view().scrollTop = to;
+        return;
+    }
+    scrollInterval = setTimeout(function() {
+        var increment = (to - currentPage.view().scrollTop) / (duration/10);
+        currentPage.view().scrollTop += increment;
+        scrollTo(to);
+    });
+}
