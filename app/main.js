@@ -191,6 +191,7 @@ function sideMenuOpen(e, status) {
     if (status.smallScreen) {
         pageContainer.addClass('main-side-menu-pull');
         headerTitle.parent().addClass('main-side-menu-off main-side-menu-pull');
+        hideNavigation();
     } else showHeader();
     menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('arrow_back').animateCss('rotateIn', { duration: '0.25s' });

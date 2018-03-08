@@ -9,17 +9,12 @@ i.material-icons {
 }
 
 a {
-    color: indigo;
     text-decoration: none;
-}
-a h3 {
-    margin: 0;
-    padding: 0;
 }
 
 p {
-    font-size: 110%;
-    line-height: 160%;
+    font-size: 100%;
+    line-height: 150%;
     margin: 0 0 24px;
 }
 p code {
@@ -29,10 +24,8 @@ p code {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto Condensed', serif !important;
-    padding-top: 12px;
-    padding-bottom: 12px;
     text-transform: none;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 h1 {
@@ -104,7 +97,7 @@ main {
 /* Navigate Next Button */
 div[data-ui-field="fab-navigation"] {
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
     left:0;
     right: 0;
     height: 64px;
