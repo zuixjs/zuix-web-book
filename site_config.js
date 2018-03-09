@@ -66,7 +66,7 @@ var siteConfig = {
                 title: 'Components',
                 icon: 'extension',
                 link: '#/components',
-                file: 'content/components.md'
+                file: 'content/components.html'
             }
         }
     ],

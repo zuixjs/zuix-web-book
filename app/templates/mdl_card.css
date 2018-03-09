@@ -20,3 +20,6 @@
 p, ul {
     font-family: "Helvetica", "Arial", sans-serif;
 }
+p {
+    margin: 0 0 16px;
+}

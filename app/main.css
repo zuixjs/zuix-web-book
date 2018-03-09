@@ -14,7 +14,7 @@ a {
 p {
     font-size: 100%;
     line-height: 150%;
-    margin: 0 0 24px;
+    margin: 24px 0 24px 0;
 }
 p code {
     font-size: 85%;
@@ -79,6 +79,11 @@ main {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.vertical-spacer {
+    display: block;
+    height: 48px;
 }
 
 .max-width-400 {

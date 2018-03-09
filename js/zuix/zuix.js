@@ -3178,7 +3178,7 @@ function controller(handler) {
  * @param {!string} fieldName Value to match in the `data-ui-field` attribute.
  * @param {!Element|!ZxQuery} [container] Starting DOM element for this search (**default:** *document*)
  * @param {object} [context] The context
- * @return {ZxQuery}
+ * @return {ZxQuery} ZxQuery object with extra method `field(fieldName)` to search for fields contained in it.
  */
 function field(fieldName, container, context) {
     if (util.isNoU(context))
@@ -3189,8 +3189,16 @@ function field(fieldName, container, context) {
     var el = null;
     if (typeof context._fieldCache[fieldName] === 'undefined') {
         el = z$(container).find('[' + ZUIX_FIELD_ATTRIBUTE + '="' + fieldName + '"]');
-        if (el != null && el.length() > 0)
+        if (el != null && el.length() > 0) {
             context._fieldCache[fieldName] = el;
+            // extend the returned `ZxQuery` object adding the `field` method
+            if (el.length() === 1 && util.isNoU(el.field)) {
+                var that = this;
+                el.field = function (name) {
+                    return that.field(name, el, el);
+                };
+            }
+        }
     } else el = context._fieldCache[fieldName];
 
     return el;
