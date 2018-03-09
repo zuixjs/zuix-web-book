@@ -20,13 +20,23 @@ zuix.controller(function (cp) {
     // this is the JSON site data
     var contentTree = null;
 
+    var tapTimeout = null;
     var dummyController = zuix.controller(function(ctrl){});
     var contentController = zuix.controller(function(contentCtx){
         contentCtx.create = function () {
-            contentCtx.view().hide();
-            contentCtx.view().on('click', function () {
-                cp.trigger('page_tap');
-            });
+            contentCtx.view()
+                .hide()
+                .on('mousedown', function (e) {
+                    if (tapTimeout != null)
+                        clearTimeout(tapTimeout);
+                    tapTimeout = setTimeout(function () {
+                        cp.trigger('page_tap');
+                    }, 500);
+                })
+                .on('mouseup', function () {
+                    if (tapTimeout != null)
+                        clearTimeout(tapTimeout);
+                });
             zuix.load('app/components/scroll_helper', {
                 view: contentCtx.view(),
                 ready: function (scrollCtx) {
