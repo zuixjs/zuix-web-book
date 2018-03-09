@@ -31,7 +31,7 @@ zuix.controller(function (cp) {
                         clearTimeout(tapTimeout);
                     tapTimeout = setTimeout(function () {
                         cp.trigger('page_tap');
-                    }, 500);
+                    }, 300);
                 })
                 .on('mouseup', function () {
                     if (tapTimeout != null)
