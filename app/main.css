@@ -81,14 +81,23 @@ main {
     text-overflow: ellipsis;
 }
 
-.vertical-spacer {
-    display: block;
-    height: 48px;
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
-.max-width-400 {
-    max-width: 400px;
-    align-self: center;
+.vertical-spacer-16 {
+    display: block;
+    height: 16px;
+}
+.vertical-spacer-48 {
+    display: block;
+    height: 48px;
 }
 
 @media only screen and (max-width: 640px) {

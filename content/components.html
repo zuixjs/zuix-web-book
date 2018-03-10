@@ -7,15 +7,15 @@ You can create your own components and templates to customize this
 website. See [ZUIX documentation](https://genielabs.github.io/zuix)
 for further information about this topic.
 
-The following are some usage examples.
+Some examples below.
 
 
 
-<div class="vertical-spacer"></div>
+<div class="vertical-spacer-16"></div>
 
 
 
-#### Simple Image Ticker/Viewer
+#### Image Carousel/Viewer
 
 This component cycle a list of given images and when clicked over it opens
 the full screen image browser.
@@ -26,9 +26,9 @@ the full screen image browser.
 
 ```html
 <div layout="rows center-center">
-<div data-ui-load="https://genielabs.github.io/glabs.it/ui/controllers/image_ticker"
-     data-ui-options="contentOptions.imageTicker"
-     class="max-width-400">
+<div data-ui-load="./app/components/image_carousel"
+     data-ui-options="contentOptions.imageCarousel"
+     layout="row center-left">
 
     <!-- list of thumbnail images with full size urls -->
     <img src="https://picsum.photos/400/300/?image=10"
@@ -50,9 +50,9 @@ the full screen image browser.
 ##### Result
 
 <div layout="rows center-center">
-<div data-ui-load="https://genielabs.github.io/glabs.it/ui/controllers/image_ticker"
-     data-ui-options="contentOptions.imageTicker"
-     class="max-width-400">
+<div data-ui-load="./app/components/image_carousel"
+     data-ui-options="contentOptions.imageCarousel"
+     layout="row center-left">
 
     <img src="https://picsum.photos/400/300/?image=10"
          data-src-full="https://picsum.photos/1600/1200/?image=10">
@@ -66,12 +66,16 @@ the full screen image browser.
          data-src-full="https://picsum.photos/1600/1200/?image=50">
     <img src="https://picsum.photos/400/300/?image=60"
          data-src-full="https://picsum.photos/1600/1200/?image=60">
+    <img src="https://picsum.photos/400/300/?image=300"
+         data-src-full="https://picsum.photos/1600/1200/?image=300">
+    <img src="https://picsum.photos/400/300/?image=400"
+         data-src-full="https://picsum.photos/1600/1200/?image=400">
 
 </div></div>
 
 
 
-<div class="vertical-spacer"></div>
+<div class="vertical-spacer-48"></div>
 
 
 
@@ -171,7 +175,7 @@ card.model({
             <input data-ui-field="image" type="checkbox" class="mdl-switch__input" checked>
             <span class="mdl-switch__label">New random image</span>
         </label>
-        <br/>
+        <div class="vertical-spacer-16"></div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <label class="mdl-textfield__label">Enter a new title</label>
             <input data-ui-field="title" class="mdl-textfield__input" type="text" value="Hello world!">
@@ -181,7 +185,7 @@ card.model({
             <textarea data-ui-field="text" class="mdl-textfield__input" type="text"
                       rows= "4">The quick brown fox jumped over the lazy dog.</textarea>
         </div>
-        <br/>
+        <div class="vertical-spacer-16"></div>
         <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
            href="javascript:card_template_demo_1()">Change</a>
     </div>

@@ -105,10 +105,9 @@ var contentOptions = {
                 });
         }
     },
-    imageTicker: {
+    imageCarousel: {
         ready: function(ctx) {
-            ctx.on('ticker:click', function(e) {
-                var data = e.detail;
+            ctx.on('image:click', function(e, data) {
                 zuix.context('slide-show')
                     .items(data.list)
                     .current(data.current)
