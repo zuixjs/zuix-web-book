@@ -54,6 +54,10 @@ zuix.controller(function (cp) {
                 'padding-right': (imageMargin/2)+'px',
                 'cursor': 'pointer'
             }).on('click', function () {
+                if (cancelClick) {
+                    cancelClick = false;
+                    return;
+                }
                 // build JSON image list that will be passed as event argument
                 var images = [];
                 cp.view('img').each(function(idx, el) {
@@ -159,7 +163,7 @@ zuix.controller(function (cp) {
         });
     }
 
-    var startDragX = -1, startScrollX = 0;
+    var startDragX = -1, startScrollX = 0, cancelClick = false;
     function dragStart(x) {
         var container = cp.view().get();
         startDragX = x;
@@ -167,6 +171,7 @@ zuix.controller(function (cp) {
     }
     function dragMove(x) {
         if (startDragX >= 0) {
+            cancelClick = true;
             resetSlideTimeout();
             var container = cp.view().get();
             container.scrollLeft = startScrollX - (x - startDragX);
