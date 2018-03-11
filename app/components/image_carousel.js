@@ -1,3 +1,4 @@
+// TODO: draft code to be re-arranged
 zuix.controller(function (cp) {
     var current = 0, sliderTimeout = null;
     /** @typedef {ZxQuery} */
@@ -77,6 +78,10 @@ zuix.controller(function (cp) {
 
     function showNext() {
         var offsetX = 0;
+        // TODO: not sure why at some point `current` become a string! WTF!?!
+        current = parseInt(current) + parseInt(direction);
+        if (current < 0)
+            current = imageList.length()-1;
         imageList.each(function (i, el) {
             offsetX += this.get().offsetWidth/2;
             if (i == current)
@@ -99,7 +104,7 @@ zuix.controller(function (cp) {
     }
 
     var scrollFocusing = false;
-    function scrollEnd() {
+    function scrollEnd(slideDirection) {
 
         if (scrollFocusing) {
             scrollFocusing = false;
@@ -116,13 +121,13 @@ zuix.controller(function (cp) {
         var offsetX = -(container.clientWidth / 2);
         var selected = 0;
         imageList.each(function (i, el) {
-            if (container.scrollLeft >= offsetX && container.scrollLeft <= offsetX+this.get().offsetWidth)
+            if (container.scrollLeft >= offsetX && container.scrollLeft <= offsetX+this.get().clientWidth)
                 scrollFocusing = true;
-            offsetX += this.get().offsetWidth/2;
+            offsetX += this.get().clientWidth/2;
             selected = i;
             if (scrollFocusing)
                 return false;
-            offsetX += this.get().offsetWidth/2;
+            offsetX += this.get().clientWidth/2;
         });
 
         // cancel scroll if at start or end of scroll area
@@ -163,7 +168,7 @@ zuix.controller(function (cp) {
         });
     }
 
-    var startDragX = -1, startScrollX = 0, cancelClick = false;
+    var startDragX = -1, startScrollX = 0, movedPixels, cancelClick = false, direction = 0;
     function dragStart(x) {
         var container = cp.view().get();
         startDragX = x;
@@ -174,12 +179,23 @@ zuix.controller(function (cp) {
             cancelClick = true;
             resetSlideTimeout();
             var container = cp.view().get();
-            container.scrollLeft = startScrollX - (x - startDragX);
+            movedPixels = (x - startDragX);
+            container.scrollLeft = startScrollX - movedPixels;
         }
     }
     function dragStop() {
         startDragX = -1;
         scrollFocusing = false;
         scrollEnd();
+        if (movedPixels > 30) {
+            // gesture slide LEFT
+            current++;
+            direction = -2;
+        } else if (movedPixels < -30) {
+            // gesture slide RIGHT
+            current++;
+            direction = 0;
+        }
+        showNext();
     }
 });
