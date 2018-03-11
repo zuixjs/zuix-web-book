@@ -89,7 +89,7 @@ zuix.controller(function (cp) {
                         'description': this.attr('title') != null ? this.attr('title') : ''
                     });
                 });
-                cp.trigger('image:click', { 'list': images, 'currentSlide': i });
+                cp.trigger('image:click', { 'list': images, 'current': i });
             });
         });
         if (imageList.length() > 1) {
