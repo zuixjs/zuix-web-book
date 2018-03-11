@@ -120,20 +120,20 @@ the component. In this case the variable is defined in the
 
 ```javascript
 var contentOptions = {
-  // ...
-  imageCarousel: {
-    on: {
-      'image:click': function(e, carouselData) {
-        // open the full screen viewer
-        zuix.context('image-browser')
-          // methods of 'media-browser' component
-          .items(carouselData.list)
-          .current(carouselData.current)
-          .open();
+    // ...
+    imageCarousel: {
+        on: {
+            'image:click': function(e, carouselData) {
+                // open the full screen viewer
+                zuix.context('image-browser')
+                    // methods of 'media-browser' component
+                    .items(carouselData.list)
+                    .current(carouselData.current)
+                    .open();
+            }
         }
     }
-  }
-  // ...
+    // ...
 }
 ```
 
