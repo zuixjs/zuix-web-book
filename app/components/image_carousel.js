@@ -77,11 +77,11 @@ zuix.controller(function (cp) {
     };
 
     function showNext() {
+        if (current < 0) {
+            direction = 1;
+            current++;
+        }
         var offsetX = 0;
-        // TODO: not sure why at some point `current` become a string! WTF!?!
-        current = parseInt(current) + parseInt(direction);
-        if (current < 0)
-            current = imageList.length()-1;
         imageList.each(function (i, el) {
             offsetX += this.get().offsetWidth/2;
             if (i == current)
@@ -91,9 +91,11 @@ zuix.controller(function (cp) {
         offsetX -= (cp.view().get().clientWidth / 2);
         scrollFocusing = true;
         scrollTo(offsetX, 300);
-        current++;
-        if (current >= imageList.length())
-            current = 0;
+        current+=direction;
+        if (current >= imageList.length()) {
+            direction = -1;
+            current--;
+        }
         resetSlideTimeout();
     }
 
@@ -104,7 +106,7 @@ zuix.controller(function (cp) {
     }
 
     var scrollFocusing = false;
-    function scrollEnd(slideDirection) {
+    function scrollEnd() {
 
         if (scrollFocusing) {
             scrollFocusing = false;
@@ -168,7 +170,7 @@ zuix.controller(function (cp) {
         });
     }
 
-    var startDragX = -1, startScrollX = 0, movedPixels, cancelClick = false, direction = 0;
+    var startDragX = -1, startScrollX = 0, movedPixels, cancelClick = false, direction = 1;
     function dragStart(x) {
         var container = cp.view().get();
         startDragX = x;
@@ -189,12 +191,12 @@ zuix.controller(function (cp) {
         scrollEnd();
         if (movedPixels > 30) {
             // gesture slide LEFT
-            current++;
-            direction = -2;
+            current--;
+            direction = -1;
         } else if (movedPixels < -30) {
             // gesture slide RIGHT
             current++;
-            direction = 0;
+            direction = 1;
         }
         showNext();
     }
