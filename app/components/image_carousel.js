@@ -1,6 +1,7 @@
-// TODO: draft code to be re-arranged
+// Basic image carousel
 zuix.controller(function (cp) {
-    var current = 0, sliderTimeout = null;
+    var SLIDE_DIRECTION_FORWARD = 1, SLIDE_DIRECTION_BACKWARD = -1;
+    var currentSlide = 0, slideDirection = SLIDE_DIRECTION_FORWARD, slideTimeout = null;
     /** @typedef {ZxQuery} */
     var imageList = null;
     // options
@@ -26,24 +27,44 @@ zuix.controller(function (cp) {
             '-ms-user-select': 'none',
             'user-select': 'none',
             'background-color': 'black'
-        }).on('dragstart', function(e) {
-            e.preventDefault();
-        }).on('mousedown', function (e) {
-            dragStart(e.x);
-        }).on('mousemove', function (e) {
-            dragMove(e.x);
-        }).on('mouseup', function (e) {
-            dragStop();
-        }).on('touchstart', function (e) {
-            dragStart(e.touches[0].clientX);
-        }).on('touchmove', function (e) {
-            dragMove(e.touches[0].clientX);
-        }).on('touchend', function (e) {
-            dragStop();
         }).on('scroll', function (e) {
             resetSlideTimeout();
         });
-        // thumbnails
+        // gestures handling
+        var container = cp.view().get();
+        var startScrollX; var cancelClick;
+        zuix.load('app/components/gesture_helper', {
+            view: cp.view(),
+            on: {
+                'gesture:touch': function (e, tp) {
+                    var container = cp.view().get();
+                    startScrollX = container.scrollLeft;
+                },
+                'gesture:move': function (e, tp) {
+                    cancelClick = true;
+                    resetSlideTimeout();
+                    container.scrollLeft = startScrollX - tp.shiftX;
+                },
+                'gesture:release': function (e, tp) {
+                    scrollFocusing = false;
+                    scrollEnd();
+                },
+                'gesture:slide': function (e, direction) {
+                    switch(direction) {
+                        case 'left':
+                            currentSlide--;
+                            direction = -SLIDE_DIRECTION_BACKWARD;
+                            break;
+                        case 'right':
+                            currentSlide++;
+                            direction = SLIDE_DIRECTION_FORWARD;
+                            break;
+                    }
+                    showNext();
+                }
+            }
+        });
+        // thumbnails styling and events
         imageList = cp.view().children();
         imageList.each(function (i, el) {
             this.css({
@@ -68,41 +89,41 @@ zuix.controller(function (cp) {
                         'description': this.attr('title') != null ? this.attr('title') : ''
                     });
                 });
-                cp.trigger('image:click', { 'list': images, 'current': i });
+                cp.trigger('image:click', { 'list': images, 'currentSlide': i });
             });
         });
         if (imageList.length() > 1) {
-            sliderTimeout = setTimeout(showNext, slideInterval);
+            slideTimeout = setTimeout(showNext, slideInterval);
         }
     };
 
     function showNext() {
-        if (current < 0) {
-            direction = 1;
-            current++;
+        if (currentSlide < 0) {
+            slideDirection = 1;
+            currentSlide++;
         }
         var offsetX = 0;
         imageList.each(function (i, el) {
             offsetX += this.get().offsetWidth/2;
-            if (i == current)
+            if (i == currentSlide)
                 return false;
             offsetX += this.get().offsetWidth/2;
         });
         offsetX -= (cp.view().get().clientWidth / 2);
         scrollFocusing = true;
         scrollTo(offsetX, 300);
-        current+=direction;
-        if (current >= imageList.length()) {
-            direction = -1;
-            current--;
+        currentSlide+=slideDirection;
+        if (currentSlide >= imageList.length()) {
+            slideDirection = -1;
+            currentSlide--;
         }
         resetSlideTimeout();
     }
 
     function resetSlideTimeout() {
-        if (sliderTimeout != null)
-            clearTimeout(sliderTimeout);
-        sliderTimeout = setTimeout(showNext, slideInterval);
+        if (slideTimeout != null)
+            clearTimeout(slideTimeout);
+        slideTimeout = setTimeout(showNext, slideInterval);
     }
 
     var scrollFocusing = false;
@@ -134,12 +155,12 @@ zuix.controller(function (cp) {
 
         // cancel scroll if at start or end of scroll area
         if (container.scrollLeft <= 0) {
-            current = 0;
+            currentSlide = 0;
             scrollFocusing = false;
         } else if (container.scrollLeft+container.clientWidth >= totalLength) {
-            current = imageList.length()-1;
+            currentSlide = imageList.length()-1;
             scrollFocusing = false;
-        } else current = selected;
+        } else currentSlide = selected;
 
         if (scrollFocusing)
             scrollTo(offsetX, 300);
@@ -170,34 +191,4 @@ zuix.controller(function (cp) {
         });
     }
 
-    var startDragX = -1, startScrollX = 0, movedPixels, cancelClick = false, direction = 1;
-    function dragStart(x) {
-        var container = cp.view().get();
-        startDragX = x;
-        startScrollX = container.scrollLeft;
-    }
-    function dragMove(x) {
-        if (startDragX >= 0) {
-            cancelClick = true;
-            resetSlideTimeout();
-            var container = cp.view().get();
-            movedPixels = (x - startDragX);
-            container.scrollLeft = startScrollX - movedPixels;
-        }
-    }
-    function dragStop() {
-        startDragX = -1;
-        scrollFocusing = false;
-        scrollEnd();
-        if (movedPixels > 30) {
-            // gesture slide LEFT
-            current--;
-            direction = -1;
-        } else if (movedPixels < -30) {
-            // gesture slide RIGHT
-            current++;
-            direction = 1;
-        }
-        showNext();
-    }
 });
