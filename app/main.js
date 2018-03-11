@@ -106,13 +106,15 @@ var contentOptions = {
         }
     },
     imageCarousel: {
-        ready: function(ctx) {
-            ctx.on('image:click', function(e, data) {
-                zuix.context('slide-show')
-                    .items(data.list)
-                    .current(data.current)
+        on: {
+            'image:click': function(e, carouselData) {
+                // open the full screen viewer
+                zuix.context('image-browser')
+                    // methods of 'media-browser' component
+                    .items(carouselData.list)
+                    .current(carouselData.current)
                     .open();
-            });
+            }
         }
     }
 };

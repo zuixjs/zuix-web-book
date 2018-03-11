@@ -1,32 +1,71 @@
 # Components and templates
 
-**ZUIX** components and templates aim to transform and enhance functionality
+*zUIx* components and templates aim to transform and enhance functionality
 and presentation of the page, or a part of it.
 
-You can create your own components and templates to customize this
-website. See [ZUIX documentation](https://genielabs.github.io/zuix)
+The good thing about using components and templates is that even if you already
+filled in and placed all the contents of your website, you can continue to improve
+its look, usability and functionality without ever touching the pages where the
+content is placed.
+
+Here follow a few prebuilt examples, but if you are interested in building
+your own components and templates, see the [ZUIX documentation](https://genielabs.github.io/zuix)
 for further information about this topic.
 
-Some examples below.
+So, let's say we want to have an *Image Carousel* out of a basic list of images.
+
+
+**HTML**
+
+```html
+<div layout="rows center-left">
+
+    <!-- list of thumbnail images with full size urls -->
+    <img src="https://picsum.photos/400/300/?image=10">
+    <img src="https://picsum.photos/400/300/?image=20">
+    <img src="https://picsum.photos/400/300/?image=30">
+    <img src="https://picsum.photos/400/300/?image=40">
+    <img src="https://picsum.photos/400/300/?image=50">
+    <img src="https://picsum.photos/400/300/?image=60">
+
+</div>
+```
+
+**Preview**
+
+<div layout="rows center-center">
+
+    <!-- list of thumbnail images with full size urls -->
+    <img src="https://picsum.photos/200/150/?image=10">
+    <img src="https://picsum.photos/200/150/?image=20">
+    <img src="https://picsum.photos/200/150/?image=30">
+    <img src="https://picsum.photos/200/150/?image=40">
+    <img src="https://picsum.photos/200/150/?image=50">
+    <img src="https://picsum.photos/200/150/?image=60">
+
+</div>
 
 
 
-<div class="vertical-spacer-16"></div>
+<div class="vertical-spacer-48"></div>
 
 
 
 #### Image Carousel/Viewer
 
-This component cycle a list of given images and when clicked over it opens
-the full screen image browser.
+We can transform into an image carousel a list of images, like the one
+presented above, by just adding a few attributes.
+
+Adding the `data-ui-load="app/components/image_carousel"` attribute
+to the `div` element wrapping the list of images, it will make *zUIx*
+to load the image carousel component over it.
 
 ##### Usage
 
 **HTML**
 
 ```html
-<div layout="rows center-center">
-<div data-ui-load="./app/components/image_carousel"
+<div data-ui-load="app/components/image_carousel"
      data-ui-options="contentOptions.imageCarousel"
      layout="row center-left">
 
@@ -44,13 +83,13 @@ the full screen image browser.
     <img src="https://picsum.photos/400/300/?image=60"
          data-src-full="https://picsum.photos/1600/1200/?image=60">
 
-</div></div>
+</div>
 ```
 
 ##### Result
 
 <div layout="rows center-center">
-<div data-ui-load="./app/components/image_carousel"
+<div data-ui-load="app/components/image_carousel"
      data-ui-options="contentOptions.imageCarousel"
      layout="row center-left">
 
@@ -74,12 +113,50 @@ the full screen image browser.
 </div></div>
 
 
+The `data-ui-options="contentOptions.imageCarousel"` is providing a
+global JavaScript variable that eventually holds options to apply to
+the component. In this case the variable is defined in the
+[./app/main.js](./app/main.js) as follow:
+
+```javascript
+var contentOptions = {
+  // ...
+  imageCarousel: {
+    on: {
+      'image:click': function(e, carouselData) {
+        // open the full screen viewer
+        zuix.context('image-browser')
+          // methods of 'media-browser' component
+          .items(carouselData.list)
+          .current(carouselData.current)
+          .open();
+        }
+    }
+  }
+  // ...
+}
+```
+
+so, it basically indicates what to do when an image is clicked and in
+this case it will open it full screen by using the *Image Browser*
+component, which is another component that is loaded in the `index.html`
+file as follow:
+
+```html
+<div data-ui-load="https://genielabs.github.io/glabs.it/ui/components/media_browser"
+     data-ui-context="image-browser"></div>
+```
+
+
 
 <div class="vertical-spacer-48"></div>
 
 
 
 #### Material Design Card template
+
+...
+
 
 ##### Usage
 
