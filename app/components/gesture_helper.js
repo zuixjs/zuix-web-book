@@ -35,6 +35,7 @@ zuix.controller(function (cp) {
 
     function dragStart(x, y) {
         touchPointer = {
+            startTime: new Date().getTime(),
             startX: x,
             startY: y,
             shiftX: 0,
@@ -54,8 +55,12 @@ zuix.controller(function (cp) {
         }
     }
     function dragStop() {
+        var elapsedTime = new Date().getTime() - touchPointer.startTime;
         cp.trigger('gesture:release', touchPointer);
-        if (touchPointer.shiftX > 30) {
+        if (touchPointer.shiftX === 0 && touchPointer.shiftY === 0 && elapsedTime < 1000) {
+            // gesture TAP
+            cp.trigger('gesture:tap', touchPointer);
+        } else if (touchPointer.shiftX > 30) {
             // gesture slide LEFT
             cp.trigger('gesture:slide', 'left');
         } else if (touchPointer.shiftX < -30) {

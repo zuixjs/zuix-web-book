@@ -49,15 +49,18 @@ zuix.controller(function (cp) {
                     scrollFocusing = false;
                     scrollEnd();
                 },
+                'gesture:tap': function (e, tp) {
+                    cancelClick = false;
+                },
                 'gesture:slide': function (e, direction) {
                     switch(direction) {
                         case 'left':
                             currentSlide--;
-                            direction = -SLIDE_DIRECTION_BACKWARD;
+                            slideDirection = SLIDE_DIRECTION_BACKWARD;
                             break;
                         case 'right':
                             currentSlide++;
-                            direction = SLIDE_DIRECTION_FORWARD;
+                            slideDirection = SLIDE_DIRECTION_FORWARD;
                             break;
                     }
                     showNext();
@@ -75,11 +78,13 @@ zuix.controller(function (cp) {
                 'padding-left': (imageMargin/2)+'px',
                 'padding-right': (imageMargin/2)+'px',
                 'cursor': 'pointer'
-            }).on('click', function () {
+            }).on('click', function (e) {
                 if (cancelClick) {
                     cancelClick = false;
                     return;
                 }
+                currentSlide = i;
+                showNext();
                 // build JSON image list that will be passed as event argument
                 var images = [];
                 cp.view('img').each(function(idx, el) {
@@ -90,6 +95,7 @@ zuix.controller(function (cp) {
                     });
                 });
                 cp.trigger('image:click', { 'list': images, 'current': i });
+                //e.preventDefault();
             });
         });
         if (imageList.length() > 1) {
@@ -99,7 +105,7 @@ zuix.controller(function (cp) {
 
     function showNext() {
         if (currentSlide < 0) {
-            slideDirection = 1;
+            slideDirection = SLIDE_DIRECTION_FORWARD;
             currentSlide++;
         }
         var offsetX = 0;
@@ -112,10 +118,11 @@ zuix.controller(function (cp) {
         offsetX -= (cp.view().get().clientWidth / 2);
         scrollFocusing = true;
         scrollTo(offsetX, 300);
-        currentSlide+=slideDirection;
+        // TODO: wonder why using += operator would result in string concatenation?!? WTF!??!
+        currentSlide = +currentSlide +slideDirection;
         if (currentSlide >= imageList.length()) {
-            slideDirection = -1;
-            currentSlide--;
+            slideDirection = SLIDE_DIRECTION_BACKWARD;
+            currentSlide = imageList.length()-1;
         }
         resetSlideTimeout();
     }
