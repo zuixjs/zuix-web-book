@@ -29,7 +29,7 @@ zuix.controller(function(cp){
             .expose('items', setItems)
             .expose('current', setCurrent);
         // add gesture to slide left/right
-        zuix.load('app/components/gesture_helper', {
+        zuix.load('app/controllers/gesture_helper', {
             view: cp.view(),
             on: {
                 'gesture:swipe': function (e, direction) {

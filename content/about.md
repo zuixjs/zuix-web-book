@@ -17,7 +17,7 @@ Feel free to use and abuse this template for your next website **: )**
 - PWA friendly
 - Includes following products
     - Material Design Lite<br/>
-      <i class="material-icons">link</i> [https://getmdl.io](https://getmdl.io)
+      <i class="material-icons">link</i> [https://getmdl.io](https://getmdl.io/components/index.html)
     - Flex Layout Attribute (FLA)<br/>
       <i class="material-icons">link</i> [http://progressivered.com/fla](http://progressivered.com/fla)
     - AnimateCSS<br/>

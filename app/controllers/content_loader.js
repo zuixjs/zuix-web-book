@@ -38,7 +38,7 @@ zuix.controller(function (cp) {
                 }).on('touchend', function (e) {
                     cancelTap(touchTapTimeout);
                 });
-            zuix.load('app/components/scroll_helper', {
+            zuix.load('app/controllers/scroll_helper', {
                 view: contentCtx.view(),
                 ready: function (scrollCtx) {
                     scrollCtx.on('scroll_change', function (e, data) {

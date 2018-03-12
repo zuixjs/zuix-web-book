@@ -56,7 +56,7 @@ So, let's say we want to have an *Image Carousel* out of a basic list of images.
 We can transform into an image carousel a list of images, like the one
 presented above, by just adding a few attributes.
 
-Adding the `data-ui-load="app/components/image_carousel"` attribute
+Adding the `data-ui-load="app/controllers/image_carousel"` attribute
 to the `div` element wrapping the list of images, it will make *zUIx*
 to load the image carousel component over it.
 
@@ -65,7 +65,7 @@ to load the image carousel component over it.
 **HTML**
 
 ```html
-<div data-ui-load="app/components/image_carousel"
+<div data-ui-load="app/controllers/image_carousel"
      data-ui-options="contentOptions.imageCarousel"
      layout="row center-left">
 
@@ -89,7 +89,7 @@ to load the image carousel component over it.
 ##### Result
 
 <div layout="rows center-center">
-<div data-ui-load="app/components/image_carousel"
+<div data-ui-load="app/controllers/image_carousel"
      data-ui-options="contentOptions.imageCarousel"
      layout="row center-left">
 

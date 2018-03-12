@@ -33,7 +33,7 @@ zuix.controller(function (cp) {
         // gestures handling
         var container = cp.view().get();
         var startScrollX; var cancelClick;
-        zuix.load('app/components/gesture_helper', {
+        zuix.load('app/controllers/gesture_helper', {
             view: cp.view(),
             on: {
                 'gesture:touch': function (e, tp) {
