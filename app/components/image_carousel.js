@@ -40,7 +40,7 @@ zuix.controller(function (cp) {
                     var container = cp.view().get();
                     startScrollX = container.scrollLeft;
                 },
-                'gesture:move': function (e, tp) {
+                'gesture:pan': function (e, tp) {
                     cancelClick = true;
                     resetSlideTimeout();
                     container.scrollLeft = startScrollX - tp.shiftX;
@@ -52,7 +52,7 @@ zuix.controller(function (cp) {
                 'gesture:tap': function (e, tp) {
                     cancelClick = false;
                 },
-                'gesture:slide': function (e, direction) {
+                'gesture:swipe': function (e, direction) {
                     switch(direction) {
                         case 'left':
                             currentSlide--;

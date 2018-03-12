@@ -51,7 +51,7 @@ zuix.controller(function (cp) {
             touchPointer.y = y;
             touchPointer.shiftX = (x - touchPointer.startX);
             touchPointer.shiftY = (y - touchPointer.startY);
-            cp.trigger('gesture:move', touchPointer);
+            cp.trigger('gesture:pan', touchPointer);
         }
     }
     function dragStop() {
@@ -62,10 +62,10 @@ zuix.controller(function (cp) {
             cp.trigger('gesture:tap', touchPointer);
         } else if (touchPointer.shiftX > 30) {
             // gesture slide LEFT
-            cp.trigger('gesture:slide', 'left');
+            cp.trigger('gesture:swipe', 'left');
         } else if (touchPointer.shiftX < -30) {
             // gesture slide RIGHT
-            cp.trigger('gesture:slide', 'right');
+            cp.trigger('gesture:swipe', 'right');
         }
         touchPointer = null;
     }
