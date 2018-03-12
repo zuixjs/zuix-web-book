@@ -32,25 +32,22 @@ zuix.controller(function (cp) {
         });
         // gestures handling
         var container = cp.view().get();
-        var startScrollX; var cancelClick;
+        var startScrollX;
         zuix.load('app/controllers/gesture_helper', {
             view: cp.view(),
+            tapDisable: true,
             on: {
                 'gesture:touch': function (e, tp) {
                     var container = cp.view().get();
                     startScrollX = container.scrollLeft;
                 },
                 'gesture:pan': function (e, tp) {
-                    cancelClick = true;
                     resetSlideTimeout();
                     container.scrollLeft = startScrollX - tp.shiftX;
                 },
                 'gesture:release': function (e, tp) {
                     scrollFocusing = false;
                     scrollEnd();
-                },
-                'gesture:tap': function (e, tp) {
-                    cancelClick = false;
                 },
                 'gesture:swipe': function (e, direction) {
                     switch(direction) {
@@ -79,10 +76,6 @@ zuix.controller(function (cp) {
                 'padding-right': (imageMargin/2)+'px',
                 'cursor': 'pointer'
             }).on('click', function (e) {
-                if (cancelClick) {
-                    cancelClick = false;
-                    return;
-                }
                 currentSlide = i;
                 showNext();
                 // build JSON image list that will be passed as event argument
@@ -95,7 +88,6 @@ zuix.controller(function (cp) {
                     });
                 });
                 cp.trigger('image:click', { 'list': images, 'current': i });
-                //e.preventDefault();
             });
         });
         if (imageList.length() > 1) {

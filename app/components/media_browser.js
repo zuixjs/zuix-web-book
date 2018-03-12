@@ -32,6 +32,9 @@ zuix.controller(function(cp){
         zuix.load('app/controllers/gesture_helper', {
             view: cp.view(),
             on: {
+                'gesture:tap': function (e, tp) {
+                    toggleControls();
+                },
                 'gesture:swipe': function (e, direction) {
                     switch (direction) {
                         case 'left':
@@ -148,6 +151,17 @@ zuix.controller(function(cp){
                     this.hide();
                 });
             }
+        }
+    }
+
+    function toggleControls() {
+        var controls = cp.field('controls');
+        if (controls.display() !== 'none') {
+            controls.animateCss('fadeOutDown', function () {
+                this.hide();
+            });
+        } else {
+            controls.animateCss('fadeInUp').show();
         }
     }
 });

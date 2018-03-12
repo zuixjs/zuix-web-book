@@ -3,6 +3,12 @@ html, body {
     font-size: 18px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed', serif !important;
+    text-transform: none;
+    font-weight: 600;
+}
+
 i.material-icons {
     vertical-align: middle;
 }
@@ -19,12 +25,6 @@ p {
 p code {
     font-size: 85%;
     opacity: 0.8;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto Condensed', serif !important;
-    text-transform: none;
-    font-weight: 600;
 }
 
 h1 {

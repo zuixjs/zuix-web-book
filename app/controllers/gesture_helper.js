@@ -8,7 +8,7 @@
 
 zuix.controller(function (cp) {
 
-    var touchPointer = null;
+    var touchPointer = null, ignoreSession = false;
 
     cp.init = function () {
         cp.options().html = false;
@@ -17,19 +17,32 @@ zuix.controller(function (cp) {
 
     cp.create = function () {
         cp.view().on('dragstart', function(e) {
-            e.preventDefault();
+            if (!ignoreSession)
+                e.preventDefault();
         }).on('mousedown', function (e) {
-            dragStart(e.x, e.y);
+            var targetElement = zuix.$(e.target);
+            if (targetElement.hasClass('no-gesture') || targetElement.parent('[class*="no-gesture"]').length() === 0) {
+                ignoreSession = false;
+                dragStart(e.x, e.y);
+            } else ignoreSession = true;
         }).on('mousemove', function (e) {
-            dragMove(e.x, e.y);
+            if (!ignoreSession)
+                dragMove(e.x, e.y);
         }).on('mouseup', function (e) {
-            dragStop();
+            if (!ignoreSession)
+                dragStop(e);
         }).on('touchstart', function (e) {
-            dragStart(e.touches[0].clientX, e.touches[0].clientY);
+            var targetElement = zuix.$(e.target);
+            if (targetElement.hasClass('no-gesture') || targetElement.parent('[class*="no-gesture"]').length() === 0) {
+                ignoreSession = false;
+                dragStart(e.touches[0].clientX, e.touches[0].clientY);
+            } else ignoreSession = true;
         }).on('touchmove', function (e) {
-            dragMove(e.touches[0].clientX, e.touches[0].clientY);
+            if (!ignoreSession)
+                dragMove(e.touches[0].clientX, e.touches[0].clientY);
         }).on('touchend', function (e) {
-            dragStop();
+            if (!ignoreSession)
+                dragStop(e);
         });
     };
 
@@ -54,12 +67,13 @@ zuix.controller(function (cp) {
             cp.trigger('gesture:pan', touchPointer);
         }
     }
-    function dragStop() {
+    function dragStop(e) {
         var elapsedTime = new Date().getTime() - touchPointer.startTime;
         cp.trigger('gesture:release', touchPointer);
-        if (touchPointer.shiftX === 0 && touchPointer.shiftY === 0 && elapsedTime < 1000) {
+        if (cp.options().tapDisable !== true && touchPointer.shiftX === 0 && touchPointer.shiftY === 0 && elapsedTime < 1000) {
             // gesture TAP
             cp.trigger('gesture:tap', touchPointer);
+            e.preventDefault(); // avoid conflicts with 'click' event
         } else if (touchPointer.shiftX > 30) {
             // gesture slide LEFT
             cp.trigger('gesture:swipe', 'left');

@@ -30,20 +30,20 @@
 
 .nav-prev {
     position: absolute;
-    right: 96px;
-    bottom: 32px;
+    right: 80px;
+    bottom: 24px;
     z-index: 10;
 }
 .nav-next {
     position: absolute;
-    right: 32px;
-    bottom: 32px;
+    right: 24px;
+    bottom: 24px;
     z-index: 10;
 }
 .nav-close {
     position: absolute;
-    left: 32px;
-    bottom: 32px;
+    left: 24px;
+    bottom: 24px;
     z-index: 10;
 }
 .progress-container {
@@ -82,4 +82,14 @@ i {
     max-width:98%;
     max-height:98%;
     border: solid 2px rgba(255,255,255,0.5);
+}
+
+.controls {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 100;
+    /*background-color: rgba(0,0,0,0.5);*/
 }
