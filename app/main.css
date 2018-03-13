@@ -81,7 +81,7 @@ main {
     text-overflow: ellipsis;
 }
 
-.noselect {
+.no-select {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
     -khtml-user-select: none; /* Konqueror HTML */
@@ -133,6 +133,9 @@ div[data-ui-field="content-pages"] {
 div[data-ui-field="content-pages"] .page {
     padding-top: 72px;
     padding-bottom: 112px;
+}
+div[data-ui-field="content-pages"] .page img {
+    max-width: 100%;
 }
 @media only screen and (max-width: 800px) {
     div[data-ui-field="content-pages"] .page {

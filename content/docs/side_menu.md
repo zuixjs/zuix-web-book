@@ -6,6 +6,8 @@ file by the `siteConfig.content` list (array).
 Each item in this list is an object with the following fields: `id`, `template`, `data`
 and `list` (optional).
 
+**Example**
+
 ```javascript
 {
   id: 'about',
@@ -19,7 +21,10 @@ and `list` (optional).
 }
 ```
 
-The `template` field determines how the item is rendered.
+The `template` field determines how the item is rendered. The item in the example
+above is rendered like this:
+
+![](images/menu_template_preview_1.png)
 
 The `data` field contains properties that can be referenced in the template by
 using the curly braces. So, for instance, the `data.title` property is rendered

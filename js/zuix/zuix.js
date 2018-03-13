@@ -1327,8 +1327,9 @@ z$.replaceBraces = function (html, callback) {
         result;
     while (result = tags.exec(html)) {
         if (typeof result[0] === 'string' && (result[0].trim().length === 0 || result[0].indexOf('\n') >= 0)) {
-            outHtml += html.substr(currentIndex, result.index-currentIndex-1)+result[0]+'}';
-            currentIndex = result.index+result[0].length+1;
+            var nv = html.substr(currentIndex, result.index-currentIndex)+result[0]+'}';
+            outHtml += nv;
+            currentIndex += nv.length;
             continue;
         }
         var value = '{'+result[0]+'}';
