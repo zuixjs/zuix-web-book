@@ -20,24 +20,10 @@ zuix.controller(function (cp) {
     // this is the JSON site data
     var contentTree = null;
 
-    var mouseTapTimeout = null, touchTapTimeout = null;
     var dummyController = zuix.controller(function(ctrl){});
     var contentController = zuix.controller(function(contentCtx){
         contentCtx.create = function () {
             contentCtx.view().hide()
-                .on('mousedown', function (e) {
-                    mouseTapTimeout = startTap(mouseTapTimeout);
-                }).on('mousemove', function () {
-                    cancelTap(mouseTapTimeout);
-                }).on('mouseup', function () {
-                    cancelTap(mouseTapTimeout);
-                }).on('touchstart', function (e) {
-                    touchTapTimeout = startTap(touchTapTimeout);
-                }).on('touchmove', function (e) {
-                    cancelTap(touchTapTimeout);
-                }).on('touchend', function (e) {
-                    cancelTap(touchTapTimeout);
-                });
             zuix.load('app/controllers/scroll_helper', {
                 view: contentCtx.view(),
                 ready: function (scrollCtx) {
@@ -124,19 +110,6 @@ zuix.controller(function (cp) {
     function navigate() {
         var path = getCurrentPath();
         cp.trigger('path_change', path);
-    }
-
-    function startTap(tapTimeout) {
-        if (tapTimeout != null)
-            clearTimeout(tapTimeout);
-        tapTimeout = setTimeout(function () {
-            cp.trigger('page_tap');
-        }, 300);
-        return tapTimeout;
-    }
-    function cancelTap(tapTimeout) {
-        if (tapTimeout != null)
-            clearTimeout(tapTimeout);
     }
 
 });

@@ -34,9 +34,10 @@ zuix.controller(function(cp){
             on: {
                 'gesture:tap': function (e, tp) {
                     toggleControls();
+                    tp.cancel();
                 },
-                'gesture:swipe': function (e, direction) {
-                    switch (direction) {
+                'gesture:swipe': function (e, tp) {
+                    switch (tp.direction) {
                         case 'left':
                             navigatePrevious();
                             break;

@@ -3179,7 +3179,10 @@ function controller(handler) {
  * @param {!string} fieldName Value to match in the `data-ui-field` attribute.
  * @param {!Element|!ZxQuery} [container] Starting DOM element for this search (**default:** *document*)
  * @param {object} [context] The context
- * @return {ZxQuery} ZxQuery object with extra method `field(fieldName)` to search for fields contained in it.
+ * @return {ZxQuery} ZxQuery object with elements matching the given ```data-ui-field``` attribute.
+ * If the matching element is just one, then it will also have the extra method `field(fieldName)`
+ * to search for fields contained in it.
+ *
  */
 function field(fieldName, container, context) {
     if (util.isNoU(context))
@@ -3785,7 +3788,10 @@ containerDiv.html('Hello World!');
  *
  * @param {!string} fieldName Value of `data-ui-field` to look for.
  * @param {!Element} [container] Starting DOM element for this search (**default:** *document*)
- * @return {ZxQuery} Elements with matching ```data-ui-field``` attribute.
+ * @return {ZxQuery} ZxQuery object with elements matching the given ```data-ui-field``` attribute.
+ * If the matching element is just one, then it will also have the extra method `field(fieldName)`
+ * to search for fields contained in it.
+ *
  */
 Zuix.prototype.field = function(fieldName, container) {
     return field.call(this, fieldName, container);

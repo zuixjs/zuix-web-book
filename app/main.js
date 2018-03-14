@@ -9,12 +9,12 @@ var menuButton;
 headerElement.on('component:ready', function() {
     headerTitle = zuix.field('header-title');
     menuButton = zuix.field('menu-button').on('click', function () {
-        contentNavigator.toggle();
+        sideMenuPanel.toggle();
     });
 });
 // The above event listener is same as `zuix.context(headerElement, function(ctx){..})`
 
-var contentNavigator = null;
+var sideMenuPanel = null;
 var contentLoader = null;
 var currentPage = null;
 
@@ -59,15 +59,12 @@ var contentOptions = {
         },
         ready: function (ctx) {
             // store a global reference to the side-menu navigator component
-            contentNavigator = ctx;
+            sideMenuPanel = ctx;
         }
     },
     contentLoader: {
         on: {
             'path_change': showPage,
-            'page_tap': function () {
-                toggleControls();
-            },
             'page_scroll': function (e, data) {
                 if (pageContainer.hasClass('main-side-menu-off')) {
                     if (data.event === 'moving' || data.event === 'hitTop' || data.event === 'hitBottom') {
@@ -103,6 +100,26 @@ var contentOptions = {
                         contentLoader.navigate();
                     }, 1000);}
                 });
+
+            zuix.load('app/controllers/gesture_helper', {
+                view: document.documentElement,
+                on: {
+                    'gesture:tap': function(e, tp) {
+                        if (sideMenuPanel.isOpen())
+                            sideMenuPanel.close();
+                        else
+                            toggleControls();
+                    },
+                    'gesture:swipe': function (e, tp) {
+                        if (!sideMenuPanel.isOpen() && tp.direction === 'left' && tp.startX < 100) {
+                            showHeader();
+                            sideMenuPanel.open();
+                        } else if (sideMenuPanel.isOpen() && tp.direction === 'right') {
+                            sideMenuPanel.close();
+                        }
+                    }
+                }
+            });
         }
     },
     imageCarousel: {
@@ -173,7 +190,7 @@ zuix.hook('html:parse', function (data) {
 });
 
 
-// Index content
+// Index content items
 var index = 0;
 zuix.$.each(siteConfig.content, function (k, v) {
     v.index = index++;

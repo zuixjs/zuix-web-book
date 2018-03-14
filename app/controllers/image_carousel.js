@@ -35,7 +35,6 @@ zuix.controller(function (cp) {
         var startScrollX;
         zuix.load('app/controllers/gesture_helper', {
             view: cp.view(),
-            tapDisable: true,
             on: {
                 'gesture:touch': function (e, tp) {
                     var container = cp.view().get();
@@ -49,8 +48,24 @@ zuix.controller(function (cp) {
                     scrollFocusing = false;
                     scrollEnd();
                 },
-                'gesture:swipe': function (e, direction) {
-                    switch(direction) {
+                'gesture:tap': function (e, tp) {
+                    var i = parseInt(zuix.$(tp.event.target).attr('index'));
+                    currentSlide = i;
+                    showNext();
+                    // build JSON image list that will be passed as event argument
+                    var images = [];
+                    cp.view('img').each(function(idx, el) {
+                        images.push({
+                            'url': this.attr('data-src-full'),
+                            'thumbnail': this.attr('src'),
+                            'description': this.attr('title') != null ? this.attr('title') : ''
+                        });
+                    });
+                    cp.trigger('image:click', { 'list': images, 'current': i });
+                    tp.cancel();
+                },
+                'gesture:swipe': function (e, tp) {
+                    switch(tp.direction) {
                         case 'left':
                             currentSlide--;
                             slideDirection = SLIDE_DIRECTION_BACKWARD;
@@ -75,20 +90,8 @@ zuix.controller(function (cp) {
                 'padding-left': (imageMargin/2)+'px',
                 'padding-right': (imageMargin/2)+'px',
                 'cursor': 'pointer'
-            }).on('click', function (e) {
-                currentSlide = i;
-                showNext();
-                // build JSON image list that will be passed as event argument
-                var images = [];
-                cp.view('img').each(function(idx, el) {
-                    images.push({
-                        'url': this.attr('data-src-full'),
-                        'thumbnail': this.attr('src'),
-                        'description': this.attr('title') != null ? this.attr('title') : ''
-                    });
-                });
-                cp.trigger('image:click', { 'list': images, 'current': i });
             });
+            this.attr('index', i);
         });
         if (imageList.length() > 1) {
             slideTimeout = setTimeout(showNext, slideInterval);

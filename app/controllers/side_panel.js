@@ -1,5 +1,5 @@
 zuix.controller(function (cp) {
-    var menuOpen = true;
+    var isMenuOpen = true;
     var smallScreen = false;
     var firstCheck = true;
 
@@ -42,6 +42,7 @@ zuix.controller(function (cp) {
         cp.expose('toggle', toggleMenu);
         cp.expose('open', openMenu);
         cp.expose('close', closeMenu);
+        cp.expose('isOpen', isOpen);
         // detect screen size and set large/small layout
         sizeCheck();
         firstCheck = false;
@@ -59,7 +60,7 @@ zuix.controller(function (cp) {
             if (smallScreen || firstCheck) {
                 if (smallScreen) {
                     overlay.hide();
-                    if (menuOpen)
+                    if (isMenuOpen)
                         closeMenu();
                 }
                 smallScreen = false;
@@ -71,8 +72,8 @@ zuix.controller(function (cp) {
 
     function openMenu() {
         sideMenu.show();
-        if (!menuOpen) {
-            menuOpen = true;
+        if (!isMenuOpen) {
+            isMenuOpen = true;
             sideMenu.animateCss('slideInLeft', { delay: '0.1s', duration: '0.3s' });
             cp.trigger('menu_open', { smallScreen: smallScreen });
             if (smallScreen) {
@@ -85,10 +86,10 @@ zuix.controller(function (cp) {
     }
 
     function closeMenu() {
-        if (menuOpen && smallScreen) {
-            menuOpen = false;
+        if (isMenuOpen && smallScreen) {
+            isMenuOpen = false;
             sideMenu.animateCss('slideOutLeft', { delay: '0.1s', duration: '0.3s' }, function () {
-                if (!menuOpen) {
+                if (!isMenuOpen) {
                     this.hide();
                 }
             });
@@ -100,10 +101,14 @@ zuix.controller(function (cp) {
     }
 
     function toggleMenu() {
-        if (menuOpen)
+        if (isMenuOpen)
             closeMenu();
         else
             openMenu();
+    }
+
+    function isOpen() {
+        return isMenuOpen;
     }
 
 });
