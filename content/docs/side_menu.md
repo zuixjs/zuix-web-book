@@ -1,5 +1,8 @@
 # {title}
 
+<img src="images/banners/side-menu.jpg" class="mdl-shadow--8dp" style="max-width:100%">
+<div class="vertical-spacer-16"></div>
+
 The side menu shown on the left is defined in the [./site_config.js](./site_config.js)
 file by the `siteConfig.content` list (array).
 

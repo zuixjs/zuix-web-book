@@ -1,5 +1,8 @@
 # {title}
 
+<img src="images/banners/about.jpg" class="mdl-shadow--8dp" style="max-width:100%">
+<div class="vertical-spacer-16"></div>
+
 This is a ready to use website template powered by **zUIx**.
 Its structure and content management are based on a simple configuration file.
 

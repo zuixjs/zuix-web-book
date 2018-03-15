@@ -1,7 +1,6 @@
 # {title}
 
-<img src="images/mdl-banner.jpg" class="mdl-shadow--8dp" style="max-width:100%">
-
+<img src="images/banners/mdl-banner.jpg" class="mdl-shadow--8dp" style="max-width:100%">
 <div class="vertical-spacer-16"></div>
 
 This site is based on **Material Design Lite**. So, content pages can include

@@ -1,5 +1,8 @@
 # {title}
 
+<img src="images/banners/content-files.jpg" class="mdl-shadow--8dp" style="max-width:100%">
+<div class="vertical-spacer-16"></div>
+
 Content files are place in the `./content` folder and can contain both
 [Markdown](https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax)
 and [HTML](https://wikipedia.org/wiki/HTML) code regardless of the `.md` or `.html`
