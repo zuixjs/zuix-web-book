@@ -60,14 +60,33 @@ var siteConfig = {
             ]
         },
         {
-            id: 'components',
+            id: 'examples',
             template: 'app/layout/side_menu_item',
             data: {
-                title: 'Components',
+                title: 'Examples',
                 icon: 'extension',
-                link: '#/components',
-                file: 'content/components.html'
-            }
+                link: '#/examples/components',
+            },
+            list: [
+                {
+                    id: 'components',
+                    template: 'app/layout/side_menu_subitem',
+                    data: {
+                        title: 'Components',
+                        link: '#/examples/components',
+                        file: 'content/examples/components.html'
+                    }
+                },
+                {
+                    id: 'templates',
+                    template: 'app/layout/side_menu_subitem',
+                    data: {
+                        title: 'Templates',
+                        link: '#/examples/templates',
+                        file: 'content/examples/templates.html'
+                    }
+                }
+            ]
         }
     ],
 

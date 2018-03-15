@@ -7,6 +7,7 @@
  */
 
 zuix.controller(function (cp) {
+    var watchList, watchCallback;
 
     cp.init = function () {
         cp.options().html = false;
@@ -15,6 +16,7 @@ zuix.controller(function (cp) {
 
     cp.create = function () {
         cp.view().on('scroll', scrollCheck);
+        cp.expose('watch', setWatchList);
     };
 
     var scrollInfo = {
@@ -47,6 +49,37 @@ zuix.controller(function (cp) {
             scrollInfo.timestamp = now;
             cp.trigger('scroll_change', { event: 'moving', delta: dy });
             scrollInfo.lastTop = scrollTop;
+        }
+
+        var visibleClass = 'scroll-helper-visible';
+        if (watchList != null && watchCallback != null) {
+            watchList.each(function (i, el) {
+                var position = this.position();
+                if (!position.visible && this.hasClass(visibleClass)) {
+                    this.removeClass(visibleClass);
+                    position.event = 'exit';
+                    watchCallback(this, position);
+                } else if (!position.visible) {
+                    position.event = 'off-scroll';
+                    watchCallback(this, position);
+                } else if (position.visible) {
+                    if (!this.hasClass(visibleClass)) {
+                        position.event = 'enter';
+                        this.addClass(visibleClass);
+                    } else position.event = 'scroll';
+                    watchCallback(this, position);
+                }
+            });
+        }
+    }
+
+    function setWatchList(filter, callback) {
+        if (filter != null) {
+            watchList = cp.view(filter);
+            watchCallback = callback;
+        } else {
+            watchList = null;
+            watchCallback = null;
         }
     }
 

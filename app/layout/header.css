@@ -47,6 +47,13 @@
     padding-right: 16px;
 }
 
+div[data-ui-field="header-roller"] {
+    position: absolute;
+    left:0;right:0;bottom:0;
+    height: 32px;
+    text-align: center;
+}
+
 @media only screen and (max-width: 640px) {
     .logo {
         font-size: 160%;

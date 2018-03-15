@@ -24,13 +24,6 @@ Where `docs` is the `id` assigned to the documentation section and `theme` the `
 of the *Theme* page.
 
 
-### Components and templates
-
-`// TODO: short introduction`
-
-This topic is detailed in the [Components](#/components) page.
-
-
 ### Curly braces
 
 A content file may contain `{}` curly braces variables that can be defined
@@ -64,3 +57,17 @@ for this very page (see the `data.title` field).
 Continue reading to the next page for better understanding how the configuration
 file works.
 
+
+### Components and templates
+
+A content file may also include components and templates.
+
+zUIx components and templates aim to transform and enhance functionality
+and presentation of the page, or a part of it.
+
+The good thing about using components and templates is that even if you
+already filled in and placed all the contents of your website, you can
+continue to improve its look, usability and functionality without ever
+touching the pages where the content is placed.
+
+This topic is detailed in the [Examples](#/examples/components) section.

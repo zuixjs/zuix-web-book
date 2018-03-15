@@ -21,16 +21,19 @@ zuix.controller(function (cp) {
     var contentTree = null;
 
     var dummyController = zuix.controller(function(ctrl){});
-    var contentController = zuix.controller(function(contentCtx){
-        contentCtx.create = function () {
-            contentCtx.view().hide()
+    var contentController = zuix.controller(function(contentCtrl){
+        contentCtrl.create = function () {
+            contentCtrl.view().hide();
             zuix.load('app/controllers/scroll_helper', {
-                view: contentCtx.view(),
+                view: contentCtrl.view(),
                 ready: function (scrollCtx) {
+                    var watchList = contentCtrl.options().watchList;
+                    if (watchList != null)
+                        scrollCtx.watch(watchList.filter, watchList.callback);
                     scrollCtx.on('scroll_change', function (e, data) {
                         // route event through the main context
                         // `cp` is the main `content_loader` context
-                        data.page = contentCtx;
+                        data.page = contentCtrl;
                         cp.trigger('page_scroll', data);
                     });
                 }
@@ -96,6 +99,13 @@ zuix.controller(function (cp) {
                 cext: '',
                 controller: contentController,
                 ready: function (c) {
+                    // extend context with 'watch' method
+                    c.watch = function (filter, fn) {
+                        c.options().watchList = {
+                            filter: filter,
+                            callback: fn
+                        }
+                    };
                     callback(c, true);
                 },
                 error: function(err) {
