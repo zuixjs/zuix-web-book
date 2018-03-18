@@ -15,9 +15,10 @@
 <div data-ui-include="app/templates/mdl_card"
      data-ui-context="my-card-1">
     <img data-ui-field="image" src="./images/card_cover.jpg">
-    <h1 data-ui-field="title">Leraning Web Design</h1>
+    <h1 data-ui-field="title">Learning Web Design</h1>
     <div data-ui-field="text">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam accusamus, consectetur.</p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        Aliquam accusamus, consectetur.
     </div>
     <a data-ui-field="link_read" href="../#/about">Read More</a>
 </div>
@@ -27,15 +28,16 @@
 
 <div data-ui-include="app/templates/mdl_card">
     <img data-ui-field="image" src="./images/card_cover.jpg">
-    <h1 data-ui-field="title">Leraning Web Design</h1>
+    <h1 data-ui-field="title">Learning Web Design</h1>
     <div data-ui-field="text">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam accusamus, consectetur.</p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        Aliquam accusamus, consectetur.
     </div>
     <a data-ui-field="link_read" href="../#/about">Read More</a>
 </div>
 
-Alternative way of applying a template is by providing the **JSON model** instead of the `data-ui-field`
-elements in the HTML.
+Alternative way of applying a template is by providing the **JSON model**
+instead of the `data-ui-field` elements in the HTML.
 
 ```html
 <div data-ui-include="app/templates/mdl_card"
@@ -45,7 +47,7 @@ cardOptions = {
     model: {
         image: './images/laptop.jpg',
         title: 'Test JS model',
-        text: '<p>Lorem ipsum dolor sit amet...</p>',
+        text: 'Lorem ipsum dolor sit amet...',
         link_read: '/#/docs/side_menu'
     }
 };
@@ -59,7 +61,7 @@ can be obtained at runtime to change its data model:
 zuix.context('my-card-1').model({
     image: './images/laptop.jpg',
     title: 'Test JS model',
-    text: '<p>Lorem ipsum dolor sit amet...</p>',
+    text: 'Lorem ipsum dolor sit amet...',
     link_read: '/#/docs/side_menu'
 });
 ```
@@ -88,9 +90,9 @@ card.model({
     <div self="size-1of2 sm-full" data-ui-include="app/templates/mdl_card"
          data-ui-context="my-card-1">
         <img data-ui-field="image" src="./images/card_cover.jpg">
-        <h1 data-ui-field="title">Leraning Web Design</h1>
+        <h1 data-ui-field="title">Learning Web Design</h1>
         <div data-ui-field="text">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam accusamus, consectetur.</p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam accusamus, consectetur.
         </div>
         <a data-ui-field="link_read" href="../#/about">Read More</a>
     </div>
@@ -129,7 +131,7 @@ card.model({
                     ? 'https://picsum.photos/450/300/?random&'+(new Date().getTime())
                     : null,
                 title: form.field('title').value(),
-                text: '<p>'+form.field('text').value()+'</p>'
+                text: form.field('text').value()
             });
             scrollTo(card.view(), 500);
         }
