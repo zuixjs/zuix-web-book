@@ -24,17 +24,17 @@ zuix.controller(function (cp) {
     var contentController = zuix.controller(function(contentCtrl){
         contentCtrl.create = function () {
             contentCtrl.view().hide();
-            zuix.load('app/controllers/scroll_helper', {
+            zuix.load('https://genielabs.github.io/zuix/kit/controllers/scroll_helper', {
                 view: contentCtrl.view(),
                 ready: function (scrollCtx) {
                     var watchList = contentCtrl.options().watchList;
                     if (watchList != null)
                         scrollCtx.watch(watchList.filter, watchList.callback);
-                    scrollCtx.on('scroll_change', function (e, data) {
+                    scrollCtx.on('scroll:change', function (e, data) {
                         // route event through the main context
                         // `cp` is the main `content_loader` context
                         data.page = contentCtrl;
-                        cp.trigger('page_scroll', data);
+                        cp.trigger('content:scroll', data);
                     });
                 }
             })
@@ -119,7 +119,7 @@ zuix.controller(function (cp) {
 
     function navigate() {
         var path = getCurrentPath();
-        cp.trigger('path_change', path);
+        cp.trigger('path:change', path);
     }
 
 });

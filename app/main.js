@@ -64,8 +64,8 @@ var contentOptions = {
     },
     contentLoader: {
         on: {
-            'path_change': showPage,
-            'page_scroll': function (e, data) {
+            'path:change': showPage,
+            'content:scroll': function (e, data) {
                 if (pageContainer.hasClass('main-side-menu-off')) {
                     if (data.event === 'moving' || data.event === 'hitTop' || data.event === 'hitBottom') {
                         if (data.delta < 0) {
@@ -101,7 +101,7 @@ var contentOptions = {
                     }, 1000);}
                 });
 
-            zuix.load('app/controllers/gesture_helper', {
+            zuix.load('https://genielabs.github.io/zuix/kit/controllers/gesture_helper', {
                 view: document.documentElement,
                 on: {
                     'gesture:tap': function(e, tp) {
@@ -124,12 +124,20 @@ var contentOptions = {
     },
     imageCarousel: {
         on: {
-            'image:click': function(e, carouselData) {
+            'page:tap': function(e, pageIndex, tp) {
+                var images = [];
+                this.find('img').each(function(idx, el) {
+                    images.push({
+                        'url': this.attr('data-src-full'),
+                        'thumbnail': this.attr('src'),
+                        'description': this.attr('title') != null ? this.attr('title') : ''
+                    });
+                });
                 // open the full screen viewer
                 zuix.context('image-browser')
                     // methods of 'media-browser' component
-                    .items(carouselData.list)
-                    .current(carouselData.current)
+                    .items(images)
+                    .current(pageIndex)
                     .open();
             }
         }

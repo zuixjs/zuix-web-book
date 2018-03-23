@@ -53,10 +53,6 @@ ul, li {
     line-height: 200%;
 }
 
-pre {
-    margin: 24px !important;
-}
-
 main {
     z-index: -1;
 }
