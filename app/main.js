@@ -123,8 +123,11 @@ var contentOptions = {
         }
     },
     imageCarousel: {
+        contextId: 'image-carousel',
         on: {
             'page:tap': function(e, pageIndex, tp) {
+                var pageView = zuix.context('image-carousel');
+                pageView.slide(false);
                 var images = [];
                 this.find('img').each(function(idx, el) {
                     images.push({
@@ -134,11 +137,14 @@ var contentOptions = {
                     });
                 });
                 // open the full screen viewer
-                zuix.context('image-browser')
+                var view = zuix.context('image-browser')
                     // methods of 'media-browser' component
                     .items(images)
                     .current(pageIndex)
-                    .open();
+                    .open().view();
+                zuix.$(view).one('close', function () {
+                    pageView.slide(true);
+                });
             }
         }
     }

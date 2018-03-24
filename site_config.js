@@ -60,12 +60,12 @@ var siteConfig = {
             ]
         },
         {
-            id: 'examples',
+            id: 'kit',
             template: 'app/layout/side_menu_item',
             data: {
-                title: 'Examples',
+                title: 'Kit',
                 icon: 'extension',
-                link: '#/examples/components',
+                link: '#/kit/components'
             },
             list: [
                 {
@@ -73,8 +73,8 @@ var siteConfig = {
                     template: 'app/layout/side_menu_subitem',
                     data: {
                         title: 'Components',
-                        link: '#/examples/components',
-                        file: 'content/examples/components.html'
+                        link: '#/kit/components',
+                        file: 'content/kit/components.html'
                     }
                 },
                 {
@@ -82,8 +82,8 @@ var siteConfig = {
                     template: 'app/layout/side_menu_subitem',
                     data: {
                         title: 'Templates',
-                        link: '#/examples/templates',
-                        file: 'content/examples/templates.html'
+                        link: '#/kit/templates',
+                        file: 'content/kit/templates.html'
                     }
                 }
             ]
