@@ -1,0 +1,48 @@
+<h1 id="datatitle">Content</h1>
+<p><img src="images/banners/content-files.jpg" class="mdl-shadow--8dp" style="max-width:100%"></p>
+<div class="vertical-spacer-16"></div>
+<p>Content files are place in the <code>./content</code> folder and can contain both
+<a href="https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax">Markdown</a>
+and <a href="https://wikipedia.org/wiki/HTML">HTML</a> code regardless of the <code>.md</code> or <code>.html</code>
+file extension.</p>
+<p>In order to be visible in the side menu, each file must also be added to the
+<a href="https://github.com/genielabs/zuix-web-template/blob/master/site_config.js#L1">./site_config.js</a>
+configuration file, which is described in the next chapter.</p>
+<h3 id="contentloading">Content loading</h3>
+<p>To open a content in the website the following URL is used:</p>
+<pre><code>/#[/section_id]/&lt;file_id&gt;
+</code></pre>
+<p>For instance, this is the URL to open the <em>Theme</em> page: <a href="./#/docs/theme">./#/docs/theme</a> .
+Where <code>docs</code> is the <code>id</code> assigned to the documentation section and <code>theme</code> the <code>id</code>
+of the <em>Theme</em> page.</p>
+<h3 id="curlybraces">Curly braces</h3>
+<p>
+A content file may contain <code>{{}}</code> curly braces variables that can be defined
+in the <code>site_config.js</code> file.
+</p>
+<p><strong>Example</strong></p>
+<p></p>
+<pre><code class="html language-html">The title of this page is
+    "{{data.title}}"
+and the name of this site is
+    "{{app.title}}".
+</code></pre>
+<p></p>
+<p><strong>Result</strong></p>
+<pre><code class="html language-html">The title of this page is
+    "Content"
+and the name of this site is
+    "eBook WebApp"
+</code></pre>
+<p>Variables with the prefix <strong>data.</strong> are defined in the <strong>./source/site_config.js</strong> file,
+while vars starting with <strong>app.</strong> prefix are defined in the <strong>./config/default.js</strong> file.</p>
+<h3 id="componentsandtemplates">Components and templates</h3>
+<p>A content file may also include components and templates.</p>
+<p>zUIx components and templates aim to transform and enhance functionality
+and presentation of the page, or a part of it.</p>
+<p>The good thing about using components and templates is that even if you
+already filled in and placed all the contents of your website, you can
+continue to improve its look, usability and functionality without ever
+touching the pages where the content is placed.</p>
+<p>Refer to <a href="https://genielabs.github.io/zuix">zUIx</a> website for
+a complete documentation about this topic.</p>

@@ -1,0 +1,43 @@
+. {
+    max-width: 360px;
+}
+.mdl-card__title {
+    width: auto;
+    height: 176px;
+    position: relative;
+    overflow: hidden;
+}
+.mdl-card__title img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+.mdl-card__title img.portrait {
+    width: 100%;
+    height: auto;
+}
+.mdl-card__supporting-text {
+    font-family: "Helvetica","Arial",sans-serif;
+    line-height: 180%;
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+h1 {
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 180%;
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    z-index: 10;
+}
