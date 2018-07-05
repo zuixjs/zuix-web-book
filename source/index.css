@@ -1,0 +1,196 @@
+html, body {
+    font-family: 'Lora', serif !important;
+    font-size: 18px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed', serif !important;
+    text-transform: none;
+    font-weight: 600;
+}
+
+i.material-icons {
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-size: 100%;
+    line-height: 150%;
+    margin: 24px 0 24px 0;
+}
+p code {
+    font-size: 85%;
+    opacity: 0.8;
+}
+
+h1 {
+    font-size: 220%;
+}
+h2 {
+    font-size: 190%;
+}
+h3 {
+    font-size: 160%;
+}
+h4 {
+    font-size: 150%;
+    color: rgb(100,100,100);
+}
+h5 {
+    font-size: 140%;
+}
+h6 {
+    font-size: 130%;
+}
+
+ul, li {
+    list-style-type: circle;
+    font-size: 100%;
+    line-height: 200%;
+}
+
+main {
+    z-index: -1;
+}
+
+.content-padding {
+    padding: 48px;
+}
+
+.content-margin {
+    margin: 48px;
+}
+
+.media-container {
+    text-align: center;
+    margin: 48px;
+}
+
+.truncate {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.vertical-spacer-16 {
+    display: block;
+    height: 16px;
+}
+.vertical-spacer-48 {
+    display: block;
+    height: 48px;
+}
+
+[data-ui-field="main"] {
+    min-height: 100vh;
+}
+
+@media only screen and (max-width: 640px) {
+    .content-padding {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+}
+
+/* Navigate Next Button */
+div[data-ui-field="fab-navigation"] {
+    position: fixed;
+    bottom: 0;
+    left:0;
+    right: 0;
+    height: 64px;
+    text-transform: uppercase;
+    font-size: 80%;
+    z-index: 100;
+}
+div[data-ui-field="fab-navigation"] a {
+    margin-left:12px;
+    margin-right:12px;
+}
+
+div[data-ui-field="content-pages"] {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+div[data-ui-field="content-pages"] .page {
+    padding-top: 72px;
+    padding-bottom: 112px;
+    background: white;
+    min-height: 100vh;
+}
+div[data-ui-field="content-pages"] .page img {
+    max-width: 100%;
+}
+@media only screen and (max-width: 800px) {
+    div[data-ui-field="content-pages"] .page {
+        padding-top: 104px;
+    }
+}
+
+/* Layout Animations */
+
+/* Side menu and content page show/hide */
+
+@keyframes main-expand-anim {
+    from { margin-left: 250px;}
+    to { margin-left: 0;}
+}
+@keyframes main-collapse-anim {
+    from { margin-left: 0;}
+    to { margin-left: 250px;}
+}
+.main-side-menu-off {
+    animation-name: main-expand-anim;
+    animation-duration: 0.5s;
+    margin-left: 0;
+    width: 100%;
+}
+.main-side-menu {
+    animation-name: main-collapse-anim;
+    animation-duration: 0.5s;
+    margin-left: 250px;
+    width: 100%;
+}
+.main-side-menu-pull {
+    animation-name: main-collapse-anim;
+    animation-duration: 0.5s;
+    margin-left: 250px;
+}
+
+/* Top bar shrink/expand */
+@keyframes header-collapse-anim {
+    from { top: 0; }
+    to { top: -64px; }
+}
+@keyframes header-expand-anim {
+    from { top: -64px; }
+    to { top: 0; }
+}
+.header-collapse {
+    animation-name: header-collapse-anim;
+    animation-duration: 0.5s;
+    top: -64px;
+}
+.header-expand {
+    animation-name: header-expand-anim;
+    animation-duration: 0.5s;
+    top: 0;
+}

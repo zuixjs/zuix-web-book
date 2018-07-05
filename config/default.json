@@ -1,0 +1,45 @@
+{
+  "zuix": {
+    "build": {
+      "input": "./source",
+      "output": "./docs",
+      "copy": [
+        "app",
+        "css",
+        "images",
+        "js",
+        ".nojekyll",
+        "manifest.json",
+        "manifest.webapp",
+        "humans.txt",
+        "favicon.ico",
+        "robots.txt"
+      ],
+      "ignore": [
+        "_inc"
+      ],
+      "compile": [
+        "html",
+        "less",
+        "css",
+        "js",
+        "md",
+        "svg"
+      ],
+      "prettyUrl": false,
+      "less": true,
+      "esLint": true,
+      "bundle": {
+        "js": true,
+        "css": true,
+        "zuix": true
+      }
+    },
+    "app": {
+      "title": "eBook WebApp",
+      "googleSiteId": "UA-123-456",
+      "resourcePath": "./app/",
+      "libraryPath": "https://genielabs.github.io/zkit/lib"
+    }
+  }
+}

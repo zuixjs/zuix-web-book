@@ -29,22 +29,31 @@ Feel free to use and abuse this template for your next website **: )**
     - ...and off course zUIx :)<br/>
       [http://zuix.it](http://zuix.it)
 
-### Usage / Contributing
+### Usage
 
-If you are familiar with `npm` , checkout or download this repository and then from
-within its folder run:
+Download or clone this repository
 
-```shell
-npm install
-```
+     git clone https://github.com/genielabs/zuix-web-template.git
+     cd zuix-web-template.git
 
-To start the local web server on port 8080
+Install development dependencies
 
-```shell
-npm start
-```
+    npm install
 
-Head your web browser to *http://localhost:8080* to access the website.
+Start local web server
 
-Alternatively, if you prefer not using `npm`, you can run the website
-by just publishing it to any web server of your pick.
+    npm start
+
+Start auto-rebuild script (watch file tree for changes and auto-rebuild)
+
+    npm run watch
+
+Manual building
+
+    npm run build
+
+website source files are located in the `./source` folder and are
+generated in the `./docs` folder.
+This setting can be changed by modifying the `./config/default.json` file.
+
+See [zuix-web-starter](https://github.com/genemars/zuix-web-starter) website for all options.
