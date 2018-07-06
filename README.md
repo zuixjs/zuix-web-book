@@ -12,7 +12,7 @@ Its structure and content management are based on a simple configuration file.
 - Markdown, Front Matter, Swig Templates
 - Component-based web development
 - Integrated build system with resource packing
-- 100% Progressive Web App / 100% SEO
+- Progressive Web App, can also work offline
 - Also featuring
     - Material Design Lite<br/>
       [https://getmdl.io](https://getmdl.io)

@@ -69,7 +69,7 @@ self.__precacheManifest = [
   },
   {
     "url": "content/about.html",
-    "revision": "638e1f8525a3aaae06e5d367a2a01c19"
+    "revision": "e5413b0bab2064420a0f5e2c0f86fa59"
   },
   {
     "url": "content/docs/content_files.html",
@@ -117,7 +117,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
+    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
   },
   {
     "url": "js/mdl/material.min.js",

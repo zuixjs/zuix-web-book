@@ -13,21 +13,22 @@ knowledge and zero server-side scripting.
 ### Features
 
 - Responsive design, best fit all device sizes
-- Supports markdown and configurable braces **{{variables}}**
-- Includes following products
+- Markdown, Front Matter, Swig Templates
+- Component-based web development
+- Integrated build system with resource packing
+- Progressive Web App, can also work offline
+- Also featuring
     - Material Design Lite<br/>
-      <i class="material-icons">link</i> [https://getmdl.io](https://getmdl.io/components/index.html)
+      [https://getmdl.io](https://getmdl.io)
     - Flex Layout Attribute (FLA)<br/>
-      <i class="material-icons">link</i> [http://progressivered.com/fla](http://progressivered.com/fla)
+      [http://progressivered.com/fla](http://progressivered.com/fla)
     - AnimateCSS<br/>
-      <i class="material-icons">link</i> [https://daneden.github.io/animate.css](https://daneden.github.io/animate.css)
-    - Showdown<br/>
-      <i class="material-icons">link</i> [http://showdownjs.com](http://showdownjs.com)
+      [https://daneden.github.io/animate.css](https://daneden.github.io/animate.css)
     - Prism<br/>
-      <i class="material-icons">link</i> [http://prismjs.com](http://prismjs.com)
-    - ...and off course zUIx :)<br/>
-      <i class="material-icons">link</i> [http://zuix.it](http://zuix.it)
-- PWA / serverless friendly
+      [http://prismjs.com](http://prismjs.com)
+    - ...and off course zUIx for component-based development :)<br/>
+      [http://zuix.it](https://genielabs.github.io/zuix)
+
 
 ### Got any question or request?
 
