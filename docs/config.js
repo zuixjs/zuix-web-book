@@ -1,5 +1,5 @@
 zuix.store("config", {
-    "title": "eBook WebApp",
+    "title": "WebBook",
     "googleSiteId": "UA-123-456",
     "resourcePath": "./app/",
     "libraryPath": "https://genielabs.github.io/zkit/lib"

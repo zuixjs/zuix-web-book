@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "config.js",
-    "revision": "74f57d733bc04a9034be7402bc16305c"
+    "revision": "cc0a7c1d2cdaf17fb9c4dabd0dba8d4a"
   },
   {
     "url": "content/about.html",
@@ -73,7 +73,7 @@ self.__precacheManifest = [
   },
   {
     "url": "content/docs/content_files.html",
-    "revision": "4ffbf1caabbd8aad87795ff80e8bc100"
+    "revision": "01d5cc2c25576a2155d00dbcbc97723c"
   },
   {
     "url": "content/docs/side_menu.html",
@@ -101,7 +101,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "b98ef1145b61c3624421351283611886"
+    "revision": "62808d73cbf7df3482734e4e351ca44e"
   },
   {
     "url": "index.js",
