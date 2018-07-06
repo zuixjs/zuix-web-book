@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "app/templates/mdl_card.css",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "5895d6fc071fff05095f5872277242e6"
   },
   {
     "url": "app/templates/mdl_card.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "61f9c04d0602223d14da9df3ffcefd14"
   },
   {
     "url": "config.js",
