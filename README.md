@@ -1,6 +1,6 @@
-## Website Template
+## WebBook Template
 
-This is a ready to use website template powered by
+This is a ready to use webapp template powered by
 [zUIx](https://genielabs.github.io/zuix).
 Its structure and content management are based on a simple configuration file.
 
@@ -12,7 +12,6 @@ Its structure and content management are based on a simple configuration file.
 - Markdown, Front Matter, Swig Templates
 - Component-based web development
 - Integrated build system with resource packing
-<!-- TODO: wip - Generated application consist of a single .html file that can be opened locally, without a web server -->
 - 100% Progressive Web App / 100% SEO
 - Also featuring
     - Material Design Lite<br/>
@@ -25,6 +24,8 @@ Its structure and content management are based on a simple configuration file.
       [http://prismjs.com](http://prismjs.com)
     - ...and off course zUIx for component-based development :)<br/>
       [http://zuix.it](https://genielabs.github.io/zuix)
+
+<!-- TODO: wip - Generated application consist of a single .html file that can be opened locally, without a web server -->
 
 ## Prerequisites
 
