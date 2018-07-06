@@ -57,11 +57,11 @@ self.__precacheManifest = [
   },
   {
     "url": "app/templates/mdl_card.css",
-    "revision": "5895d6fc071fff05095f5872277242e6"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "app/templates/mdl_card.html",
-    "revision": "61f9c04d0602223d14da9df3ffcefd14"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "config.js",
@@ -101,23 +101,23 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "d114f03102e9b33ed2f6974160b223c3"
+    "revision": "b98ef1145b61c3624421351283611886"
   },
   {
     "url": "index.js",
-    "revision": "f42faaefe34a6c46ec80ad79ff963dcc"
+    "revision": "0949d51cbce834d8b3e41253d9eeb222"
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
-    "revision": "daf3014760a1ad146d1552cda2b48ab3"
+    "revision": "2bee21872f78a29d249fe8d731853d7e"
   },
   {
     "url": "js/mdl/material.js",
-    "revision": "e2ff1b08544fdef6afe46d6bf9425ba9"
+    "revision": "b50a9d9f625f6eb4e09c40957f2e4e02"
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
+    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
   },
   {
     "url": "js/mdl/material.min.js",

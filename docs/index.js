@@ -59,7 +59,7 @@ var contentOptions = {
             'content:scroll': function (e, data) {
                 if (pageContainer.hasClass('main-side-menu-off')) {
                     if (data.event === 'scroll' || data.event === 'hit-top' || data.event === 'hit-bottom') {
-                        if (data.info.shift.y < 0) {
+                        if (data.info.shift.y > 0) {
                             showHeader();
                         } else {
                             hideHeader();
