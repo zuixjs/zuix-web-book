@@ -1,6 +1,6 @@
 # {{data.title}}
 
-<img src="images/banners/side-menu.jpg" class="mdl-shadow--8dp" style="max-width:100%">
+<img src="images/banners/side-menu.jpg" alt="cover" class="mdl-shadow--8dp" style="max-width:100%">
 <div class="vertical-spacer-16"></div>
 
 The side menu shown on the left is defined in the [./site_config.js](./site_config.js)

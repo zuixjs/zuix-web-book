@@ -1,6 +1,6 @@
 # {{data.title}}
 
-<img src="images/banners/about.jpg" class="mdl-shadow--8dp" style="max-width:100%">
+<img src="images/banners/about.jpg" alt="cover" class="mdl-shadow--8dp" style="max-width:100%">
 <div class="vertical-spacer-16"></div>
 
 This is a ready to use website template powered by **[zUIx-Web-Starter](https://github.com/genemars/zuix-web-starter)**.

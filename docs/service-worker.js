@@ -69,19 +69,19 @@ self.__precacheManifest = [
   },
   {
     "url": "content/about.html",
-    "revision": "ded7dec478dc3e0221498e52da7adae6"
+    "revision": "638e1f8525a3aaae06e5d367a2a01c19"
   },
   {
     "url": "content/docs/content_files.html",
-    "revision": "67e5beed1d89d049e04eb5081bc9645f"
+    "revision": "4ffbf1caabbd8aad87795ff80e8bc100"
   },
   {
     "url": "content/docs/side_menu.html",
-    "revision": "05c881623b9ac3975d662624d28d1ce2"
+    "revision": "6b0057f93d3541f21f0f360c7a4e353b"
   },
   {
     "url": "content/docs/theme.html",
-    "revision": "9a6f0b7f940d8fd918a3532f91e0e183"
+    "revision": "3a731221e132535461645cce0349bd3c"
   },
   {
     "url": "css/animate.css",
@@ -101,11 +101,11 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "91d13541c19218d7e115822fd9375013"
+    "revision": "260a87938a7550de527dfc4abee2774a"
   },
   {
     "url": "index.js",
-    "revision": "3bddce3fc970aee06863893ee62b9196"
+    "revision": "f42faaefe34a6c46ec80ad79ff963dcc"
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
@@ -113,11 +113,11 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.js",
-    "revision": "b50a9d9f625f6eb4e09c40957f2e4e02"
+    "revision": "e2ff1b08544fdef6afe46d6bf9425ba9"
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
+    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
   },
   {
     "url": "js/mdl/material.min.js",

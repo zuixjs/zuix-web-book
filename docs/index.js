@@ -178,7 +178,7 @@ zuix.hook('html:parse', function (data) {
 
     // Force opening of all non-local links in a new window
     view.find('a[href*="://"]:not([target])')
-        .attr('rel','_noopener')
+        .attr('rel','noopener')
         .attr('target','_blank');
 
     // Material Design Light integration - DOM upgrade

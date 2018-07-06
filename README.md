@@ -1,33 +1,32 @@
 ## Website Template
 
-This is a ready to use website template powered by **zUIx**.
+This is a ready to use website template powered by
+[zUIx](https://genielabs.github.io/zuix).
 Its structure and content management are based on a simple configuration file.
-
-Setup and usage of this template require only basic web development
-knowledge and zero server-side scripting.
-
-Feel free to use and abuse this template for your next website **: )**
 
 ### Features
 
 - Responsive design, best fit all device sizes
-- Supports markdown and configurable braces **{variables}**
-- The whole site can be bundled into a single file
-  and also run locally without a web server
-- PWA friendly
-- Includes following products
+- Markdown, Front Matter, Swig Templates
+- Component-based web development
+- Integrated build system with resource packing
+<!-- TODO: wip - Generated application consist of a single .html file that can be opened locally, without a web server -->
+- 100% Progressive Web App / 100% SEO
+- Also featuring
     - Material Design Lite<br/>
       [https://getmdl.io](https://getmdl.io)
     - Flex Layout Attribute (FLA)<br/>
       [http://progressivered.com/fla](http://progressivered.com/fla)
     - AnimateCSS<br/>
       [https://daneden.github.io/animate.css](https://daneden.github.io/animate.css)
-    - Showdown<br/>
-      [http://showdownjs.com](http://showdownjs.com)
     - Prism<br/>
       [http://prismjs.com](http://prismjs.com)
-    - ...and off course zUIx :)<br/>
-      [http://zuix.it](http://zuix.it)
+    - ...and off course zUIx for component-based development :)<br/>
+      [http://zuix.it](https://genielabs.github.io/zuix)
+
+## Prerequisites
+
+This project requires [Node.js/npm](https://www.npmjs.com/get-npm) to be installed.
 
 ### Usage
 
@@ -56,4 +55,5 @@ website source files are located in the `./source` folder and are
 generated in the `./docs` folder.
 This setting can be changed by modifying the `./config/default.json` file.
 
-See [zuix-web-starter](https://github.com/genemars/zuix-web-starter) website for all options.
+This template is built on [zuix-web-starter](https://github.com/genemars/zuix-web-starter),
+see its repository for all features and documentation.

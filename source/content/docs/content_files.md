@@ -1,6 +1,6 @@
 # {{data.title}}
 
-<img src="images/banners/content-files.jpg" class="mdl-shadow--8dp" style="max-width:100%">
+<img src="images/banners/content-files.jpg" alt="cover" class="mdl-shadow--8dp" style="max-width:100%">
 <div class="vertical-spacer-16"></div>
 
 Content files are place in the `./content` folder and can contain both
