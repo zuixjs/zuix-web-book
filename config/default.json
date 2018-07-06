@@ -30,7 +30,7 @@
       "less": true,
       "esLint": true,
       "bundle": {
-        "js": false,
+        "js": true,
         "css": true,
         "zuix": true
       }

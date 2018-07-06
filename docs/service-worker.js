@@ -101,7 +101,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "ead3e57c3fa66ef5f8e473ea55024f76"
+    "revision": "d114f03102e9b33ed2f6974160b223c3"
   },
   {
     "url": "index.js",
@@ -161,11 +161,11 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "d1dda15337dfc795f49cdec2c7cae37b"
+    "revision": "251f458d3ddd0bce611235aa349a6d2e"
   },
   {
     "url": "js/zuix/zuix.min.js",
-    "revision": "d37ced2779095b798995f376a24d9fa7"
+    "revision": "01c3ac9bce0e5018baca545e35f1e1d1"
   },
   {
     "url": "manifest.json",

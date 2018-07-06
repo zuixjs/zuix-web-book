@@ -594,20 +594,19 @@ const util = _dereq_('./Util.js');
  * @this {ZxQuery}
  */
 
-
 /** @private */
-
-var supportsPassive = false;
+let supportsPassive = false;
 try {
-    var opts = Object.defineProperty({}, 'passive', {
+    const opts = Object.defineProperty({}, 'passive', {
         get: function() {
             supportsPassive = true;
         }
     });
-    window.addEventListener("testPassive", null, opts);
-    window.removeEventListener("testPassive", null, opts);
+    window.addEventListener('testPassive', null, opts);
+    window.removeEventListener('testPassive', null, opts);
 } catch (e) {}
 
+/** @private */
 const _zuix_events_mapping = [];
 function routeEvent(e) {
     triggerEventHandlers(this, e.type, e);
@@ -623,7 +622,7 @@ function addEventHandler(el, path, handler) {
     });
     if (!found) {
         _zuix_events_mapping.push({element: el, path: path, handler: handler});
-        el.addEventListener(path, routeEvent, supportsPassive ? { passive: true } : false);
+        el.addEventListener(path, routeEvent, supportsPassive ? {passive: true} : false);
     }
 }
 function removeEventHandler(el, path, handler) {
