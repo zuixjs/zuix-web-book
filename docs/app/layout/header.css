@@ -45,6 +45,7 @@
     line-height: 200%;
     padding-left: 16px;
     padding-right: 16px;
+    font-weight: 700;
 }
 
 div[data-ui-field="header-roller"] {
@@ -59,7 +60,7 @@ div[data-ui-field="header-roller"] {
         font-size: 160%;
     }
     .subtitle {
-        font-size: 100%;
+        font-size: 110%;
     }
 }
 @media only screen and (max-width: 800px) {

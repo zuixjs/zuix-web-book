@@ -33,7 +33,7 @@ self.__precacheManifest = [
   },
   {
     "url": "app/layout/header.css",
-    "revision": "5c50057e6415b845c64e4766cdb25461"
+    "revision": "57b962a10f5cff0e6b21800805f30a1a"
   },
   {
     "url": "app/layout/header.html",
@@ -101,7 +101,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "f84244e46f30c5604f9de0b444d658a0"
+    "revision": "ccc04dacfb5e71e0ff501377f901b310"
   },
   {
     "url": "index.js",
