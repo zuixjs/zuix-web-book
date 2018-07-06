@@ -117,7 +117,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
+    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
   },
   {
     "url": "js/mdl/material.min.js",
@@ -161,7 +161,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "251f458d3ddd0bce611235aa349a6d2e"
+    "revision": "6fa6ebbcea194f21fe4252fba926e225"
   },
   {
     "url": "js/zuix/zuix.min.js",
