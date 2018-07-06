@@ -4,7 +4,7 @@ This is a ready to use website template powered by
 [zUIx](https://genielabs.github.io/zuix).
 Its structure and content management are based on a simple configuration file.
 
-![LightHouse Score](https://genielabs.github.io/images/lighthouse_score.png)
+![LightHouse Score](https://genielabs.github.io/zuix-web-template/images/lighthouse_score.png)
 
 ### Features
 
