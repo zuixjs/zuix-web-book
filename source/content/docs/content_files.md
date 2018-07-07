@@ -9,7 +9,7 @@ and [HTML](https://wikipedia.org/wiki/HTML) code regardless of the `.md` or `.ht
 file extension.
 
 In order to be visible in the side menu, each file must also have an entry in the
-[./site_config.js](https://github.com/genielabs/zuix-web-template/blob/master/site_config.js#L1)
+[./source/site_config.js](https://github.com/genielabs/zuix-web-template/blob/master/source/site_config.js#L1)
 configuration file, which is described in the next chapter.
 Each entry comes with an `id` field that can be then used in the URL
 to load an entry content.
@@ -57,9 +57,9 @@ and the name of this site is
     "{{app.title}}"
 ```
 
-Variables with the prefix **data.** are defined in the **./source/site_config.js**
-file, while global application vars starting with **app.** prefix are
-defined in the **./config/default.js** file.
+Variables with the prefix `data.` are defined in the `./source/site_config.js`
+file, while global application vars starting with `app.` prefix are
+defined in the `./config/default.js` file.
 
 
 ### Components and templates
