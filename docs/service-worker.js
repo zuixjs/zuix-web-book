@@ -41,11 +41,11 @@ self.__precacheManifest = [
   },
   {
     "url": "app/layout/side_menu_item.html",
-    "revision": "5a643a6bc59eebebecc710f2cb73bc64"
+    "revision": "94587de6b6ddbd19c9a084195df8de38"
   },
   {
     "url": "app/layout/side_menu_subitem.html",
-    "revision": "ac049b78d50c4d8bdf334eed36270e53"
+    "revision": "0aa41cdfd7240f9be0b279702ec8ba51"
   },
   {
     "url": "app/layout/side_menu.css",
@@ -69,15 +69,15 @@ self.__precacheManifest = [
   },
   {
     "url": "content/about.html",
-    "revision": "e5413b0bab2064420a0f5e2c0f86fa59"
+    "revision": "143d77f0a7dbebfb8cbf180f3f41576e"
   },
   {
     "url": "content/docs/content_files.html",
-    "revision": "01d5cc2c25576a2155d00dbcbc97723c"
+    "revision": "85caba24553a0355b3c71835f0eba6b3"
   },
   {
     "url": "content/docs/side_menu.html",
-    "revision": "6b0057f93d3541f21f0f360c7a4e353b"
+    "revision": "f31a04f74681428b1b75e65d5967bd19"
   },
   {
     "url": "content/docs/theme.html",
@@ -101,11 +101,11 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "3a48e0afd8dfb2d59014a111a3e78c86"
+    "revision": "9a6886b95c8b37f8ae33911427133b29"
   },
   {
     "url": "index.js",
-    "revision": "0949d51cbce834d8b3e41253d9eeb222"
+    "revision": "00679aa8182e2c4276054b4520271524"
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
@@ -161,11 +161,11 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "6fa6ebbcea194f21fe4252fba926e225"
+    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
   },
   {
     "url": "js/zuix/zuix.min.js",
-    "revision": "01c3ac9bce0e5018baca545e35f1e1d1"
+    "revision": "17b65a7df5599d242e5caae2549c12f2"
   },
   {
     "url": "manifest.json",

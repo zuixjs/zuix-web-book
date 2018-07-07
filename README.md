@@ -1,8 +1,8 @@
 ## WebBook Template
 
-This is a ready to use webapp template powered by
+A ready to use webapp template powered by
 [zUIx](https://genielabs.github.io/zuix).
-Its structure and content management are based on a simple configuration file.
+Site structure and content management are based on a simple configuration file.
 
 ![LightHouse Score](https://genielabs.github.io/zuix-web-book/images/lighthouse_score.png)
 

@@ -1436,21 +1436,20 @@ z$.replaceCssVars = function(css, model) {
     return css;
 };
 z$.replaceBraces = function(html, callback) {
-    // TODO: add optional parameter for the regex
-    // single brace wrapping
-    const tags = new RegExp(/[^{}]+(?=})/g); // {{([^}]*)}}  <-- double braces wrapper
+    // TODO: add optional parameter for custom regex
+    const tags = new RegExp(/{?{.*?}?}/g); // <-- single/double braces wrapper
     let outHtml = '';
     let matched = 0;
     let currentIndex = 0;
     let result;
     while (result = tags.exec(html)) {
         if (typeof result[0] === 'string' && (result[0].trim().length === 0 || result[0].indexOf('\n') >= 0)) {
-            const nv = html.substr(currentIndex, result.index-currentIndex)+result[0]+'}';
+            const nv = html.substr(currentIndex, result.index-currentIndex)+result[0];
             outHtml += nv;
             currentIndex += nv.length;
             continue;
         }
-        let value = '{'+result[0]+'}';
+        let value = result[0];
         if (typeof callback === 'function') {
             const r = callback(result[0]);
             if (!util.isNoU(r)) {
@@ -1458,8 +1457,8 @@ z$.replaceBraces = function(html, callback) {
                 matched++;
             }
         }
-        outHtml += html.substr(currentIndex, result.index-currentIndex-1)+value;
-        currentIndex = result.index+result[0].length+1;
+        outHtml += html.substr(currentIndex, result.index-currentIndex)+value;
+        currentIndex = result.index+result[0].length;
     }
     if (matched > 0) {
         outHtml += html.substr(currentIndex);

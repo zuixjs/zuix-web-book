@@ -209,29 +209,28 @@ zuix.$.each(siteConfig.content, function (k, v) {
 
 function parseBraces(content, braces) {
     return zuix.$.replaceBraces(content, function (varName) {
-        if (varName[0] === '-') {
-            // ignore braces if starting with '-'
-            return '{' + varName.substring(1) + '}';
+        if (varName.indexOf('{-') >= 0) {
+            // ignore braces var if starting with '-'
+            return varName.replace('{-', '{');
         } else {
+            // remove braces from varName
+            varName = varName.replace(/[{}]/g, '');
             const dataField = fetchFromObject(braces, varName);
             if (dataField != null) {
                 return dataField;
-            }
+            } else return '';
         }
     });
 }
 
 function fetchFromObject(obj, prop) {
-
     if(typeof obj === 'undefined') {
         return false;
     }
-
-    var _index = prop.indexOf('.')
+    const _index = prop.indexOf('.');
     if(_index > -1) {
         return fetchFromObject(obj[prop.substring(0, _index)], prop.substr(_index + 1));
     }
-
     return obj[prop];
 }
 

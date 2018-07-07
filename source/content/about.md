@@ -3,12 +3,10 @@
 <img src="images/banners/about.jpg" alt="cover" class="mdl-shadow--8dp" style="max-width:100%">
 <div class="vertical-spacer-16"></div>
 
-This is a ready to use website template powered by **[zUIx-Web-Starter](https://github.com/genemars/zuix-web-starter)**.
-Its structure and content management are based on a simple configuration file.
 
-Setup and usage of this template require only basic web development
-knowledge and zero server-side scripting.
-
+A ready to use webapp template powered by
+[zUIx](https://genielabs.github.io/zuix).
+Site structure and content management are based on a simple configuration file.
 
 ### Features
 
@@ -29,6 +27,9 @@ knowledge and zero server-side scripting.
     - ...and off course zUIx for component-based development :)<br/>
       [http://zuix.it](https://genielabs.github.io/zuix)
 
+#### Lighthouse PWA report
+
+![LightHouse Score](https://genielabs.github.io/zuix-web-book/images/lighthouse_score.png)
 
 ### Got any question or request?
 

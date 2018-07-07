@@ -1,9 +1,9 @@
 <h1 id="datatitle">Side menu</h1>
 <p><img src="images/banners/side-menu.jpg" alt="cover" class="mdl-shadow--8dp" style="max-width:100%"></p>
 <div class="vertical-spacer-16"></div>
-<p>The side menu shown on the left is defined in the <a href="./site_config.js">./site_config.js</a>
+<p>The side menu shown on the left is defined in the <a href="./source/site_config.js">./source/site_config.js</a>
 file by the <code>siteConfig.content</code> list (array).</p>
-<p>Each item in this list is an object with the following fields: <code>id</code>, <code>template</code>, <code>data</code>
+<p>Each entry in this list is an object with the following fields: <code>id</code>, <code>template</code>, <code>data</code>
 and <code>list</code> (optional).</p>
 <p><strong>Example</strong></p>
 <pre><code class="javascript language-javascript">{
@@ -20,33 +20,35 @@ and <code>list</code> (optional).</p>
 <p>The <code>template</code> field determines how the item is rendered. The item in the example
 above is rendered like this:</p>
 <p><img src="images/menu_template_preview_1.png" alt="" /></p>
-<p>The <code>data</code> field contains properties that can be referenced in the template by
-using the curly braces. So, for instance, the <code>data.title</code> property is rendered
-by using the <code>{-title}</code> text in the template.</p>
-<p>Two templates are currently available:</p>
+<p>
+The <code>data</code> field contains properties that can be rendered in the template by
+using the double curly braces.
+So, for instance, the <code>data.title</code> property is rendered by using the
+<code>{{data.title}}</code> text in the template.</p>
+<p>The following templates are currently being used for the side menu:</p>
 <p>1) <strong>menu item</strong> <a href="./app/layout/side_menu_item">./app/layout/side_menu_item</a></p>
-<pre><code class="html language-html">&lt;a href="{-link}" {-attr} layout="row center-left"&gt;
-  &lt;i class="material-icons"&gt;{-icon}&lt;/i&gt;
-  &lt;span&gt;{-title}&lt;/span&gt;
+<pre><code class="html language-html">&lt;a href="{{data.link}}" {{data.attr}} layout="row center-left"&gt;
+  &lt;i class="material-icons"&gt;{{data.icon}}&lt;/i&gt;
+  &lt;span&gt;{{data.title}}&lt;/span&gt;
 &lt;/a&gt;
 </code></pre>
 <p>2) <strong>sub menu item</strong> <a href="./app/layout/side_menu_subitem">./app/layout/side_menu_subitem</a></p>
-<pre><code class="html language-html">&lt;a href="{-link}" {-attr} class="sub_item" layout="row center-left"&gt;
-  &lt;span&gt;{-title}&lt;/span&gt;
+<pre><code class="html language-html">&lt;a href="{{data.link}}" {{data.attr}} class="sub_item" layout="row center-left"&gt;
+  &lt;span&gt;{{data.title}}&lt;/span&gt;
 &lt;/a&gt;
 </code></pre>
-<p>The first template is using <a href="https://material.io/icons/">Material Design Icons</a>
-for the <code>data.icon</code> property. See the linked site for a list of all available icons.
+<p></p>
+<p>The first template contains also a <code>data.icon</code> field whose value can be a
+  <a href="https://material.io/icons/">Material Design Icons</a> icon name.
 Note that, in order to work, any space character in the name of the icon must be
 replaced with the <code>_</code> symbol.</p>
 <p>The <code>data.link</code> property can be a standard url (either absolute or relative) or
-it can be a link to an item of the <code>site_config.js</code> file.
+it can be a link to an item of the <code>./source/site_config.js</code> file.
 In this case the link will start with the <code>#/</code> character sequence followed
 by the <code>id</code> of the item to load.</p>
 <p>The <code>data.file</code> property will point to the content file to load that can be
-a standard <code>.html</code> file or a <code>.md</code> markdown file, though actually any kind of
-file can be loaded and any kind of file can both contain HTML and Markdown code.</p>
-<p>An item can also be a <strong>section</strong> containing other items, in which case the
+a standard <code>.html</code> file or a <code>.md</code> markdown file.</p>
+<p>An item can also be a <strong>section</strong> containing other sub-items, in which case the
 field <code>list</code> will be used to store an array with the items of the section (as
 it happens for the <em>Documentation</em> section in this side menu).</p>
 <pre><code class="javascript language-javascript">{

@@ -1953,21 +1953,20 @@ z$.replaceCssVars = function(css, model) {
     return css;
 };
 z$.replaceBraces = function(html, callback) {
-    // TODO: add optional parameter for the regex
-    // single brace wrapping
-    const tags = new RegExp(/[^{}]+(?=})/g); // {{([^}]*)}}  <-- double braces wrapper
+    // TODO: add optional parameter for custom regex
+    const tags = new RegExp(/{?{.*?}?}/g); // <-- single/double braces wrapper
     let outHtml = '';
     let matched = 0;
     let currentIndex = 0;
     let result;
     while (result = tags.exec(html)) {
         if (typeof result[0] === 'string' && (result[0].trim().length === 0 || result[0].indexOf('\n') >= 0)) {
-            const nv = html.substr(currentIndex, result.index-currentIndex)+result[0]+'}';
+            const nv = html.substr(currentIndex, result.index-currentIndex)+result[0];
             outHtml += nv;
             currentIndex += nv.length;
             continue;
         }
-        let value = '{'+result[0]+'}';
+        let value = result[0];
         if (typeof callback === 'function') {
             const r = callback(result[0]);
             if (!util.isNoU(r)) {
@@ -1975,8 +1974,8 @@ z$.replaceBraces = function(html, callback) {
                 matched++;
             }
         }
-        outHtml += html.substr(currentIndex, result.index-currentIndex-1)+value;
-        currentIndex = result.index+result[0].length+1;
+        outHtml += html.substr(currentIndex, result.index-currentIndex)+value;
+        currentIndex = result.index+result[0].length;
     }
     if (matched > 0) {
         outHtml += html.substr(currentIndex);
@@ -5871,29 +5870,28 @@ zuix.$.each(siteConfig.content, function (k, v) {
 
 function parseBraces(content, braces) {
     return zuix.$.replaceBraces(content, function (varName) {
-        if (varName[0] === '-') {
-            // ignore braces if starting with '-'
-            return '{' + varName.substring(1) + '}';
+        if (varName.indexOf('{-') >= 0) {
+            // ignore braces var if starting with '-'
+            return varName.replace('{-', '{');
         } else {
+            // remove braces from varName
+            varName = varName.replace(/[{}]/g, '');
             const dataField = fetchFromObject(braces, varName);
             if (dataField != null) {
                 return dataField;
-            }
+            } else return '';
         }
     });
 }
 
 function fetchFromObject(obj, prop) {
-
     if(typeof obj === 'undefined') {
         return false;
     }
-
-    var _index = prop.indexOf('.')
+    const _index = prop.indexOf('.');
     if(_index > -1) {
         return fetchFromObject(obj[prop.substring(0, _index)], prop.substr(_index + 1));
     }
-
     return obj[prop];
 }
 

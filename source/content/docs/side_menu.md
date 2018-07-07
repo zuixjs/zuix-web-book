@@ -3,10 +3,10 @@
 <img src="images/banners/side-menu.jpg" alt="cover" class="mdl-shadow--8dp" style="max-width:100%">
 <div class="vertical-spacer-16"></div>
 
-The side menu shown on the left is defined in the [./site_config.js](./site_config.js)
+The side menu shown on the left is defined in the [./source/site_config.js](./source/site_config.js)
 file by the `siteConfig.content` list (array).
 
-Each item in this list is an object with the following fields: `id`, `template`, `data`
+Each entry in this list is an object with the following fields: `id`, `template`, `data`
 and `list` (optional).
 
 **Example**
@@ -29,41 +29,43 @@ above is rendered like this:
 
 ![](images/menu_template_preview_1.png)
 
-The `data` field contains properties that can be referenced in the template by
-using the curly braces. So, for instance, the `data.title` property is rendered
-by using the `{-title}` text in the template.
+{% raw %}
+The `data` field contains properties that can be rendered in the template by
+using the double curly braces.
+So, for instance, the `data.title` property is rendered by using the
+`{{data.title}}` text in the template.
 
-Two templates are currently available:
+The following templates are currently being used for the side menu:
 
 1) **menu item** [./app/layout/side\_menu\_item](./app/layout/side_menu_item)
 ```html
-<a href="{-link}" {-attr} layout="row center-left">
-  <i class="material-icons">{-icon}</i>
-  <span>{-title}</span>
+<a href="{{data.link}}" {{data.attr}} layout="row center-left">
+  <i class="material-icons">{{data.icon}}</i>
+  <span>{{data.title}}</span>
 </a>
 ```
 2) **sub menu item** [./app/layout/side\_menu\_subitem](./app/layout/side_menu_subitem)
 ```html
-<a href="{-link}" {-attr} class="sub_item" layout="row center-left">
-  <span>{-title}</span>
+<a href="{{data.link}}" {{data.attr}} class="sub_item" layout="row center-left">
+  <span>{{data.title}}</span>
 </a>
 ```
+{% endraw %}
 
-The first template is using [Material Design Icons](https://material.io/icons/)
-for the `data.icon` property. See the linked site for a list of all available icons.
+The first template contains also a `data.icon` field whose value can be a
+  [Material Design Icons](https://material.io/icons/) icon name.
 Note that, in order to work, any space character in the name of the icon must be
 replaced with the `_` symbol.
 
 The `data.link` property can be a standard url (either absolute or relative) or
-it can be a link to an item of the `site_config.js` file.
+it can be a link to an item of the `./source/site_config.js` file.
 In this case the link will start with the `#/` character sequence followed
 by the `id` of the item to load.
 
 The `data.file` property will point to the content file to load that can be
-a standard `.html` file or a `.md` markdown file, though actually any kind of
-file can be loaded and any kind of file can both contain HTML and Markdown code.
+a standard `.html` file or a `.md` markdown file.
 
-An item can also be a **section** containing other items, in which case the
+An item can also be a **section** containing other sub-items, in which case the
 field `list` will be used to store an array with the items of the section (as
 it happens for the *Documentation* section in this side menu).
 
