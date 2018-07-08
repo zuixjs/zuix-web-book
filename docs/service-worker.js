@@ -25,7 +25,7 @@ self.__precacheManifest = [
   },
   {
     "url": "app/controllers/content_loader.js",
-    "revision": "3ed2e989f5ac242be65a6307e709a77d"
+    "revision": "d23178763ad286b1ec0c1d445580b164"
   },
   {
     "url": "app/controllers/side_panel.js",
@@ -97,15 +97,15 @@ self.__precacheManifest = [
   },
   {
     "url": "index.css",
-    "revision": "ddb2b14aa6296b287e757fc9ab19b17a"
+    "revision": "49bd224eb6225e1e90a7a1b7630c8358"
   },
   {
     "url": "index.html",
-    "revision": "9a6886b95c8b37f8ae33911427133b29"
+    "revision": "8fc0d82c4723cf6ac65f06ddef6b6aa9"
   },
   {
     "url": "index.js",
-    "revision": "00679aa8182e2c4276054b4520271524"
+    "revision": "39c9c6929613f0d5670b8c35956dea2c"
   },
   {
     "url": "js/mdl/material.green-pink.min.css",

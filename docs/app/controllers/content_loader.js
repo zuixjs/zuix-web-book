@@ -34,7 +34,7 @@ zuix.controller(function (cp) {
                         // route event through the main context
                         // `cp` is the main `content_loader` context
                         data.page = contentCtrl;
-                        cp.trigger('content:scroll', data);
+                        cp.trigger('scroll:change', data);
                     });
                 }
             })

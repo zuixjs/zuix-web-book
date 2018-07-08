@@ -5464,6 +5464,10 @@ main {
     height: 48px;
 }
 
+.reverse {
+    animation-direction: reverse;
+}
+
 [data-ui-field="main"] {
     min-height: 100vh;
 }
@@ -5717,19 +5721,44 @@ var contentOptions = {
     contentLoader: {
         on: {
             'path:change': showPage,
-            'content:scroll': function (e, data) {
+            'scroll:change': function (e, data) {
+                switch (data.event) {
+                    case 'hit-top':
+                        // reached top of page
+                        showHeader();
+                        break;
+                    case 'scroll':
+                        if (pageContainer.hasClass('main-side-menu-off')) {
+                            if (data.info.shift.y < 0) {
+                                // scrolling up
+                                hideHeader();
+                                hideNavigation();
+                            } else if (data.info.shift.y > 0) {
+                                // scrolling down
+                                showHeader();
+                                showNavigation();
+                            }
+                        } else if (data.info.shift.y < 0) {
+                            hideNavigation();
+                        }
+                        break;
+                    case 'hit-bottom':
+                        // reached end of page
+                        showNavigation();
+                        break;
+                }
+                /*
                 if (pageContainer.hasClass('main-side-menu-off')) {
                     if (data.event === 'scroll' || data.event === 'hit-top' || data.event === 'hit-bottom') {
                         if (data.info.shift.y > 0) {
-                            showHeader();
                         } else {
-                            hideHeader();
                         }
                     }
                 }
                 if (data.event === 'hit-bottom') {
                     showNavigation();
                 } else hideNavigation();
+                */
             }
         },
         ready: function (ctx) {
@@ -5752,25 +5781,6 @@ var contentOptions = {
                         contentLoader.navigate();
                     }, 100);}
                 });
-            contentLoader.on('scroll:change', function(e, data) {
-                switch (data.event) {
-                    case 'hit-top':
-                        // reached top of page
-                        break;
-                    case 'scroll':
-                        if (data.info.shift.y < 0) {
-                            // scrolling up
-                        } else if (data.info.shift.y > 0) {
-                            // scrolling down
-                        }
-                        // for all fields of the data.info
-                        // object see next paragraph
-                        break;
-                    case 'hit-bottom':
-                        // reached end of page
-                        break;
-                }
-            });
         }
     },
     imageCarousel: {
@@ -5796,16 +5806,16 @@ zuix.load('@lib/controllers/gesture_helper', {
     view: document.documentElement,
     on: {
         'gesture:tap': function(e, tp) {
-            if (sideMenuPanel.isOpen())
-                sideMenuPanel.close();
-            else
-                toggleControls();
+//            console.log(tp);
+        },
+        'gesture:pan': function (e, tp) {
+//            console.log(tp);
         },
         'gesture:swipe': function (e, tp) {
-            if (!sideMenuPanel.isOpen() && tp.direction === 'left' && tp.startX < 100) {
+            if (!sideMenuPanel.isOpen() && tp.direction === 'right' && tp.startX < 100) {
                 showHeader();
                 sideMenuPanel.open();
-            } else if (sideMenuPanel.isOpen() && tp.direction === 'right') {
+            } else if (sideMenuPanel.isOpen() && tp.direction === 'left') {
                 sideMenuPanel.close();
             }
         }
@@ -5901,7 +5911,8 @@ function sideMenuOpen(e, status) {
         headerTitle.parent().addClass('main-side-menu-off main-side-menu-pull');
         hideNavigation();
     } else showHeader();
-    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
+    // animate menu button
+    menuButton.addClass('reverse').animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('arrow_back').animateCss('rotateIn', { duration: '0.25s' });
     });
 }
@@ -5910,9 +5921,10 @@ function sideMenuClose(e, status) {
         pageContainer.removeClass('main-side-menu-pull');
         headerTitle.parent().removeClass('main-side-menu-pull');
     }
+    // animate menu button
     menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('menu').animateCss('rotateIn', { duration: '0.25s' });
-    });
+    }).removeClass('reverse');
 }
 
 function showPage(e, path) {
@@ -6060,17 +6072,14 @@ function updateNavigation() {
 }
 
 function showNavigation() {
-
     if (navigationButtons.display() === 'none') {
-        navigationButtons.show()
-            .animateCss('fadeInUp');
+        navigationButtons.animateCss('fadeInUp').show();
     }
-    else hideNavigation();
 }
 
 function hideNavigation() {
-    if (navigationButtons.display() !== 'none' && !navigationButtons.hasClass('animated')) {
-        navigationButtons.animateCss('fadeOutDown', { duration: '0.3s' }, function () {
+    if (navigationButtons.display() === '') {
+        navigationButtons.animateCss('fadeOutDown', {duration: '0.3s'}, function () {
             this.hide();
         });
     }
@@ -6082,15 +6091,8 @@ function showHeader() {
     }
 }
 function hideHeader() {
-    headerElement.removeClass('header-expand').addClass('header-collapse');
-}
-
-function toggleControls() {
-    if (navigationButtons.display() !== 'none') {
-        hideNavigation();
-    } else {
-        showHeader();
-        showNavigation();
+    if (!headerElement.hasClass('header-collapse')) {
+        headerElement.removeClass('header-expand').addClass('header-collapse');
     }
 }
 
@@ -6169,7 +6171,7 @@ function toggleControls() {
   },
   {
     "componentId": "controllers/content_loader",
-    "controller": "zuix.controller(function (cp) {\n\n    cp.init = function () {\n        this.options().css = false;\n        this.options().html = false;\n    };\n\n    cp.create = function () {\n        window.onhashchange = function () {\n            navigate();\n        };\n        cp.expose('data', data);\n        cp.expose('path', getCurrentPath);\n        cp.expose('list', list);\n        cp.expose('getContent', getContent);\n        cp.expose('navigate', navigate);\n    };\n\n\n    // this is the JSON site data\n    let contentTree = null;\n\n    const dummyController = zuix.controller(function(ctrl){});\n    const contentController = zuix.controller(function(contentCtrl){\n        contentCtrl.create = function () {\n            contentCtrl.view().hide();\n            zuix.load('@lib/controllers/scroll_helper', {\n                view: contentCtrl.view(),\n                ready: function (scrollCtx) {\n                    const watchList = contentCtrl.options().watchList;\n                    if (watchList != null)\n                        scrollCtx.watch(watchList.filter, watchList.callback);\n                    scrollCtx.on('scroll:change', function (e, data) {\n                        // route event through the main context\n                        // `cp` is the main `content_loader` context\n                        data.page = contentCtrl;\n                        cp.trigger('content:scroll', data);\n                    });\n                }\n            })\n        };\n    });\n\n    function data(d) {\n        if (d != null)\n            contentTree = d;\n        return contentTree;\n    }\n\n    function getCurrentPath() {\n        if (window.location.hash.length > 0)\n            return window.location.hash;\n        return '';\n    }\n\n    function list(items, container, callback) {\n        zuix.$.each(items, function (k, v) {\n            (function(item, isLast) {\n                const itemId = v.id+'['+item.template+']';\n                const ctx = zuix.context(itemId);\n                if (ctx == null) {\n                    zuix.load(item.template, {\n                        contextId: itemId,\n                        css: false,\n                        braces: { data: item.data },\n                        controller: dummyController,\n                        ready: function (c) {\n                            c.options().data = item;\n                            c.view().setAttribute('data-id', item.id);\n                            zuix.$(container).append(c.view());\n                            callback(c, isLast);\n                            if (item.list != null) {\n                                list(item.list, c.view(), function () {\n                                   // TODO: ...\n                                });\n                            }\n                        }\n                    });\n                } else {\n                    callback(ctx, isLast);\n                }\n            })(v, k == items.length - 1);\n        });\n    }\n\n    function getContent(data, callback) {\n        const path = '../'+data.file;\n        // exit if no content path specified\n        if (path == null || path.length == 0) return;\n        const content = zuix.context(path);\n        if (content == null) {\n            zuix.load(path, {\n                contextId: path,\n                wrapContent: true,\n                prism: true,\n                //braces: { data: data },\n                css: false,\n                cext: '',\n                controller: contentController,\n                ready: function (c) {\n                    // extend context with 'watch' method\n                    c.watch = function (filter, fn) {\n                        c.options().watchList = {\n                            filter: filter,\n                            callback: fn\n                        }\n                    };\n                    callback(c, true);\n                    // TODO: zuix.componentize(c.view());\n                },\n                error: function(err) {\n                    //document.location.replace('404.html');\n                }\n            });\n        } else {\n            callback(content, false);\n        }\n    }\n\n    function navigate() {\n        const path = getCurrentPath();\n        cp.trigger('path:change', path);\n    }\n\n});\n"
+    "controller": "zuix.controller(function (cp) {\n\n    cp.init = function () {\n        this.options().css = false;\n        this.options().html = false;\n    };\n\n    cp.create = function () {\n        window.onhashchange = function () {\n            navigate();\n        };\n        cp.expose('data', data);\n        cp.expose('path', getCurrentPath);\n        cp.expose('list', list);\n        cp.expose('getContent', getContent);\n        cp.expose('navigate', navigate);\n    };\n\n\n    // this is the JSON site data\n    let contentTree = null;\n\n    const dummyController = zuix.controller(function(ctrl){});\n    const contentController = zuix.controller(function(contentCtrl){\n        contentCtrl.create = function () {\n            contentCtrl.view().hide();\n            zuix.load('@lib/controllers/scroll_helper', {\n                view: contentCtrl.view(),\n                ready: function (scrollCtx) {\n                    const watchList = contentCtrl.options().watchList;\n                    if (watchList != null)\n                        scrollCtx.watch(watchList.filter, watchList.callback);\n                    scrollCtx.on('scroll:change', function (e, data) {\n                        // route event through the main context\n                        // `cp` is the main `content_loader` context\n                        data.page = contentCtrl;\n                        cp.trigger('scroll:change', data);\n                    });\n                }\n            })\n        };\n    });\n\n    function data(d) {\n        if (d != null)\n            contentTree = d;\n        return contentTree;\n    }\n\n    function getCurrentPath() {\n        if (window.location.hash.length > 0)\n            return window.location.hash;\n        return '';\n    }\n\n    function list(items, container, callback) {\n        zuix.$.each(items, function (k, v) {\n            (function(item, isLast) {\n                const itemId = v.id+'['+item.template+']';\n                const ctx = zuix.context(itemId);\n                if (ctx == null) {\n                    zuix.load(item.template, {\n                        contextId: itemId,\n                        css: false,\n                        braces: { data: item.data },\n                        controller: dummyController,\n                        ready: function (c) {\n                            c.options().data = item;\n                            c.view().setAttribute('data-id', item.id);\n                            zuix.$(container).append(c.view());\n                            callback(c, isLast);\n                            if (item.list != null) {\n                                list(item.list, c.view(), function () {\n                                   // TODO: ...\n                                });\n                            }\n                        }\n                    });\n                } else {\n                    callback(ctx, isLast);\n                }\n            })(v, k == items.length - 1);\n        });\n    }\n\n    function getContent(data, callback) {\n        const path = '../'+data.file;\n        // exit if no content path specified\n        if (path == null || path.length == 0) return;\n        const content = zuix.context(path);\n        if (content == null) {\n            zuix.load(path, {\n                contextId: path,\n                wrapContent: true,\n                prism: true,\n                //braces: { data: data },\n                css: false,\n                cext: '',\n                controller: contentController,\n                ready: function (c) {\n                    // extend context with 'watch' method\n                    c.watch = function (filter, fn) {\n                        c.options().watchList = {\n                            filter: filter,\n                            callback: fn\n                        }\n                    };\n                    callback(c, true);\n                    // TODO: zuix.componentize(c.view());\n                },\n                error: function(err) {\n                    //document.location.replace('404.html');\n                }\n            });\n        } else {\n            callback(content, false);\n        }\n    }\n\n    function navigate() {\n        const path = getCurrentPath();\n        cp.trigger('path:change', path);\n    }\n\n});\n"
   },
   {
     "componentId": "layout/header",
