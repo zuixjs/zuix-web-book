@@ -72,7 +72,7 @@ zuix.controller(function(cp) {
                             isDragging = true;
                         }
                         transitionOn();
-                        dragBy(tp.x);
+                        dragTo(tp.x);
                         transitionOff();
                     }
                 }
@@ -91,7 +91,7 @@ zuix.controller(function(cp) {
         });
         cp.expose('isOpen', isOpen);
         // TODO: refactor to 'dragTo'
-        cp.expose('dragBy', dragBy);
+        cp.expose('dragTo', dragTo);
         cp.expose('lock', function(locked) {
             isLocked = locked;
         });
@@ -162,7 +162,7 @@ zuix.controller(function(cp) {
             openMenu();
     }
 
-    function dragBy(x) {
+    function dragTo(x) {
         if (x > 0 && x < sideMenuWidth) {
             x = -sideMenuWidth+x;
             if (sideMenu.display() === 'none') {
@@ -181,13 +181,10 @@ zuix.controller(function(cp) {
     }
 
     let isTransitionOn = false;
-    function transitionOn(duration) {
+    function transitionOn() {
         if (!isTransitionOn) {
-            if (duration == null) {
-                duration = 0.3;
-            }
             isTransitionOn = true;
-            const transition = 'ease '+duration+'s';
+            const transition = 'ease .15s';
             sideMenu.css({
                 'transition-property': 'left',
                 '-webkit-transition': transition,

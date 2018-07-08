@@ -29,7 +29,7 @@ self.__precacheManifest = [
   },
   {
     "url": "app/controllers/side_panel.js",
-    "revision": "b667fc7d2bed16dcfd721254f953702d"
+    "revision": "8311bda415d0cdc0a7fdf5c3131feea0"
   },
   {
     "url": "app/layout/header.css",
@@ -101,7 +101,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "54ee7bc20c6612a0f1638cf7d61894d5"
+    "revision": "95d71192d2a53889e71ead4ca996a04e"
   },
   {
     "url": "index.js",
