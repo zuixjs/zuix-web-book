@@ -97,11 +97,11 @@ self.__precacheManifest = [
   },
   {
     "url": "index.css",
-    "revision": "733238035632c3ff4f793c227654af57"
+    "revision": "49bd224eb6225e1e90a7a1b7630c8358"
   },
   {
     "url": "index.html",
-    "revision": "c7a29b8c6780029746d31bd98370ab00"
+    "revision": "54ee7bc20c6612a0f1638cf7d61894d5"
   },
   {
     "url": "index.js",

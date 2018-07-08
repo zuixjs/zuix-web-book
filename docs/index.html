@@ -5520,7 +5520,7 @@ div[data-ui-field="content-pages"] .page img {
 
 /* Layout Animations */
 
-/* Content page show/hide */
+/* Side menu and content page show/hide */
 
 @keyframes main-expand-anim {
     from { margin-left: 250px;}
@@ -5529,6 +5529,23 @@ div[data-ui-field="content-pages"] .page img {
 @keyframes main-collapse-anim {
     from { margin-left: 0;}
     to { margin-left: 250px;}
+}
+.main-side-menu-off {
+    animation-name: main-expand-anim;
+    animation-duration: 0.5s;
+    margin-left: 0;
+    width: 100%;
+}
+.main-side-menu {
+    animation-name: main-collapse-anim;
+    animation-duration: 0.5s;
+    margin-left: 250px;
+    width: 100%;
+}
+.main-side-menu-pull {
+    animation-name: main-collapse-anim;
+    animation-duration: 0.5s;
+    margin-left: 250px;
 }
 
 /* Top bar shrink/expand */
