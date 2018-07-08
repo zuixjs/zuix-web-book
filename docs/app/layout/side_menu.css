@@ -1,8 +1,16 @@
 . {
     position: fixed;
     width: 250px;
-    top:64px; left:0; bottom:0;
+    top:0; left:0; bottom:0;
     overflow: visible;
+}
+
+h2 {
+    background: whitesmoke;
+    margin:  0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
 }
 
 .side-menu {

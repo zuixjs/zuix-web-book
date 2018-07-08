@@ -1,10 +1,12 @@
 zuix.controller(function(cp) {
     let isMenuOpen = true;
+    let isLocked = false;
     let smallScreen = false;
     let firstCheck = true;
 
     let overlay = null;
     let sideMenu = null;
+    let sideMenuWidth = 0;
 
     let autoHideWidth = 960;
 
@@ -36,19 +38,71 @@ zuix.controller(function(cp) {
         }).on('click', function () {
             closeMenu();
         }).hide();
-        sideMenu.css('z-index', 15)
-            .parent().append(overlay.get());
+        sideMenu.css({
+            'left': 0,
+            'z-index': 100
+        });
+        sideMenu.parent().append(overlay.get());
+
+        let isDragging = false;
+        // handle gesture to open/close side menu
+        zuix.load('@lib/controllers/gesture_helper', {
+            view: sideMenu.parent(),
+            on: {
+                'gesture:touch': function(e, tp) {
+                    if (isLocked) return;
+                    transitionOn();
+                },
+                'gesture:release': function(e, tp) {
+                    if (isLocked) return;
+                    if (isDragging) {
+                        isDragging = false;
+                        transitionOn();
+                        if (tp.velocity > 0) {
+                            openMenu();
+                        } else {
+                            closeMenu();
+                        }
+                    }
+                },
+                'gesture:pan': function (e, tp) {
+                    if (isLocked) return;
+                    if ((isDragging || isMenuOpen) && tp.x < sideMenuWidth || (!isDragging && tp.x < 50)) {
+                        if (!isDragging) {
+                            isDragging = true;
+                        }
+                        transitionOn();
+                        dragBy(tp.x);
+                        transitionOff();
+                    }
+                }
+            }
+        });
+
         // public component methods
         cp.expose('toggle', toggleMenu);
-        cp.expose('open', openMenu);
-        cp.expose('close', closeMenu);
+        cp.expose('open', function () {
+            transitionOn();
+            return openMenu();
+        });
+        cp.expose('close', function () {
+            transitionOn();
+            return closeMenu();
+        });
         cp.expose('isOpen', isOpen);
+        // TODO: refactor to 'dragTo'
+        cp.expose('dragBy', dragBy);
+        cp.expose('lock', function(locked) {
+            isLocked = locked;
+        });
+
         // detect screen size and set large/small layout
         sizeCheck();
         firstCheck = false;
     };
 
     function sizeCheck() {
+        sideMenuWidth = sideMenu.get().clientWidth;
         const width = document.body.clientWidth;
         if (width < autoHideWidth) {
             if (!smallScreen || firstCheck) {
@@ -71,28 +125,29 @@ zuix.controller(function(cp) {
     }
 
     function openMenu() {
-        sideMenu.show();
-        if (!isMenuOpen) {
-            isMenuOpen = true;
-            sideMenu.animateCss('slideInLeft', { delay: '0.1s', duration: '0.3s' });
-            cp.trigger('menu_open', { smallScreen: smallScreen });
-            if (smallScreen) {
-                overlay.show().animateCss('fadeIn');
-                sideMenu.find('a').one('click', function() {
-                    closeMenu();
-                });
-            }
+        sideMenu.show().css('left', 0);
+        isMenuOpen = true;
+        cp.trigger('menu_open', { smallScreen: smallScreen });
+        if (smallScreen) {
+            overlay.css('opacity', 'initial');
+            overlay.show();
+            sideMenu.find('a').one('click', function() {
+                closeMenu();
+            });
         }
     }
 
     function closeMenu() {
-        if (isMenuOpen && smallScreen) {
+        if (smallScreen) {
             isMenuOpen = false;
-            sideMenu.animateCss('slideOutLeft', { delay: '0.1s', duration: '0.3s' }, function () {
+            sideMenu.css('left', -sideMenuWidth+'px');
+            /*
+            sideMenu.animateCss(function () {
                 if (!isMenuOpen) {
                     this.hide();
                 }
             });
+            */
             if (smallScreen) {
                 overlay.hide();
             }
@@ -107,8 +162,69 @@ zuix.controller(function(cp) {
             openMenu();
     }
 
+    function dragBy(x) {
+        if (x > 0 && x < sideMenuWidth) {
+            x = -sideMenuWidth+x;
+            if (sideMenu.display() === 'none') {
+                sideMenu.show();
+            }
+            sideMenu.css('left', x + 'px');
+            if (overlay.display() === 'none') {
+                overlay.show();
+            }
+            overlay.css('opacity', (sideMenuWidth + x) / sideMenuWidth)
+        }
+    }
+
     function isOpen() {
         return isMenuOpen;
+    }
+
+    let isTransitionOn = false;
+    function transitionOn(duration) {
+        if (!isTransitionOn) {
+            if (duration == null) {
+                duration = 0.3;
+            }
+            isTransitionOn = true;
+            const transition = 'ease '+duration+'s';
+            sideMenu.css({
+                'transition-property': 'left',
+                '-webkit-transition': transition,
+                '-moz-transition': transition,
+                '-ms-transition': transition,
+                '-o-transition': transition,
+                'transition': transition
+            });
+            overlay.css({
+                'transition-property': 'display, opacity',
+                '-webkit-transition': transition,
+                '-moz-transition': transition,
+                '-ms-transition': transition,
+                '-o-transition': transition,
+                'transition': transition
+            });
+        }
+    }
+    function transitionOff() {
+        if (isTransitionOn) {
+            isTransitionOn = false;
+            const transition = 'none';
+            sideMenu.css({
+                '-webkit-transition': transition,
+                '-moz-transition': transition,
+                '-ms-transition': transition,
+                '-o-transition': transition,
+                'transition': transition
+            });
+            overlay.css({
+                '-webkit-transition': transition,
+                '-moz-transition': transition,
+                '-ms-transition': transition,
+                '-o-transition': transition,
+                'transition': transition
+            });
+        }
     }
 
 });

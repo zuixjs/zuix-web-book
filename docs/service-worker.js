@@ -29,7 +29,7 @@ self.__precacheManifest = [
   },
   {
     "url": "app/controllers/side_panel.js",
-    "revision": "b9363b162001e7f7124ebfbff99aede0"
+    "revision": "b667fc7d2bed16dcfd721254f953702d"
   },
   {
     "url": "app/layout/header.css",
@@ -49,11 +49,11 @@ self.__precacheManifest = [
   },
   {
     "url": "app/layout/side_menu.css",
-    "revision": "bbe4334f16a6d905ba891a5eb4af964a"
+    "revision": "afd3fbb725ece38374d1c0d0bce7872c"
   },
   {
     "url": "app/layout/side_menu.html",
-    "revision": "ba4bda0d1f8272fce280769f3fb92ea0"
+    "revision": "09d0d3dfc25b85c98cdf50cc21dbb77f"
   },
   {
     "url": "app/templates/mdl_card.css",
@@ -97,15 +97,15 @@ self.__precacheManifest = [
   },
   {
     "url": "index.css",
-    "revision": "49bd224eb6225e1e90a7a1b7630c8358"
+    "revision": "733238035632c3ff4f793c227654af57"
   },
   {
     "url": "index.html",
-    "revision": "8fc0d82c4723cf6ac65f06ddef6b6aa9"
+    "revision": "c7a29b8c6780029746d31bd98370ab00"
   },
   {
     "url": "index.js",
-    "revision": "39c9c6929613f0d5670b8c35956dea2c"
+    "revision": "07267ef39375fd56ecde466707f52616"
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
@@ -161,7 +161,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
+    "revision": "630e5b6805eeddd575fa2948502254d3"
   },
   {
     "url": "js/zuix/zuix.min.js",

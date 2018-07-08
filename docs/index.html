@@ -5338,6 +5338,7 @@ module.exports = function(root) {
     </div>
 
     <div data-ui-include="layout/side_menu" data-ui-field="side-menu" class="side-menu mdl-shadow--8dp" layout="column center-spread" data-ui-view="layout/side_menu">
+<h2>WebBook</h2>
 <div self="size-x1" data-ui-field="menu" class="side-menu mdl-color--white">
 </div>
 
@@ -5519,7 +5520,7 @@ div[data-ui-field="content-pages"] .page img {
 
 /* Layout Animations */
 
-/* Side menu and content page show/hide */
+/* Content page show/hide */
 
 @keyframes main-expand-anim {
     from { margin-left: 250px;}
@@ -5528,23 +5529,6 @@ div[data-ui-field="content-pages"] .page img {
 @keyframes main-collapse-anim {
     from { margin-left: 0;}
     to { margin-left: 250px;}
-}
-.main-side-menu-off {
-    animation-name: main-expand-anim;
-    animation-duration: 0.5s;
-    margin-left: 0;
-    width: 100%;
-}
-.main-side-menu {
-    animation-name: main-collapse-anim;
-    animation-duration: 0.5s;
-    margin-left: 250px;
-    width: 100%;
-}
-.main-side-menu-pull {
-    animation-name: main-collapse-anim;
-    animation-duration: 0.5s;
-    margin-left: 250px;
 }
 
 /* Top bar shrink/expand */
@@ -5682,6 +5666,7 @@ headerElement.on('component:ready', function() {
 let sideMenuPanel = null;
 let contentLoader = null;
 let currentPage = null;
+let autoHidingMenu = false;
 
 // component options must be in the global scope, so must be
 // defined as 'var' or as window.contentOptions = { ... }
@@ -5698,6 +5683,7 @@ var contentOptions = {
             'menu_open': sideMenuOpen,
             'menu_close': sideMenuClose,
             'auto_hide': function (e, autoHide) {
+                autoHidingMenu = autoHide;
                 if (autoHide) {
                     pageContainer
                         .removeClass('main-side-menu main-side-menu-pull')
@@ -5711,11 +5697,13 @@ var contentOptions = {
                     headerTitle.css('margin-left', '250px');
                     menuButton.hide();
                 }
+                if (sideMenuPanel != null) sideMenuPanel.lock(!autoHidingMenu);
             }
         },
         ready: function (ctx) {
             // store a global reference to the side-menu navigator component
             sideMenuPanel = ctx;
+            sideMenuPanel.lock(!autoHidingMenu);
         }
     },
     contentLoader: {
@@ -5747,18 +5735,6 @@ var contentOptions = {
                         showNavigation();
                         break;
                 }
-                /*
-                if (pageContainer.hasClass('main-side-menu-off')) {
-                    if (data.event === 'scroll' || data.event === 'hit-top' || data.event === 'hit-bottom') {
-                        if (data.info.shift.y > 0) {
-                        } else {
-                        }
-                    }
-                }
-                if (data.event === 'hit-bottom') {
-                    showNavigation();
-                } else hideNavigation();
-                */
             }
         },
         ready: function (ctx) {
@@ -5799,27 +5775,6 @@ var contentOptions = {
 zuix.$.ZxQuery.prototype.animateCss  = function (animationName, param1, param2){}; // // forward declaration (kind of)
 zuix.using('component', '@lib/extensions/animate_css', function(res, ctx) {
     console.log("AnimateCSS extension loaded.", res, ctx);
-});
-
-// handle gesture to open/close side menu
-zuix.load('@lib/controllers/gesture_helper', {
-    view: document.documentElement,
-    on: {
-        'gesture:tap': function(e, tp) {
-//            console.log(tp);
-        },
-        'gesture:pan': function (e, tp) {
-//            console.log(tp);
-        },
-        'gesture:swipe': function (e, tp) {
-            if (!sideMenuPanel.isOpen() && tp.direction === 'right' && tp.startX < 100) {
-                showHeader();
-                sideMenuPanel.open();
-            } else if (sideMenuPanel.isOpen() && tp.direction === 'left') {
-                sideMenuPanel.close();
-            }
-        }
-    }
 });
 
 // Add hooks for custom content processing
@@ -5907,20 +5862,16 @@ function fetchFromObject(obj, prop) {
 
 function sideMenuOpen(e, status) {
     if (status.smallScreen) {
-        pageContainer.addClass('main-side-menu-pull');
-        headerTitle.parent().addClass('main-side-menu-off main-side-menu-pull');
         hideNavigation();
-    } else showHeader();
+    } else {
+        showHeader();
+    }
     // animate menu button
-    menuButton.addClass('reverse').animateCss('rotateOut', { duration: '0.25s' }, function () {
+    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('arrow_back').animateCss('rotateIn', { duration: '0.25s' });
-    });
+    }).addClass('reverse');
 }
 function sideMenuClose(e, status) {
-    if (status.smallScreen) {
-        pageContainer.removeClass('main-side-menu-pull');
-        headerTitle.parent().removeClass('main-side-menu-pull');
-    }
     // animate menu button
     menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('menu').animateCss('rotateIn', { duration: '0.25s' });
@@ -6167,7 +6118,7 @@ function hideHeader() {
   },
   {
     "componentId": "controllers/side_panel",
-    "controller": "zuix.controller(function(cp) {\n    let isMenuOpen = true;\n    let smallScreen = false;\n    let firstCheck = true;\n\n    let overlay = null;\n    let sideMenu = null;\n\n    let autoHideWidth = 960;\n\n    cp.init = function () {\n        this.options().html = false;\n        this.options().css = false;\n    };\n\n    cp.create = function() {\n        const config = cp.options().config;\n        sideMenu = zuix.field(config.sideMenuElement);\n        if (config.autoHideWidth != null) {\n            autoHideWidth = config.autoHideWidth;\n        }\n        // listen to window resize event to make layout responsive\n        window.addEventListener('resize', function () {\n            sizeCheck();\n        });\n        // add overlay for small screens when menu is open\n        overlay = zuix.$(document.createElement('div'));\n        overlay.css({\n            'position': 'absolute',\n            'top': sideMenu.position().y+'px',\n            'left': 0,\n            'bottom': 0,\n            'right': 0,\n            'z-index': 10,\n            'background-color': 'rgba(0, 0, 0, 0.35)'\n        }).on('click', function () {\n            closeMenu();\n        }).hide();\n        sideMenu.css('z-index', 15)\n            .parent().append(overlay.get());\n        // public component methods\n        cp.expose('toggle', toggleMenu);\n        cp.expose('open', openMenu);\n        cp.expose('close', closeMenu);\n        cp.expose('isOpen', isOpen);\n        // detect screen size and set large/small layout\n        sizeCheck();\n        firstCheck = false;\n    };\n\n    function sizeCheck() {\n        const width = document.body.clientWidth;\n        if (width < autoHideWidth) {\n            if (!smallScreen || firstCheck) {\n                smallScreen = true;\n                cp.trigger('auto_hide', true);\n                closeMenu();\n            }\n        } else {\n            if (smallScreen || firstCheck) {\n                if (smallScreen) {\n                    overlay.hide();\n                    if (isMenuOpen)\n                        closeMenu();\n                }\n                smallScreen = false;\n                cp.trigger('auto_hide', false);\n                openMenu();\n            }\n        }\n    }\n\n    function openMenu() {\n        sideMenu.show();\n        if (!isMenuOpen) {\n            isMenuOpen = true;\n            sideMenu.animateCss('slideInLeft', { delay: '0.1s', duration: '0.3s' });\n            cp.trigger('menu_open', { smallScreen: smallScreen });\n            if (smallScreen) {\n                overlay.show().animateCss('fadeIn');\n                sideMenu.find('a').one('click', function() {\n                    closeMenu();\n                });\n            }\n        }\n    }\n\n    function closeMenu() {\n        if (isMenuOpen && smallScreen) {\n            isMenuOpen = false;\n            sideMenu.animateCss('slideOutLeft', { delay: '0.1s', duration: '0.3s' }, function () {\n                if (!isMenuOpen) {\n                    this.hide();\n                }\n            });\n            if (smallScreen) {\n                overlay.hide();\n            }\n            cp.trigger('menu_close', { smallScreen: smallScreen });\n        }\n    }\n\n    function toggleMenu() {\n        if (isMenuOpen)\n            closeMenu();\n        else\n            openMenu();\n    }\n\n    function isOpen() {\n        return isMenuOpen;\n    }\n\n});\n"
+    "controller": "zuix.controller(function(cp) {\n    let isMenuOpen = true;\n    let isLocked = false;\n    let smallScreen = false;\n    let firstCheck = true;\n\n    let overlay = null;\n    let sideMenu = null;\n    let sideMenuWidth = 0;\n\n    let autoHideWidth = 960;\n\n    cp.init = function () {\n        this.options().html = false;\n        this.options().css = false;\n    };\n\n    cp.create = function() {\n        const config = cp.options().config;\n        sideMenu = zuix.field(config.sideMenuElement);\n        if (config.autoHideWidth != null) {\n            autoHideWidth = config.autoHideWidth;\n        }\n        // listen to window resize event to make layout responsive\n        window.addEventListener('resize', function () {\n            sizeCheck();\n        });\n        // add overlay for small screens when menu is open\n        overlay = zuix.$(document.createElement('div'));\n        overlay.css({\n            'position': 'absolute',\n            'top': sideMenu.position().y+'px',\n            'left': 0,\n            'bottom': 0,\n            'right': 0,\n            'z-index': 10,\n            'background-color': 'rgba(0, 0, 0, 0.35)'\n        }).on('click', function () {\n            closeMenu();\n        }).hide();\n        sideMenu.css({\n            'left': 0,\n            'z-index': 100\n        });\n        sideMenu.parent().append(overlay.get());\n\n        let isDragging = false;\n        // handle gesture to open/close side menu\n        zuix.load('@lib/controllers/gesture_helper', {\n            view: sideMenu.parent(),\n            on: {\n                'gesture:touch': function(e, tp) {\n                    if (isLocked) return;\n                    transitionOn();\n                },\n                'gesture:release': function(e, tp) {\n                    if (isLocked) return;\n                    if (isDragging) {\n                        isDragging = false;\n                        transitionOn();\n                        if (tp.velocity > 0) {\n                            openMenu();\n                        } else {\n                            closeMenu();\n                        }\n                    }\n                },\n                'gesture:pan': function (e, tp) {\n                    if (isLocked) return;\n                    if ((isDragging || isMenuOpen) && tp.x < sideMenuWidth || (!isDragging && tp.x < 50)) {\n                        if (!isDragging) {\n                            isDragging = true;\n                        }\n                        transitionOn();\n                        dragBy(tp.x);\n                        transitionOff();\n                    }\n                }\n            }\n        });\n\n        // public component methods\n        cp.expose('toggle', toggleMenu);\n        cp.expose('open', function () {\n            transitionOn();\n            return openMenu();\n        });\n        cp.expose('close', function () {\n            transitionOn();\n            return closeMenu();\n        });\n        cp.expose('isOpen', isOpen);\n        // TODO: refactor to 'dragTo'\n        cp.expose('dragBy', dragBy);\n        cp.expose('lock', function(locked) {\n            isLocked = locked;\n        });\n\n        // detect screen size and set large/small layout\n        sizeCheck();\n        firstCheck = false;\n    };\n\n    function sizeCheck() {\n        sideMenuWidth = sideMenu.get().clientWidth;\n        const width = document.body.clientWidth;\n        if (width < autoHideWidth) {\n            if (!smallScreen || firstCheck) {\n                smallScreen = true;\n                cp.trigger('auto_hide', true);\n                closeMenu();\n            }\n        } else {\n            if (smallScreen || firstCheck) {\n                if (smallScreen) {\n                    overlay.hide();\n                    if (isMenuOpen)\n                        closeMenu();\n                }\n                smallScreen = false;\n                cp.trigger('auto_hide', false);\n                openMenu();\n            }\n        }\n    }\n\n    function openMenu() {\n        sideMenu.show().css('left', 0);\n        isMenuOpen = true;\n        cp.trigger('menu_open', { smallScreen: smallScreen });\n        if (smallScreen) {\n            overlay.css('opacity', 'initial');\n            overlay.show();\n            sideMenu.find('a').one('click', function() {\n                closeMenu();\n            });\n        }\n    }\n\n    function closeMenu() {\n        if (smallScreen) {\n            isMenuOpen = false;\n            sideMenu.css('left', -sideMenuWidth+'px');\n            /*\n            sideMenu.animateCss(function () {\n                if (!isMenuOpen) {\n                    this.hide();\n                }\n            });\n            */\n            if (smallScreen) {\n                overlay.hide();\n            }\n            cp.trigger('menu_close', { smallScreen: smallScreen });\n        }\n    }\n\n    function toggleMenu() {\n        if (isMenuOpen)\n            closeMenu();\n        else\n            openMenu();\n    }\n\n    function dragBy(x) {\n        if (x > 0 && x < sideMenuWidth) {\n            x = -sideMenuWidth+x;\n            if (sideMenu.display() === 'none') {\n                sideMenu.show();\n            }\n            sideMenu.css('left', x + 'px');\n            if (overlay.display() === 'none') {\n                overlay.show();\n            }\n            overlay.css('opacity', (sideMenuWidth + x) / sideMenuWidth)\n        }\n    }\n\n    function isOpen() {\n        return isMenuOpen;\n    }\n\n    let isTransitionOn = false;\n    function transitionOn(duration) {\n        if (!isTransitionOn) {\n            if (duration == null) {\n                duration = 0.3;\n            }\n            isTransitionOn = true;\n            const transition = 'ease '+duration+'s';\n            sideMenu.css({\n                'transition-property': 'left',\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n            overlay.css({\n                'transition-property': 'display, opacity',\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n        }\n    }\n    function transitionOff() {\n        if (isTransitionOn) {\n            isTransitionOn = false;\n            const transition = 'none';\n            sideMenu.css({\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n            overlay.css({\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n        }\n    }\n\n});\n"
   },
   {
     "componentId": "controllers/content_loader",
@@ -6179,7 +6130,7 @@ function hideHeader() {
   },
   {
     "componentId": "layout/side_menu",
-    "css": ". {\n    position: fixed;\n    width: 250px;\n    top:64px; left:0; bottom:0;\n    overflow: visible;\n}\n\n.side-menu {\n    overflow-y: auto;\n    padding: 16px 0 48px;\n    font-family: 'Roboto Condensed', serif !important;\n    font-size:110%;\n    z-index: 10;\n}\n\n.side-menu .material-icons {\n    font-size: 150%;\n    margin-right: 16px;\n}\n\n.side-menu a {\n    padding: 8px 8px 8px 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n\n.side-menu a:hover {\n    background-color: rgba(132, 184, 209, 0.5);\n    color: #101035;\n}\n\n.side-menu a.sub_item span {\n    margin-left: 16px;\n    padding-left: 16px;\n    font-size: 90%;\n    border-left: dotted 3px rgba(150,150,150,0.5);\n}\n\n.current {\n    background-color: rgba(132, 184, 209, 0.25);\n    color: #101035;\n}\n.current span {\n    font-weight: bolder;\n}\n"
+    "css": ". {\n    position: fixed;\n    width: 250px;\n    top:0; left:0; bottom:0;\n    overflow: visible;\n}\n\nh2 {\n    background: whitesmoke;\n    margin:  0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    text-align: center;\n}\n\n.side-menu {\n    overflow-y: auto;\n    padding: 16px 0 48px;\n    font-family: 'Roboto Condensed', serif !important;\n    font-size:110%;\n    z-index: 10;\n}\n\n.side-menu .material-icons {\n    font-size: 150%;\n    margin-right: 16px;\n}\n\n.side-menu a {\n    padding: 8px 8px 8px 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n\n.side-menu a:hover {\n    background-color: rgba(132, 184, 209, 0.5);\n    color: #101035;\n}\n\n.side-menu a.sub_item span {\n    margin-left: 16px;\n    padding-left: 16px;\n    font-size: 90%;\n    border-left: dotted 3px rgba(150,150,150,0.5);\n}\n\n.current {\n    background-color: rgba(132, 184, 209, 0.25);\n    color: #101035;\n}\n.current span {\n    font-weight: bolder;\n}\n"
   }
 ])</script>
 </body></html>

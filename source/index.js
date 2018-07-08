@@ -17,6 +17,7 @@ headerElement.on('component:ready', function() {
 let sideMenuPanel = null;
 let contentLoader = null;
 let currentPage = null;
+let autoHidingMenu = false;
 
 // component options must be in the global scope, so must be
 // defined as 'var' or as window.contentOptions = { ... }
@@ -33,6 +34,7 @@ var contentOptions = {
             'menu_open': sideMenuOpen,
             'menu_close': sideMenuClose,
             'auto_hide': function (e, autoHide) {
+                autoHidingMenu = autoHide;
                 if (autoHide) {
                     pageContainer
                         .removeClass('main-side-menu main-side-menu-pull')
@@ -46,11 +48,13 @@ var contentOptions = {
                     headerTitle.css('margin-left', '250px');
                     menuButton.hide();
                 }
+                if (sideMenuPanel != null) sideMenuPanel.lock(!autoHidingMenu);
             }
         },
         ready: function (ctx) {
             // store a global reference to the side-menu navigator component
             sideMenuPanel = ctx;
+            sideMenuPanel.lock(!autoHidingMenu);
         }
     },
     contentLoader: {
@@ -82,18 +86,6 @@ var contentOptions = {
                         showNavigation();
                         break;
                 }
-                /*
-                if (pageContainer.hasClass('main-side-menu-off')) {
-                    if (data.event === 'scroll' || data.event === 'hit-top' || data.event === 'hit-bottom') {
-                        if (data.info.shift.y > 0) {
-                        } else {
-                        }
-                    }
-                }
-                if (data.event === 'hit-bottom') {
-                    showNavigation();
-                } else hideNavigation();
-                */
             }
         },
         ready: function (ctx) {
@@ -134,27 +126,6 @@ var contentOptions = {
 zuix.$.ZxQuery.prototype.animateCss  = function (animationName, param1, param2){}; // // forward declaration (kind of)
 zuix.using('component', '@lib/extensions/animate_css', function(res, ctx) {
     console.log("AnimateCSS extension loaded.", res, ctx);
-});
-
-// handle gesture to open/close side menu
-zuix.load('@lib/controllers/gesture_helper', {
-    view: document.documentElement,
-    on: {
-        'gesture:tap': function(e, tp) {
-//            console.log(tp);
-        },
-        'gesture:pan': function (e, tp) {
-//            console.log(tp);
-        },
-        'gesture:swipe': function (e, tp) {
-            if (!sideMenuPanel.isOpen() && tp.direction === 'right' && tp.startX < 100) {
-                showHeader();
-                sideMenuPanel.open();
-            } else if (sideMenuPanel.isOpen() && tp.direction === 'left') {
-                sideMenuPanel.close();
-            }
-        }
-    }
 });
 
 // Add hooks for custom content processing
@@ -242,20 +213,16 @@ function fetchFromObject(obj, prop) {
 
 function sideMenuOpen(e, status) {
     if (status.smallScreen) {
-        pageContainer.addClass('main-side-menu-pull');
-        headerTitle.parent().addClass('main-side-menu-off main-side-menu-pull');
         hideNavigation();
-    } else showHeader();
+    } else {
+        showHeader();
+    }
     // animate menu button
-    menuButton.addClass('reverse').animateCss('rotateOut', { duration: '0.25s' }, function () {
+    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('arrow_back').animateCss('rotateIn', { duration: '0.25s' });
-    });
+    }).addClass('reverse');
 }
 function sideMenuClose(e, status) {
-    if (status.smallScreen) {
-        pageContainer.removeClass('main-side-menu-pull');
-        headerTitle.parent().removeClass('main-side-menu-pull');
-    }
     // animate menu button
     menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('menu').animateCss('rotateIn', { duration: '0.25s' });
