@@ -2,7 +2,8 @@ zuix.store("config", {
     "title": "WebBook",
     "googleSiteId": "UA-123-456",
     "resourcePath": "./app/",
-    "libraryPath": "https://genielabs.github.io/zkit/lib"
+    "drawerWidth": 300,
+    "libraryPath": "http://192.168.2.104:8081/lib"
 });
 
     // Check that service workers are registered

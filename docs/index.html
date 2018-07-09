@@ -5293,7 +5293,7 @@ module.exports = function(root) {
 </head>
 <body>
 
-    <header data-ui-include="layout/header" data-ui-context="header" data-ui-options="contentOptions.no_css" class="mdl-shadow--8dp animated fadeInDown no-gesture" data-ui-view="layout/header">
+    <header data-ui-include="layout/header" data-ui-context="header" data-ui-options="siteOptions.no_css" class="mdl-shadow--4dp animated fadeInDown no-gesture" data-ui-view="layout/header">
 <div self="size-x1" layout="row center-left" class="first-row mdl-color--primary-dark mdl-color-text--white">
     <div class="title" layout="row center-left" self="size-x1">
         <a data-ui-field="menu-button" class="menu-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
@@ -5321,32 +5321,18 @@ module.exports = function(root) {
 
     </main>
 
-    <!-- Next Page FAB Button -->
-    <div data-ui-field="fab-navigation" layout="row center-spread" class="mdl-color--primary-dark mdl-color-text--white">
-        <div self="size1of2" layout="rows center-left">
-            <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--primary">
-                <i class="material-icons">navigate_before</i>
-            </a>
-            <label></label>
-        </div>
-        <div self="size1of2" layout="rows center-right">
-            <label></label>
-            <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--primary">
-                <i class="material-icons">navigate_next</i>
-            </a>
-        </div>
-    </div>
+    <div data-ui-load="@lib/controllers/drawer_layout" data-ui-options="siteOptions.drawerLayout">
 
-    <div data-ui-include="layout/side_menu" data-ui-field="side-menu" class="side-menu mdl-shadow--8dp" layout="column center-spread" data-ui-view="layout/side_menu">
+        <div data-ui-include="layout/side_menu" data-ui-field="side-menu" class="side-menu mdl-shadow--8dp" layout="column center-spread" data-ui-view="layout/side_menu">
 <h2>WebBook</h2>
 <div self="size-x1" data-ui-field="menu" class="side-menu mdl-color--white">
 </div>
 
 </div>
 
-    <div data-ui-load="controllers/side_panel" data-ui-options="contentOptions.sidePanel"><!-- no-view --></div>
+    </div>
 
-    <div data-ui-load="controllers/content_loader" data-ui-options="contentOptions.contentLoader"><!-- no-view --></div>
+    <div data-ui-load="controllers/content_loader" data-ui-options="siteOptions.contentLoader"><!-- no-view --></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--
@@ -5545,7 +5531,6 @@ div[data-ui-field="content-pages"] .page img {
 .main-side-menu-pull {
     animation-name: main-collapse-anim;
     animation-duration: 0.5s;
-    margin-left: 250px;
 }
 
 /* Top bar shrink/expand */
@@ -5651,7 +5636,8 @@ zuix.store("config", {
     "title": "WebBook",
     "googleSiteId": "UA-123-456",
     "resourcePath": "./app/",
-    "libraryPath": "https://genielabs.github.io/zkit/lib"
+    "drawerWidth": 300,
+    "libraryPath": "http://192.168.2.104:8081/lib"
 });
 
     // Check that service workers are registered
@@ -5686,32 +5672,31 @@ let currentPage = null;
 let autoHidingMenu = false;
 
 // component options must be in the global scope, so must be
-// defined as 'var' or as window.contentOptions = { ... }
-var contentOptions = {
-    sidePanel: {
-        css: false,
+// defined as 'var' or as window.siteOptions = { ... }
+var siteOptions = {
+    drawerLayout: {
         // configuration
-        config: {
-            sideMenuElement: 'side-menu',
-            autoHideWidth: 960
-        },
+        drawerWidth: 300,
+        autoHideWidth: 960,
         // event listeners
         on: {
-            'menu_open': sideMenuOpen,
-            'menu_close': sideMenuClose,
-            'auto_hide': function (e, autoHide) {
+            'drawer:open': sideMenuOpen,
+            'drawer:close': sideMenuClose,
+            'drawer:autoHide': function (e, autoHide) {
                 autoHidingMenu = autoHide;
                 if (autoHide) {
                     pageContainer
                         .removeClass('main-side-menu main-side-menu-pull')
-                        .addClass('main-side-menu-off');
+                        .addClass('main-side-menu-off')
+                        .css('margin-left', '0');
                     headerTitle.css('margin-left', '0');
                     menuButton.show();
                 } else {
                     pageContainer
                         .removeClass('main-side-menu-off main-side-menu')
-                        .addClass('main-side-menu-pull');
-                    headerTitle.css('margin-left', '250px');
+                        .addClass('main-side-menu-pull')
+                        .css('margin-left', siteOptions.drawerLayout.drawerWidth+'px');
+                    headerTitle.css('margin-left', siteOptions.drawerLayout.drawerWidth+'px');
                     menuButton.hide();
                 }
                 if (sideMenuPanel != null) sideMenuPanel.lock(!autoHidingMenu);
@@ -5737,19 +5722,15 @@ var contentOptions = {
                             if (data.info.shift.y < 0) {
                                 // scrolling up
                                 hideHeader();
-                                hideNavigation();
                             } else if (data.info.shift.y > 0) {
                                 // scrolling down
                                 showHeader();
-                                showNavigation();
                             }
-                        } else if (data.info.shift.y < 0) {
-                            hideNavigation();
                         }
                         break;
                     case 'hit-bottom':
                         // reached end of page
-                        showNavigation();
+                        showHeader();
                         break;
                 }
             }
@@ -5878,9 +5859,7 @@ function fetchFromObject(obj, prop) {
 }
 
 function sideMenuOpen(e, status) {
-    if (status.smallScreen) {
-        hideNavigation();
-    } else {
+    if (!status.smallScreen) {
         showHeader();
     }
     // animate menu button
@@ -5947,7 +5926,6 @@ function revealPage(pageContext) {
     }
     zuix.$(pageContext.view()).animateCss('fadeIn'+directionIn, { duration: crossFadeDuration }).show();
     currentPage = pageContext;
-    updateNavigation();
 }
 
 function makeScrollable(div) {
@@ -5978,81 +5956,6 @@ function getItemFromPath(path) {
     return item;
 }
 
-function getPrevNextFromLocation() {
-    const list = siteConfig.content;
-    let nextItem = null;
-    let prevItem = null;
-    let path = window.location.hash;
-    if (path === '')
-        path = siteConfig.strings.startPage;
-    let pickNext = false;
-    zuix.$.each(list, function (k, v) {
-        if (v.list != null) {
-            zuix.$.each(v.list, function(k1,v1){
-                if (v1.data != null && v1.data.link === path) {
-                    pickNext = true;
-                } else if (pickNext) {
-                    nextItem = v1;
-                    return false;
-                }
-                if (!pickNext) {
-                    prevItem = v1;
-                }
-            });
-            return nextItem == null;
-        } else if (v.data != null && v.data.link === path) {
-            pickNext = true;
-        } else if (pickNext) {
-            nextItem = v;
-            return false;
-        }
-        if (!pickNext) {
-            prevItem = v;
-        }
-    });
-    return { prev: prevItem, next: nextItem };
-}
-
-const navigationButtons = zuix.field('fab-navigation').hide();
-const navigateBack = navigationButtons.find('a').eq(0);
-const navigateNext = navigationButtons.find('a').eq(1);
-function updateNavigation() {
-    const prevNext = getPrevNextFromLocation();
-    if (prevNext.next != null) {
-        navigateNext.parent().show()
-            .find('label').html(prevNext.next.data.title);
-        navigateNext
-            .attr('href', prevNext.next.data.link)
-            .attr('title', 'Next: '+prevNext.next.data.title);
-    } else {
-        navigateNext.attr('href', '').parent().hide();
-    }
-    if (prevNext.prev != null) {
-        navigateBack.parent().show()
-            .find('label').html(prevNext.prev.data.title);
-        navigateBack
-            .attr('href', prevNext.prev.data.link)
-            .attr('title', 'Previous: '+prevNext.prev.data.title);
-    } else {
-        navigateBack.attr('href', '').parent().hide();
-    }
-    hideNavigation();
-}
-
-function showNavigation() {
-    if (navigationButtons.display() === 'none') {
-        navigationButtons.animateCss('fadeInUp').show();
-    }
-}
-
-function hideNavigation() {
-    if (navigationButtons.display() === '') {
-        navigationButtons.animateCss('fadeOutDown', {duration: '0.3s'}, function () {
-            this.hide();
-        });
-    }
-}
-
 function showHeader() {
     if (headerElement.hasClass('header-collapse')) {
         headerElement.removeClass('header-collapse').addClass('header-expand');
@@ -6070,8 +5973,8 @@ function hideHeader() {
 
 <!-- zUIx inline resource resourceBundle -->
 <!--{[@lib/components/social_sharing]}-->
-<div data-ui-view="https://genielabs.github.io/zkit/lib/components/social_sharing">
-<a class="resp-sharing-button__link" rel="noopener" href="https://facebook.com/sharer/sharer.php?u={url}" target="_blank" aria-label="">
+<div data-ui-view="http://192.168.2.104:8081/lib/components/social_sharing">
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u={url}" target="_blank" aria-label="">
     <div class="animated bounceIn resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"></path></svg>
     </div>
@@ -6079,7 +5982,7 @@ function hideHeader() {
 </a>
 
 <!-- Sharingbutton Twitter -->
-<a class="resp-sharing-button__link" rel="noopener" href="https://twitter.com/intent/tweet/?text={description}&amp;url={url}" target="_blank" aria-label="">
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?text={description}&amp;url={url}" target="_blank" aria-label="">
     <div class="animated bounceIn resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.57v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z"></path></svg>
     </div>
@@ -6087,7 +5990,7 @@ function hideHeader() {
 </a>
 
 <!-- Sharingbutton Google+ -->
-<a class="resp-sharing-button__link animated pulse" rel="noopener" href="https://plus.google.com/share?url={url}" target="_blank" aria-label="">
+<a class="resp-sharing-button__link animated pulse" href="https://plus.google.com/share?url={url}" target="_blank" aria-label="">
     <div class="animated bounceIn resp-sharing-button resp-sharing-button--google resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.37 12.93c-.73-.52-1.4-1.27-1.4-1.5 0-.43.03-.63.98-1.37 1.23-.97 1.9-2.23 1.9-3.57 0-1.22-.36-2.3-1-3.05h.5c.1 0 .2-.04.28-.1l1.36-.98c.16-.12.23-.34.17-.54-.07-.2-.25-.33-.46-.33H7.6c-.66 0-1.34.12-2 .35-2.23.76-3.78 2.66-3.78 4.6 0 2.76 2.13 4.85 5 4.9-.07.23-.1.45-.1.66 0 .43.1.83.33 1.22h-.08c-2.72 0-5.17 1.34-6.1 3.32-.25.52-.37 1.04-.37 1.56 0 .5.13.98.38 1.44.6 1.04 1.84 1.86 3.55 2.28.87.23 1.82.34 2.8.34.88 0 1.7-.1 2.5-.34 2.4-.7 3.97-2.48 3.97-4.54 0-1.97-.63-3.15-2.33-4.35zm-7.7 4.5c0-1.42 1.8-2.68 3.9-2.68h.05c.45 0 .9.07 1.3.2l.42.28c.96.66 1.6 1.1 1.77 1.8.05.16.07.33.07.5 0 1.8-1.33 2.7-3.96 2.7-1.98 0-3.54-1.23-3.54-2.8zM5.54 3.9c.33-.38.75-.58 1.23-.58h.05c1.35.05 2.64 1.55 2.88 3.35.14 1.02-.08 1.97-.6 2.55-.32.37-.74.56-1.23.56h-.03c-1.32-.04-2.63-1.6-2.87-3.4-.13-1 .08-1.92.58-2.5zM23.5 9.5h-3v-3h-2v3h-3v2h3v3h2v-3h3"></path></svg>
     </div>
@@ -6095,7 +5998,7 @@ function hideHeader() {
 </a>
 
 <!-- Sharingbutton Tumblr -->
-<a class="resp-sharing-button__link" rel="noopener" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title={description}&amp;caption={description}&amp;content={url}&amp;canonicalUrl={url}&amp;shareSource=tumblr_share_button" target="_blank" aria-label="">
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title={description}&amp;caption={description}&amp;content={url}&amp;canonicalUrl={url}&amp;shareSource=tumblr_share_button" target="_blank" aria-label="">
     <div class="animated bounceIn resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.5.5v5h5v4h-5V15c0 5 3.5 4.4 6 2.8v4.4c-6.7 3.2-12 0-12-4.2V9.5h-3V6.7c1-.3 2.2-.7 3-1.3.5-.5 1-1.2 1.4-2 .3-.7.6-1.7.7-3h3.8z"></path></svg>
     </div>
@@ -6103,7 +6006,7 @@ function hideHeader() {
 </a>
 
 <!-- Sharingbutton E-Mail -- >
-<a class="resp-sharing-button__link" rel="noopener" href="mailto:?subject={description}&amp;body={url}" target="_self" aria-label="">
+<a class="resp-sharing-button__link" href="mailto:?subject={description}&amp;body={url}" target="_self" aria-label="">
     <div class="animated bounceIn resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 4H2C.9 4 0 4.9 0 6v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM7.25 14.43l-3.5 2c-.08.05-.17.07-.25.07-.17 0-.34-.1-.43-.25-.14-.24-.06-.55.18-.68l3.5-2c.24-.14.55-.06.68.18.14.24.06.55-.18.68zm4.75.07c-.1 0-.2-.03-.27-.08l-8.5-5.5c-.23-.15-.3-.46-.15-.7.15-.22.46-.3.7-.14L12 13.4l8.23-5.32c.23-.15.54-.08.7.15.14.23.07.54-.16.7l-8.5 5.5c-.08.04-.17.07-.27.07zm8.93 1.75c-.1.16-.26.25-.43.25-.08 0-.17-.02-.25-.07l-3.5-2c-.24-.13-.32-.44-.18-.68s.44-.32.68-.18l3.5 2c.24.13.32.44.18.68z"/></svg>
     </div>
@@ -6111,7 +6014,7 @@ function hideHeader() {
 </a-->
 
 <!-- Sharingbutton Pinterest -->
-<a class="resp-sharing-button__link" rel="noopener" href="https://pinterest.com/pin/create/button/?url={url}&amp;media={url}&amp;description={description}" target="_blank" aria-label="">
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url={url}&amp;media={url}&amp;description={description}" target="_blank" aria-label="">
     <div class="animated bounceIn resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.14.5C5.86.5 2.7 5 2.7 8.75c0 2.27.86 4.3 2.7 5.05.3.12.57 0 .66-.33l.27-1.06c.1-.32.06-.44-.2-.73-.52-.62-.86-1.44-.86-2.6 0-3.33 2.5-6.32 6.5-6.32 3.55 0 5.5 2.17 5.5 5.07 0 3.8-1.7 7.02-4.2 7.02-1.37 0-2.4-1.14-2.07-2.54.4-1.68 1.16-3.48 1.16-4.7 0-1.07-.58-1.98-1.78-1.98-1.4 0-2.55 1.47-2.55 3.42 0 1.25.43 2.1.43 2.1l-1.7 7.2c-.5 2.13-.08 4.75-.04 5 .02.17.22.2.3.1.14-.18 1.82-2.26 2.4-4.33.16-.58.93-3.63.93-3.63.45.88 1.8 1.65 3.22 1.65 4.25 0 7.13-3.87 7.13-9.05C20.5 4.15 17.18.5 12.14.5z"></path></svg>
     </div>
@@ -6119,7 +6022,7 @@ function hideHeader() {
 </a>
 
 <!-- Sharingbutton LinkedIn -- >
-<a class="resp-sharing-button__link" rel="noopener" href="https://www.linkedin.com/shareArticle?mini=true&amp;url={url}&amp;title={description}&amp;summary={description}&amp;source={url}" target="_blank" aria-label="">
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url={url}&amp;title={description}&amp;summary={description}&amp;source={url}" target="_blank" aria-label="">
     <div class="animated bounceIn resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 21.5h-5v-13h5v13zM4 6.5C2.5 6.5 1.5 5.3 1.5 4s1-2.4 2.5-2.4c1.6 0 2.5 1 2.6 2.5 0 1.4-1 2.5-2.6 2.5zm11.5 6c-1 0-2 1-2 2v7h-5v-13h5V10s1.6-1.5 4-1.5c3 0 5 2.2 5 6.3v6.7h-5v-7c0-1-1-2-2-2z"/></svg>
     </div>
@@ -6129,13 +6032,13 @@ function hideHeader() {
 </div>
 <script>zuix.bundle([
   {
-    "componentId": "https://genielabs.github.io/zkit/lib/components/social_sharing",
+    "componentId": "http://192.168.2.104:8081/lib/components/social_sharing",
     "controller": "zuix.controller(function(cp) {\n    cp.init = function() {\n        zuix.using('style', 'https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css');\n        zuix.using('style', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');\n    };\n    cp.create = function() {\n        const parsedHtml = zuix.$.replaceBraces(cp.view().html(), function(varName) {\n            switch (varName) {\n                case 'url':\n                    return encodeURIComponent(cp.model()[varName].href);\n                case 'description':\n                    return encodeURIComponent(cp.model()[varName].innerHTML);\n            }\n        });\n        if (parsedHtml != null) cp.view().html(parsedHtml);\n    };\n});\n",
     "css": ".resp-sharing-button__link,\n.resp-sharing-button__icon {\n    display: inline-block\n}\n\n.resp-sharing-button__link {\n    text-decoration: none;\n    color: #fff;\n    margin-left: 0.4em;\n    margin-right: 0.4em;\n}\n\n.resp-sharing-button {\n    border-radius: 5px;\n    transition: 25ms ease-out;\n    padding: 4px;\n    font-family: Helvetica Neue,Helvetica,Arial,sans-serif\n}\n\n.resp-sharing-button__icon svg {\n    width: 1em;\n    height: 1em;\n    margin-right: 0.4em;\n    vertical-align: top\n}\n\n.resp-sharing-button--small svg {\n    margin: 0;\n    vertical-align: middle\n}\n\n/* Non solid icons get a stroke */\n.resp-sharing-button__icon {\n    stroke: #facace;\n    fill: white;\n}\n\n/* Solid icons get a fill */\n.resp-sharing-button__icon--solid,\n.resp-sharing-button__icon--solidcircle {\n    fill: #fff;\n    stroke: none\n}\n\n.resp-sharing-button--facebook {\n    background-color: #3b5998;\n    -webkit-animation-delay: 0.7s;\n    -moz-animation-delay: 0.7s;\n    -o-animation-delay: 0.7s;\n    -ms-animation-delay: 0.7s;\n}\n\n.resp-sharing-button--facebook:hover {\n    background-color: #2d4373\n}\n\n.resp-sharing-button--twitter {\n    background-color: #55acee;\n    -webkit-animation-delay: 0.8s;\n    -moz-animation-delay: 0.8s;\n    -o-animation-delay: 0.8s;\n    -ms-animation-delay: 0.8s;\n}\n\n.resp-sharing-button--twitter:hover {\n    background-color: #2795e9\n}\n\n.resp-sharing-button--google {\n    background-color: #dd4b39;\n    -webkit-animation-delay: 0.9s;\n    -moz-animation-delay: 0.9s;\n    -o-animation-delay: 0.9s;\n    -ms-animation-delay: 0.9s;\n}\n\n.resp-sharing-button--google:hover {\n    background-color: #c23321\n}\n\n.resp-sharing-button--tumblr {\n    background-color: #35465C;\n    -webkit-animation-delay: 1.0s;\n    -moz-animation-delay: 1.0s;\n    -o-animation-delay: 1.0s;\n    -ms-animation-delay: 1.0s;\n}\n\n.resp-sharing-button--tumblr:hover {\n    background-color: #222d3c\n}\n\n.resp-sharing-button--pinterest {\n    background-color: #bd081c;\n    -webkit-animation-delay: 1.1s;\n    -moz-animation-delay: 1.1s;\n    -o-animation-delay: 1.1s;\n    -ms-animation-delay: 1.1s;\n}\n\n.resp-sharing-button--pinterest:hover {\n    background-color: #8c0615\n}\n\n.resp-sharing-button--reddit {\n    background-color: #5f99cf\n}\n\n.resp-sharing-button--reddit:hover {\n    background-color: #3a80c1\n}\n\n.resp-sharing-button--linkedin {\n    background-color: #0077b5\n}\n\n.resp-sharing-button--linkedin:hover {\n    background-color: #046293\n}\n\n.resp-sharing-button--email {\n    background-color: #777\n}\n\n.resp-sharing-button--email:hover {\n    background-color: #5e5e5e\n}\n\n.resp-sharing-button--xing {\n    background-color: #1a7576\n}\n\n.resp-sharing-button--xing:hover {\n    background-color: #114c4c\n}\n\n.resp-sharing-button--whatsapp {\n    background-color: #25D366\n}\n\n.resp-sharing-button--whatsapp:hover {\n    background-color: #1da851\n}\n\n.resp-sharing-button--hackernews {\n    background-color: #FF6600\n}\n.resp-sharing-button--hackernews:hover, .resp-sharing-button--hackernews:focus {   background-color: #FB6200 }\n\n.resp-sharing-button--vk {\n    background-color: #507299\n}\n\n.resp-sharing-button--vk:hover {\n    background-color: #43648c\n}\n\n.resp-sharing-button--facebook {\n    background-color: #3b5998;\n    border-color: #3b5998;\n}\n\n.resp-sharing-button--facebook:hover,\n.resp-sharing-button--facebook:active {\n    background-color: #2d4373;\n    border-color: #2d4373;\n}\n\n.resp-sharing-button--twitter {\n    background-color: #55acee;\n    border-color: #55acee;\n}\n\n.resp-sharing-button--twitter:hover,\n.resp-sharing-button--twitter:active {\n    background-color: #2795e9;\n    border-color: #2795e9;\n}\n\n.resp-sharing-button--google {\n    background-color: #dd4b39;\n    border-color: #dd4b39;\n}\n\n.resp-sharing-button--google:hover,\n.resp-sharing-button--google:active {\n    background-color: #c23321;\n    border-color: #c23321;\n}\n\n.resp-sharing-button--tumblr {\n    background-color: #35465C;\n    border-color: #35465C;\n}\n\n.resp-sharing-button--tumblr:hover,\n.resp-sharing-button--tumblr:active {\n    background-color: #222d3c;\n    border-color: #222d3c;\n}\n\n.resp-sharing-button--email {\n    background-color: #777777;\n    border-color: #777777;\n}\n\n.resp-sharing-button--email:hover,\n.resp-sharing-button--email:active {\n    background-color: #5e5e5e;\n    border-color: #5e5e5e;\n}\n\n.resp-sharing-button--pinterest {\n    background-color: #bd081c;\n    border-color: #bd081c;\n}\n\n.resp-sharing-button--pinterest:hover,\n.resp-sharing-button--pinterest:active {\n    background-color: #8c0615;\n    border-color: #8c0615;\n}\n\n.resp-sharing-button--linkedin {\n    background-color: #0077b5;\n    border-color: #0077b5;\n}\n\n.resp-sharing-button--linkedin:hover,\n.resp-sharing-button--linkedin:active {\n    background-color: #046293;\n    border-color: #046293;\n}\n"
   },
   {
-    "componentId": "controllers/side_panel",
-    "controller": "zuix.controller(function(cp) {\n    let isMenuOpen = true;\n    let isLocked = false;\n    let smallScreen = false;\n    let firstCheck = true;\n\n    let overlay = null;\n    let sideMenu = null;\n    let sideMenuWidth = 0;\n\n    let autoHideWidth = 960;\n\n    cp.init = function () {\n        this.options().html = false;\n        this.options().css = false;\n    };\n\n    cp.create = function() {\n        const config = cp.options().config;\n        sideMenu = zuix.field(config.sideMenuElement);\n        if (config.autoHideWidth != null) {\n            autoHideWidth = config.autoHideWidth;\n        }\n        // listen to window resize event to make layout responsive\n        window.addEventListener('resize', function () {\n            sizeCheck();\n        });\n        // add overlay for small screens when menu is open\n        overlay = zuix.$(document.createElement('div'));\n        overlay.css({\n            'position': 'absolute',\n            'top': sideMenu.position().y+'px',\n            'left': 0,\n            'bottom': 0,\n            'right': 0,\n            'z-index': 10,\n            'background-color': 'rgba(0, 0, 0, 0.35)'\n        }).on('click', function () {\n            closeMenu();\n        }).hide();\n        sideMenu.css({\n            'left': 0,\n            'z-index': 100\n        });\n        sideMenu.parent().append(overlay.get());\n\n        let isDragging = false;\n        // handle gesture to open/close side menu\n        zuix.load('@lib/controllers/gesture_helper', {\n            view: sideMenu.parent(),\n            on: {\n                'gesture:touch': function(e, tp) {\n                    if (isLocked) return;\n                    transitionOn();\n                },\n                'gesture:release': function(e, tp) {\n                    if (isLocked) return;\n                    if (isDragging) {\n                        isDragging = false;\n                        transitionOn();\n                        if (tp.velocity > 0) {\n                            openMenu();\n                        } else {\n                            closeMenu();\n                        }\n                    }\n                },\n                'gesture:pan': function (e, tp) {\n                    if (isLocked) return;\n                    if ((isDragging || isMenuOpen) && tp.x < sideMenuWidth || (!isDragging && tp.x < 50)) {\n                        if (!isDragging) {\n                            isDragging = true;\n                        }\n                        transitionOn();\n                        dragTo(tp.x);\n                        transitionOff();\n                    }\n                }\n            }\n        });\n\n        // public component methods\n        cp.expose('toggle', toggleMenu);\n        cp.expose('open', function () {\n            transitionOn();\n            return openMenu();\n        });\n        cp.expose('close', function () {\n            transitionOn();\n            return closeMenu();\n        });\n        cp.expose('isOpen', isOpen);\n        // TODO: refactor to 'dragTo'\n        cp.expose('dragTo', dragTo);\n        cp.expose('lock', function(locked) {\n            isLocked = locked;\n        });\n\n        // detect screen size and set large/small layout\n        sizeCheck();\n        firstCheck = false;\n    };\n\n    function sizeCheck() {\n        sideMenuWidth = sideMenu.get().clientWidth;\n        const width = document.body.clientWidth;\n        if (width < autoHideWidth) {\n            if (!smallScreen || firstCheck) {\n                smallScreen = true;\n                cp.trigger('auto_hide', true);\n                closeMenu();\n            }\n        } else {\n            if (smallScreen || firstCheck) {\n                if (smallScreen) {\n                    overlay.hide();\n                    if (isMenuOpen)\n                        closeMenu();\n                }\n                smallScreen = false;\n                cp.trigger('auto_hide', false);\n                openMenu();\n            }\n        }\n    }\n\n    function openMenu() {\n        sideMenu.show().css('left', 0);\n        isMenuOpen = true;\n        cp.trigger('menu_open', { smallScreen: smallScreen });\n        if (smallScreen) {\n            overlay.css('opacity', 'initial');\n            overlay.show();\n            sideMenu.find('a').one('click', function() {\n                closeMenu();\n            });\n        }\n    }\n\n    function closeMenu() {\n        if (smallScreen) {\n            isMenuOpen = false;\n            sideMenu.css('left', -sideMenuWidth+'px');\n            /*\n            sideMenu.animateCss(function () {\n                if (!isMenuOpen) {\n                    this.hide();\n                }\n            });\n            */\n            if (smallScreen) {\n                overlay.hide();\n            }\n            cp.trigger('menu_close', { smallScreen: smallScreen });\n        }\n    }\n\n    function toggleMenu() {\n        if (isMenuOpen)\n            closeMenu();\n        else\n            openMenu();\n    }\n\n    function dragTo(x) {\n        if (x > 0 && x < sideMenuWidth) {\n            x = -sideMenuWidth+x;\n            if (sideMenu.display() === 'none') {\n                sideMenu.show();\n            }\n            sideMenu.css('left', x + 'px');\n            if (overlay.display() === 'none') {\n                overlay.show();\n            }\n            overlay.css('opacity', (sideMenuWidth + x) / sideMenuWidth)\n        }\n    }\n\n    function isOpen() {\n        return isMenuOpen;\n    }\n\n    let isTransitionOn = false;\n    function transitionOn() {\n        if (!isTransitionOn) {\n            isTransitionOn = true;\n            const transition = 'ease .15s';\n            sideMenu.css({\n                'transition-property': 'left',\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n            overlay.css({\n                'transition-property': 'display, opacity',\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n        }\n    }\n    function transitionOff() {\n        if (isTransitionOn) {\n            isTransitionOn = false;\n            const transition = 'none';\n            sideMenu.css({\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n            overlay.css({\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n        }\n    }\n\n});\n"
+    "componentId": "http://192.168.2.104:8081/lib/controllers/drawer_layout",
+    "controller": "/**\n * zUIx - Drawer Layout\n *\n * @version 1.0.0 (2018-07-09)\n * @author Gene\n *\n */\n\n'use strict';\n\nzuix.controller(function(cp) {\n    let isDrawerOpen = true;\n    let isDrawerLocked = false;\n    let smallScreen = false;\n    let firstCheck = true;\n\n    let overlay = null;\n    let drawerLayout = null;\n\n    let drawerWidth = 280;\n    let autoHideWidth = 960;\n\n    cp.init = function() {\n        this.options().html = false;\n        this.options().css = false;\n        if (!isNaN(this.options().drawerWidth)) {\n            drawerWidth = parseInt(this.options().drawerWidth);\n        }\n        if (!isNaN(this.options().autoHideWidth)) {\n            autoHideWidth = parseInt(this.options().autoHideWidth);\n        }\n    };\n\n    cp.create = function() {\n        drawerLayout = cp.view();\n        // add overlay for small screens when menu is open\n        overlay = zuix.$(document.createElement('div'));\n        overlay.css({\n            'position': 'absolute',\n            'top': 0,\n            'left': 0,\n            'bottom': 0,\n            'right': 0,\n            'z-index': 10,\n            'background-color': 'rgba(0, 0, 0, 0.35)'\n        }).on('click', function() {\n            closeDrawer();\n        }).hide();\n        drawerLayout.parent().append(overlay.get());\n\n        // set drawer style\n        drawerLayout.css({\n            'position': 'fixed',\n            'overflow-y': 'auto',\n            'left': 0, 'width': '320px', 'top': 0, 'bottom': 0,\n            'z-index': 100,\n            '-webkit-box-shadow': '8px 0 6px -6px rgba(0,0,0,0.25)',\n            '-moz-box-shadow': '8px 0 6px -6px rgba(0,0,0,0.25)',\n            'box-shadow': '8px 0 6px -6px rgba(0,0,0,0.25)'\n        }).attr('tabindex', 0);\n\n        let isDragging = false;\n        // handle gesture to open/close the drawer menu\n        zuix.load('@lib/controllers/gesture_helper', {\n            view: document.documentElement,\n            on: {\n                'gesture:touch': function(e, tp) {\n                    if (isDrawerLocked) return;\n                    transitionOn();\n                },\n                'gesture:release': function(e, tp) {\n                    if (isDrawerLocked) return;\n                    if (isDragging) {\n                        isDragging = false;\n                        transitionOn();\n                        if (tp.velocity > 0) {\n                            openDrawer();\n                        } else {\n                            closeDrawer();\n                        }\n                    }\n                },\n                'gesture:pan': function(e, tp) {\n                    if (isDrawerLocked) return;\n                    if ((isDragging || isDrawerOpen) && tp.x < drawerWidth || (!isDragging && tp.x < 50)) {\n                        if (!isDragging) {\n                            isDragging = true;\n                        }\n                        transitionOn();\n                        dragTo(tp.x);\n                        transitionOff();\n                    }\n                }\n            }\n        });\n\n        // public component methods\n        cp.expose('toggle', toggleMenu);\n        cp.expose('open', function() {\n            transitionOn();\n            return openDrawer();\n        });\n        cp.expose('close', function() {\n            transitionOn();\n            return closeDrawer();\n        });\n        cp.expose('isOpen', isOpen);\n        // TODO: refactor to 'dragTo'\n        cp.expose('dragTo', dragTo);\n        cp.expose('lock', function(locked) {\n            isDrawerLocked = locked;\n        });\n\n        // close drawer if ESC key is pressed\n        drawerLayout.on('keydown', function(evt) {\n            evt = evt || window.event;\n            if (evt.keyCode === 27) {\n                closeDrawer();\n            }\n        });\n\n        // TODO: create cp.options().drawerWidth, with '280' as default value\n        drawerWidth = 320; //drawerLayout.get().offsetWidth;\n\n        // detect screen size and set large/small layout\n        sizeCheck();\n        firstCheck = false;\n\n        // listen to window resize event to make layout responsive\n        window.addEventListener('resize', function() {\n            sizeCheck();\n        });\n    };\n\n    function sizeCheck() {\n        const width = document.body.clientWidth;\n        if (width < autoHideWidth) {\n            if (!smallScreen || firstCheck) {\n                smallScreen = true;\n                cp.trigger('drawer:autoHide', true);\n            }\n            closeDrawer();\n        } else {\n            if (smallScreen || firstCheck) {\n                if (smallScreen) {\n                    overlay.hide();\n                    if (isDrawerOpen) {\n                        closeDrawer();\n                    }\n                }\n                smallScreen = false;\n                cp.trigger('drawer:autoHide', false);\n                openDrawer();\n            }\n        }\n    }\n\n    function openDrawer() {\n        drawerLayout\n            .visibility('initial')\n            .css('left', 0)\n            .get().focus();\n        if (smallScreen) {\n            drawerLayout.find('a').one('click', function() {\n                closeDrawer();\n            });\n            overlay.css('opacity', 'initial');\n            overlay.show();\n        }\n        if (!isDrawerOpen) {\n            isDrawerOpen = true;\n            cp.trigger('drawer:open', {smallScreen: smallScreen});\n        }\n    }\n\n    function closeDrawer() {\n        if (smallScreen) {\n            transitionEnd(function() {\n                if (!isDrawerOpen) {\n                    drawerLayout.visibility('hidden');\n                }\n            });\n            drawerLayout.css('left', -drawerWidth+'px');\n            overlay.hide();\n            if (isDrawerOpen) {\n                isDrawerOpen = false;\n                cp.trigger('drawer:close', {smallScreen: smallScreen});\n            }\n        }\n        isDrawerOpen = false;\n        drawerLayout.find('a').off('click');\n    }\n\n    function toggleMenu() {\n        if (isDrawerOpen) {\n            closeDrawer();\n        } else {\n            openDrawer();\n        }\n    }\n\n    function dragTo(x) {\n        if (x > 0 && x < drawerWidth) {\n            x = -drawerWidth+x;\n            if (drawerLayout.visibility() === 'hidden') {\n                drawerLayout.visibility('initial');\n            }\n            drawerLayout.css('left', x + 'px');\n            if (overlay.display() === 'none') {\n                overlay.show();\n            }\n            overlay.css('opacity', (drawerWidth + x) / drawerWidth);\n        }\n    }\n\n    function isOpen() {\n        return isDrawerOpen;\n    }\n\n    let isTransitionOn = false;\n    function transitionOn() {\n        if (!isTransitionOn) {\n            isTransitionOn = true;\n            const transition = 'ease .15s';\n            drawerLayout.css({\n                'transition-property': 'left',\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n            overlay.css({\n                'transition-property': 'opacity',\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n        }\n    }\n    function transitionOff() {\n        if (isTransitionOn) {\n            isTransitionOn = false;\n            const transition = 'none';\n            drawerLayout.css({\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n            overlay.css({\n                '-webkit-transition': transition,\n                '-moz-transition': transition,\n                '-ms-transition': transition,\n                '-o-transition': transition,\n                'transition': transition\n            });\n        }\n    }\n\n    function transitionEnd(callback) {\n        drawerLayout.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {\n            callback();\n        });\n    }\n});\n"
   },
   {
     "componentId": "controllers/content_loader",
@@ -6147,7 +6050,7 @@ function hideHeader() {
   },
   {
     "componentId": "layout/side_menu",
-    "css": ". {\n    position: fixed;\n    width: 250px;\n    top:0; left:0; bottom:0;\n    overflow: visible;\n}\n\nh2 {\n    background: whitesmoke;\n    margin:  0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    text-align: center;\n}\n\n.side-menu {\n    overflow-y: auto;\n    padding: 16px 0 48px;\n    font-family: 'Roboto Condensed', serif !important;\n    font-size:110%;\n    z-index: 10;\n}\n\n.side-menu .material-icons {\n    font-size: 150%;\n    margin-right: 16px;\n}\n\n.side-menu a {\n    padding: 8px 8px 8px 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n\n.side-menu a:hover {\n    background-color: rgba(132, 184, 209, 0.5);\n    color: #101035;\n}\n\n.side-menu a.sub_item span {\n    margin-left: 16px;\n    padding-left: 16px;\n    font-size: 90%;\n    border-left: dotted 3px rgba(150,150,150,0.5);\n}\n\n.current {\n    background-color: rgba(132, 184, 209, 0.25);\n    color: #101035;\n}\n.current span {\n    font-weight: bolder;\n}\n"
+    "css": ". {\n    top:0; left:0; min-height: 100vh;\n    overflow: visible;\n}\n\nh2 {\n    background: whitesmoke;\n    margin:  0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    text-align: center;\n}\n\n.side-menu {\n    overflow-y: auto;\n    padding: 16px 0 48px;\n    font-family: 'Roboto Condensed', serif !important;\n    font-size: 110%;\n    z-index: 10;\n}\n\n.side-menu .material-icons {\n    font-size: 150%;\n    margin-right: 16px;\n}\n\n.side-menu a {\n    padding: 8px 8px 8px 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n\n.side-menu a:hover {\n    background-color: rgba(132, 184, 209, 0.5);\n    color: #101035;\n}\n\n.side-menu a.sub_item span {\n    margin-left: 16px;\n    padding-left: 16px;\n    font-size: 90%;\n    border-left: dotted 3px rgba(150,150,150,0.5);\n}\n\n.current {\n    background-color: rgba(132, 184, 209, 0.25);\n    color: #101035;\n}\n.current span {\n    font-weight: bolder;\n}\n"
   }
 ])</script>
 </body></html>

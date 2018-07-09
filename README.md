@@ -10,7 +10,7 @@ Site structure and content management are based on a simple configuration file.
 
 - Responsive design, best fit all device sizes
 - Markdown, Front Matter, Swig Templates
-- Component-based web development
+- Component-based web development with lazy-loading facility
 - Integrated build system with resource packing
 - Progressive Web App, can also work offline
 - Also featuring

@@ -20,32 +20,31 @@ let currentPage = null;
 let autoHidingMenu = false;
 
 // component options must be in the global scope, so must be
-// defined as 'var' or as window.contentOptions = { ... }
-var contentOptions = {
-    sidePanel: {
-        css: false,
+// defined as 'var' or as window.siteOptions = { ... }
+var siteOptions = {
+    drawerLayout: {
         // configuration
-        config: {
-            sideMenuElement: 'side-menu',
-            autoHideWidth: 960
-        },
+        drawerWidth: 300,
+        autoHideWidth: 960,
         // event listeners
         on: {
-            'menu_open': sideMenuOpen,
-            'menu_close': sideMenuClose,
-            'auto_hide': function (e, autoHide) {
+            'drawer:open': sideMenuOpen,
+            'drawer:close': sideMenuClose,
+            'drawer:autoHide': function (e, autoHide) {
                 autoHidingMenu = autoHide;
                 if (autoHide) {
                     pageContainer
                         .removeClass('main-side-menu main-side-menu-pull')
-                        .addClass('main-side-menu-off');
+                        .addClass('main-side-menu-off')
+                        .css('margin-left', '0');
                     headerTitle.css('margin-left', '0');
                     menuButton.show();
                 } else {
                     pageContainer
                         .removeClass('main-side-menu-off main-side-menu')
-                        .addClass('main-side-menu-pull');
-                    headerTitle.css('margin-left', '250px');
+                        .addClass('main-side-menu-pull')
+                        .css('margin-left', siteOptions.drawerLayout.drawerWidth+'px');
+                    headerTitle.css('margin-left', siteOptions.drawerLayout.drawerWidth+'px');
                     menuButton.hide();
                 }
                 if (sideMenuPanel != null) sideMenuPanel.lock(!autoHidingMenu);
@@ -71,19 +70,15 @@ var contentOptions = {
                             if (data.info.shift.y < 0) {
                                 // scrolling up
                                 hideHeader();
-                                hideNavigation();
                             } else if (data.info.shift.y > 0) {
                                 // scrolling down
                                 showHeader();
-                                showNavigation();
                             }
-                        } else if (data.info.shift.y < 0) {
-                            hideNavigation();
                         }
                         break;
                     case 'hit-bottom':
                         // reached end of page
-                        showNavigation();
+                        showHeader();
                         break;
                 }
             }
@@ -212,9 +207,7 @@ function fetchFromObject(obj, prop) {
 }
 
 function sideMenuOpen(e, status) {
-    if (status.smallScreen) {
-        hideNavigation();
-    } else {
+    if (!status.smallScreen) {
         showHeader();
     }
     // animate menu button
@@ -281,7 +274,6 @@ function revealPage(pageContext) {
     }
     zuix.$(pageContext.view()).animateCss('fadeIn'+directionIn, { duration: crossFadeDuration }).show();
     currentPage = pageContext;
-    updateNavigation();
 }
 
 function makeScrollable(div) {
@@ -310,81 +302,6 @@ function getItemFromPath(path) {
         });
     }
     return item;
-}
-
-function getPrevNextFromLocation() {
-    const list = siteConfig.content;
-    let nextItem = null;
-    let prevItem = null;
-    let path = window.location.hash;
-    if (path === '')
-        path = siteConfig.strings.startPage;
-    let pickNext = false;
-    zuix.$.each(list, function (k, v) {
-        if (v.list != null) {
-            zuix.$.each(v.list, function(k1,v1){
-                if (v1.data != null && v1.data.link === path) {
-                    pickNext = true;
-                } else if (pickNext) {
-                    nextItem = v1;
-                    return false;
-                }
-                if (!pickNext) {
-                    prevItem = v1;
-                }
-            });
-            return nextItem == null;
-        } else if (v.data != null && v.data.link === path) {
-            pickNext = true;
-        } else if (pickNext) {
-            nextItem = v;
-            return false;
-        }
-        if (!pickNext) {
-            prevItem = v;
-        }
-    });
-    return { prev: prevItem, next: nextItem };
-}
-
-const navigationButtons = zuix.field('fab-navigation').hide();
-const navigateBack = navigationButtons.find('a').eq(0);
-const navigateNext = navigationButtons.find('a').eq(1);
-function updateNavigation() {
-    const prevNext = getPrevNextFromLocation();
-    if (prevNext.next != null) {
-        navigateNext.parent().show()
-            .find('label').html(prevNext.next.data.title);
-        navigateNext
-            .attr('href', prevNext.next.data.link)
-            .attr('title', 'Next: '+prevNext.next.data.title);
-    } else {
-        navigateNext.attr('href', '').parent().hide();
-    }
-    if (prevNext.prev != null) {
-        navigateBack.parent().show()
-            .find('label').html(prevNext.prev.data.title);
-        navigateBack
-            .attr('href', prevNext.prev.data.link)
-            .attr('title', 'Previous: '+prevNext.prev.data.title);
-    } else {
-        navigateBack.attr('href', '').parent().hide();
-    }
-    hideNavigation();
-}
-
-function showNavigation() {
-    if (navigationButtons.display() === 'none') {
-        navigationButtons.animateCss('fadeInUp').show();
-    }
-}
-
-function hideNavigation() {
-    if (navigationButtons.display() === '') {
-        navigationButtons.animateCss('fadeOutDown', {duration: '0.3s'}, function () {
-            this.hide();
-        });
-    }
 }
 
 function showHeader() {

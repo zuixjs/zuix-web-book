@@ -63,8 +63,8 @@
 
     <header data-ui-include="layout/header"
             data-ui-context="header"
-            data-ui-options="contentOptions.no_css"
-            class="mdl-shadow--8dp animated fadeInDown no-gesture"></header>
+            data-ui-options="siteOptions.no_css"
+            class="mdl-shadow--4dp animated fadeInDown no-gesture"></header>
 
     <main data-ui-field="main" class="mdl-color--grey-100">
 
@@ -73,32 +73,18 @@
 
     </main>
 
-    <!-- Next Page FAB Button -->
-    <div data-ui-field="fab-navigation" layout="row center-spread" class="mdl-color--primary-dark mdl-color-text--white">
-        <div self="size1of2" layout="rows center-left">
-            <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--primary">
-                <i class="material-icons">navigate_before</i>
-            </a>
-            <label></label>
-        </div>
-        <div self="size1of2" layout="rows center-right">
-            <label></label>
-            <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--primary">
-                <i class="material-icons">navigate_next</i>
-            </a>
-        </div>
+    <div data-ui-load="@lib/controllers/drawer_layout"
+         data-ui-options="siteOptions.drawerLayout">
+
+        <div data-ui-include="layout/side_menu"
+             data-ui-field="side-menu"
+             class="side-menu mdl-shadow--8dp"
+             layout="column center-spread"></div>
+
     </div>
 
-    <div data-ui-include="layout/side_menu"
-         data-ui-field="side-menu"
-         class="side-menu mdl-shadow--8dp"
-         layout="column center-spread"></div>
-
-    <div data-ui-load="controllers/side_panel"
-         data-ui-options="contentOptions.sidePanel"><!-- no-view --></div>
-
     <div data-ui-load="controllers/content_loader"
-         data-ui-options="contentOptions.contentLoader"><!-- no-view --></div>
+         data-ui-options="siteOptions.contentLoader"><!-- no-view --></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <!--

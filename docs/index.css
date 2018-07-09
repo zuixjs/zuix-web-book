@@ -180,7 +180,6 @@ div[data-ui-field="content-pages"] .page img {
 .main-side-menu-pull {
     animation-name: main-collapse-anim;
     animation-duration: 0.5s;
-    margin-left: 250px;
 }
 
 /* Top bar shrink/expand */
