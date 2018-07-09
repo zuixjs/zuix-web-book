@@ -28,10 +28,6 @@ self.__precacheManifest = [
     "revision": "d23178763ad286b1ec0c1d445580b164"
   },
   {
-    "url": "app/controllers/side_panel.js",
-    "revision": "8311bda415d0cdc0a7fdf5c3131feea0"
-  },
-  {
     "url": "app/layout/header.css",
     "revision": "caff0f91b7bfa3ed6a68ce1496cb433f"
   },
@@ -65,7 +61,7 @@ self.__precacheManifest = [
   },
   {
     "url": "config.js",
-    "revision": "5a466c9be3313e3a2490f937d95c6511"
+    "revision": "702bdd2783e96636aeac992fe7ee5162"
   },
   {
     "url": "content/about.html",
@@ -101,7 +97,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "a1d9414f99a9a88aa26c1b9498aa6960"
+    "revision": "89699a7357102076e9ba178ebadecd45"
   },
   {
     "url": "index.js",
@@ -117,7 +113,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
+    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
   },
   {
     "url": "js/mdl/material.min.js",
@@ -161,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
+    "revision": "630e5b6805eeddd575fa2948502254d3"
   },
   {
     "url": "js/zuix/zuix.min.js",
