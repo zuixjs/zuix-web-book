@@ -28,12 +28,12 @@ h2 {
     padding: 8px 8px 8px 24px;
     color: rgba(255, 255, 255, 0.8);
 }
-
+/*
 .side-menu a:hover {
     background-color: rgba(132, 184, 209, 0.5);
     color: #101035;
 }
-
+*/
 .side-menu a.sub_item span {
     margin-left: 16px;
     padding-left: 16px;

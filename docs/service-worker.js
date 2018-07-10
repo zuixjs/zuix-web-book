@@ -45,7 +45,7 @@ self.__precacheManifest = [
   },
   {
     "url": "app/layout/side_menu.css",
-    "revision": "7a191bb39f396cb20d7208a3dd89ffed"
+    "revision": "7df69da4552fb5181f63d2f8508d1930"
   },
   {
     "url": "app/layout/side_menu.html",
@@ -61,7 +61,7 @@ self.__precacheManifest = [
   },
   {
     "url": "config.js",
-    "revision": "490677839b8d685c3eb9aad588347c17"
+    "revision": "cc0a7c1d2cdaf17fb9c4dabd0dba8d4a"
   },
   {
     "url": "content/about.html",
@@ -97,7 +97,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "5affe64e5297a6598fb86a76b52af203"
+    "revision": "cfafb2be87ddad0cca5ddf81369bb635"
   },
   {
     "url": "index.js",
