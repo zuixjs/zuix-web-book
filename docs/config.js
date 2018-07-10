@@ -2,7 +2,6 @@ zuix.store("config", {
     "title": "WebBook",
     "googleSiteId": "UA-123-456",
     "resourcePath": "./app/",
-    "drawerWidth": 280,
     "libraryPath": "https://genielabs.github.io/zkit/lib"
 });
 
