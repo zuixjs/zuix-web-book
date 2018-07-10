@@ -219,7 +219,8 @@ function sideMenuClose(e, status) {
     // animate menu button
     menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('menu').animateCss('rotateIn', { duration: '0.25s' });
-    }).removeClass('reverse');
+    });
+    menuButton.removeClass('reverse');
 }
 
 function showPage(e, path) {

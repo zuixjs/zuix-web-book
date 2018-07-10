@@ -13,7 +13,7 @@ h2 {
 
 .side-menu {
     overflow-y: auto;
-    padding: 16px 0 48px;
+    padding: 24px 8px 48px 0;
     font-family: 'Roboto Condensed', serif !important;
     font-size: 110%;
     z-index: 10;
@@ -25,7 +25,11 @@ h2 {
 }
 
 .side-menu a {
-    padding: 8px 8px 8px 24px;
+    padding: 12px 8px 12px 24px;
+    color: rgba(255, 255, 255, 0.8);
+}
+.side-menu a.sub_item {
+    padding: 0 8px 0 24px;
     color: rgba(255, 255, 255, 0.8);
 }
 /*
@@ -36,15 +40,24 @@ h2 {
 */
 .side-menu a.sub_item span {
     margin-left: 16px;
-    padding-left: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 26px;
     font-size: 90%;
     border-left: dotted 3px rgba(150,150,150,0.5);
 }
-
-.current {
-    background-color: rgba(132, 184, 209, 0.25);
-    color: #101035;
+.current .side-menu a.sub_item span {
+    border-left: solid 3px rgb(200, 200, 0);
 }
-.current span {
+
+a.current span {
+    font-weight: bold;
+}
+a.sub_item.current span {
+    font-weight: bold;
+    border-left: solid 3px rgb(200, 200, 0);
+}
+.current i {
+    color: rgb(200, 200, 0) !important;
     font-weight: bolder;
 }

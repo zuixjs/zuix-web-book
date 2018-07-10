@@ -5870,7 +5870,8 @@ function sideMenuClose(e, status) {
     // animate menu button
     menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('menu').animateCss('rotateIn', { duration: '0.25s' });
-    }).removeClass('reverse');
+    });
+    menuButton.removeClass('reverse');
 }
 
 function showPage(e, path) {
@@ -6049,7 +6050,7 @@ function hideHeader() {
   },
   {
     "componentId": "layout/side_menu",
-    "css": ". {\n    top:0; left:0; min-height: 100vh;\n    overflow: visible;\n}\n\nh2 {\n    background: whitesmoke;\n    margin:  0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    text-align: center;\n}\n\n.side-menu {\n    overflow-y: auto;\n    padding: 16px 0 48px;\n    font-family: 'Roboto Condensed', serif !important;\n    font-size: 110%;\n    z-index: 10;\n}\n\n.side-menu .material-icons {\n    font-size: 150%;\n    margin-right: 16px;\n}\n\n.side-menu a {\n    padding: 8px 8px 8px 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n/*\n.side-menu a:hover {\n    background-color: rgba(132, 184, 209, 0.5);\n    color: #101035;\n}\n*/\n.side-menu a.sub_item span {\n    margin-left: 16px;\n    padding-left: 16px;\n    font-size: 90%;\n    border-left: dotted 3px rgba(150,150,150,0.5);\n}\n\n.current {\n    background-color: rgba(132, 184, 209, 0.25);\n    color: #101035;\n}\n.current span {\n    font-weight: bolder;\n}\n"
+    "css": ". {\n    top:0; left:0; min-height: 100vh;\n    overflow: visible;\n}\n\nh2 {\n    background: whitesmoke;\n    margin:  0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    text-align: center;\n}\n\n.side-menu {\n    overflow-y: auto;\n    padding: 24px 8px 48px 0;\n    font-family: 'Roboto Condensed', serif !important;\n    font-size: 110%;\n    z-index: 10;\n}\n\n.side-menu .material-icons {\n    font-size: 150%;\n    margin-right: 16px;\n}\n\n.side-menu a {\n    padding: 12px 8px 12px 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n.side-menu a.sub_item {\n    padding: 0 8px 0 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n/*\n.side-menu a:hover {\n    background-color: rgba(132, 184, 209, 0.5);\n    color: #101035;\n}\n*/\n.side-menu a.sub_item span {\n    margin-left: 16px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 26px;\n    font-size: 90%;\n    border-left: dotted 3px rgba(150,150,150,0.5);\n}\n.current .side-menu a.sub_item span {\n    border-left: solid 3px rgb(200, 200, 0);\n}\n\na.current span {\n    font-weight: bold;\n}\na.sub_item.current span {\n    font-weight: bold;\n    border-left: solid 3px rgb(200, 200, 0);\n}\n.current i {\n    color: rgb(200, 200, 0) !important;\n    font-weight: bolder;\n}\n"
   }
 ])</script>
 </body></html>
