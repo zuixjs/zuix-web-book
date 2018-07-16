@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "5a2f8a880d56f0fdafb0ac8c9d6d05af"
+    "revision": "c29865361485f38733f24cadf4e499d5"
   },
   {
     "url": "app/controllers/content_loader.js",
@@ -97,7 +97,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "e4f01492b9cbaf5c59d0356ef9e77548"
+    "revision": "84e87696cc8790a2d95af6d5c529f17c"
   },
   {
     "url": "index.js",
@@ -105,15 +105,15 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
-    "revision": "daf3014760a1ad146d1552cda2b48ab3"
+    "revision": "4dfad3cb6c678cb2e5aaedd81ebe8b46"
   },
   {
     "url": "js/mdl/material.js",
-    "revision": "e2ff1b08544fdef6afe46d6bf9425ba9"
+    "revision": "60f3ee61721d5bbac709fad9c239f2ac"
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
+    "revision": "45d2af18d4499a5d70c7bdfc932f9bbf"
   },
   {
     "url": "js/mdl/material.min.js",
@@ -157,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
+    "revision": "d1c5d94d44d17e5619a1404eab20f862"
   },
   {
     "url": "js/zuix/zuix.min.js",
