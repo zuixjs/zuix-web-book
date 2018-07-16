@@ -145,28 +145,31 @@ staticSite({
         plural('warning', tlog.stats().warn),
     ));
 
-
     // TODO: run work box
     // NOTE: This should be run *AFTER* all your assets are built
     const buildSW = () => {
         // This will return a Promise
         return workBox.generateSW({
-            globDirectory: 'docs',
+            globDirectory: buildFolder,
             globPatterns: [
                 '**\/*.{html,json,js,css}',
             ],
-            swDest: 'docs/service-worker.js',
+            swDest: path.join(buildFolder, 'service-worker.js'),
         });
     };
-    buildSW();
-
-    process.exitCode = tlog.stats().error;
+    buildSW().then(function () {
+        process.exitCode = tlog.stats().error;
+    });
 });
 
 function copyAppConfig() {
-    let cfg = 'zuix.store("config", ';
-    cfg += JSON.stringify(config.get('zuix.app'), null, 4);
+    let cfg = `/* eslint-disable quotes */
+(function() {
+    zuix.store("config", `;
+    cfg += JSON.stringify(config.get('zuix.app'), null, 8);
     cfg += ');\n';
+    // WorkBox / Service Worker
+    // TODO: fix service-worker path
     cfg += `
     // Check that service workers are registered
     if ('serviceWorker' in navigator) {
@@ -175,7 +178,7 @@ function copyAppConfig() {
             navigator.serviceWorker.register('./service-worker.js');
         });
     }
-    `;
+})();\n`;
     fs.writeFileSync(buildFolder+'/config.js', cfg);
 }
 

@@ -42,7 +42,7 @@
     "http-server": "^0.11.1",
     "jsdom": "^11.11.0",
     "json-stringify": "^1.0.0",
-    "less": "^3.5.3",
+    "less": "^3.7.1",
     "measure-time": "^3.1.1",
     "ncp": "^2.0.0",
     "npmlog": "^4.1.2",
@@ -53,8 +53,8 @@
     "swig-marked": "0.0.1",
     "swig-templates": "latest",
     "sync-request": "^6.0.0",
-    "terminal-kit": "^1.17.11",
-    "workbox-build": "^3.3.1",
-    "zuix-dist": "^0.4.9-46"
+    "terminal-kit": "^1.17.12",
+    "workbox-build": "^3.4.1",
+    "zuix-dist": "^0.4.9-48"
   }
 }

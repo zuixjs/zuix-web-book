@@ -30,7 +30,8 @@ var siteOptions = {
         on: {
             'drawer:open': sideMenuOpen,
             'drawer:close': sideMenuClose,
-            'drawer:autoHide': function (e, autoHide) {
+            'layout:change': function (e) {
+                const autoHide = e.detail.smallScreen;
                 autoHidingMenu = autoHide;
                 if (autoHide) {
                     pageContainer

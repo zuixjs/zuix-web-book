@@ -26,6 +26,8 @@
 
 // common
 const fs = require('fs');
+const path = require('path');
+const url = require('url');
 const util = require('util');
 const request = require('sync-request');
 const stringify = require('json-stringify');
@@ -65,23 +67,17 @@ function createBundle(sourceFolder, data) {
         // TODO: check/parse scripts
         const scriptList = dom.window.document.querySelectorAll('script[src]');
         if (scriptList != null) {
-            scriptList.forEach(function (el) {
+            scriptList.forEach(function(el) {
                 if (el.getAttribute('defer') != null) {
                     return;
                 }
-                let path = el.getAttribute('src');
-                if (!(path.startsWith('http') || path.startsWith('//'))) {
-                    path = sourceFolder + '/' + path;
-                }
-                let scriptText = fetchResource(path, null, false);
-                if (scriptText == null) {
-                    scriptText = fetchResource(zuixConfig.build.output+'/'+el.getAttribute('src'), null, true);
-                }
+                const resourcePath = el.getAttribute('src');
+                let scriptText = fetchResource(resolveResourcePath(data.file, resourcePath), null, false);
                 if (scriptText != null) {
                     scriptText = '//{% raw %}\n' + scriptText + '\n//{% endraw %}';
                     el.innerHTML = scriptText;
                     el.removeAttribute('src');
-                    zuixBundle.assetList.push({path: path, content: scriptText, type: 'script'});
+                    zuixBundle.assetList.push({path: resourcePath, content: scriptText, type: 'script'});
                 }
             });
         }
@@ -93,17 +89,11 @@ function createBundle(sourceFolder, data) {
         const styleList = dom.window.document.querySelectorAll('link[rel="stylesheet"][href]');
         if (styleList != null) {
             styleList.forEach(function(el) {
-                let path = el.getAttribute('href');
-                if (!(path.startsWith('http') || path.startsWith('//'))) {
-                    path = sourceFolder+'/'+path;
-                }
-                let cssText = fetchResource(path, null, false);
-                if (cssText == null) {
-                    cssText = fetchResource(zuixConfig.build.output+'/'+el.getAttribute('href'), null, true);
-                }
+                const resourcePath = el.getAttribute('href');
+                let cssText = fetchResource(resolveResourcePath(data.file, resourcePath), null, false);
                 if (cssText != null) {
                     el.outerHTML = '<style>\n/*{% raw %}*/\n'+cssText+'\n/*{% endraw %}*/\n</style>';
-                    zuixBundle.assetList.push({path: path, content: cssText, type: 'style'});
+                    zuixBundle.assetList.push({path: resourcePath, content: cssText, type: 'style'});
                 }
             });
         }
@@ -113,7 +103,7 @@ function createBundle(sourceFolder, data) {
     if (zuixConfig.build.bundle.zuix !== false) {
         const nodeList = dom.window.document.querySelectorAll('[data-ui-include],[data-ui-load]');
         if (nodeList != null) {
-            nodeList.forEach(function (el) {
+            nodeList.forEach(function(el) {
                 let skipElement = false;
                 let parent = el.parentNode;
                 while (parent != null) {
@@ -128,36 +118,36 @@ function createBundle(sourceFolder, data) {
                 }
 
                 let hasJsFile = false;
-                let path = el.getAttribute('data-ui-include');
-                if (path == null || path === '') {
+                let resourcePath = el.getAttribute('data-ui-include');
+                if (resourcePath == null || resourcePath === '') {
                     hasJsFile = true;
-                    path = el.getAttribute('data-ui-load');
+                    resourcePath = el.getAttribute('data-ui-load');
                 }
                 // do not process inline views
-                if (dom.window.document.querySelectorAll('[data-ui-view="' + path + '"]').length > 0) {
+                if (dom.window.document.querySelectorAll('[data-ui-view="' + resourcePath + '"]').length > 0) {
                     return;
                 }
 
                 let content;
                 if (hasJsFile) {
-                    if (isBundled(zuixBundle.controllerList, path)) {
+                    if (isBundled(zuixBundle.controllerList, resourcePath)) {
                         return;
                     }
-                    content = fetchResource(path + '.js', sourceFolder, true);
+                    content = fetchResource(resourcePath + '.js', sourceFolder, true);
                     if (content != null) {
-                        zuixBundle.controllerList.push({path: path, content: content});
+                        zuixBundle.controllerList.push({path: resourcePath, content: content});
                     }
                 }
                 // HTML
-                const item = isBundled(zuixBundle.viewList, path);
+                const item = isBundled(zuixBundle.viewList, resourcePath);
                 if (item !== false) {
                     item.count++;
                     return;
                 }
-                content = fetchResource(path + '.html', sourceFolder, !hasJsFile);
+                content = fetchResource(resourcePath + '.html', sourceFolder, !hasJsFile);
                 if (content != null) {
                     // Run static-site processing
-                    content = staticSite.swig({ file: path + '.html', content: content, data: data.data, app: data.app })._result.contents;
+                    content = staticSite.swig({file: resourcePath + '.html', content: content, data: data.data, app: data.app})._result.contents;
                     // check markdown option
                     const md = el.getAttribute('data-o-markdown');
                     if (md != null && md.trim() === 'true') {
@@ -165,7 +155,7 @@ function createBundle(sourceFolder, data) {
                         el.removeAttribute('data-o-markdown');
                     }
                     const d = {
-                        file: sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path + '.html',
+                        file: sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + resourcePath + '.html',
                         content: content
                     };
                     const dm = createBundle(sourceFolder, d);
@@ -180,22 +170,22 @@ function createBundle(sourceFolder, data) {
                         if (el.getAttribute('data-ui-lazyload') != 'true' && el.getAttribute('data-ui-load') == null) {
                             inline = true;
                             el.innerHTML = '\n' + content + '\n';
-                            let p = resolveAppPath(sourceFolder, path);
-                            p = p.lib ? p.path : path;
+                            let p = resolveAppPath(sourceFolder, resourcePath);
+                            p = p.lib ? p.path : resourcePath;
                             el.setAttribute('data-ui-view', p);
                         }
-                        zuixBundle.viewList.push({path: path, content: content, element: el, bundle: !inline});
+                        zuixBundle.viewList.push({path: resourcePath, content: content, element: el, bundle: !inline});
                     }
                 }
                 // CSS
-                content = fetchResource(path + '.css', sourceFolder);
+                content = fetchResource(resourcePath + '.css', sourceFolder);
                 if (content != null) {
                     if (el.getAttribute('data-ui-mode') === 'unwrap') {
                         // TODO: add // comment with file info
-                        content = util.format('\n<style id="%s">\n%s\n</style>\n', path, content);
-                        dom.window.document.querySelector('head').innerHTML += util.format('\n<!--{[%s]}-->\n%s', path, content);
+                        content = util.format('\n<style id="%s">\n%s\n</style>\n', resourcePath, content);
+                        dom.window.document.querySelector('head').innerHTML += util.format('\n<!--{[%s]}-->\n%s', resourcePath, content);
                     } else {
-                        zuixBundle.styleList.push({path: path, content: content});
+                        zuixBundle.styleList.push({path: resourcePath, content: content});
                     }
                 }
             });
@@ -204,28 +194,43 @@ function createBundle(sourceFolder, data) {
     return dom;
 }
 
-function resolveAppPath(sourceFolder, path) {
+function resolveAppPath(sourceFolder, filePath) {
     let isLibraryPath = false;
-    if (!isUrl(path)) {
-        if (path.startsWith('@lib/')) {
+    if (!isUrl(filePath)) {
+        if (filePath.startsWith('@lib/')) {
+            const relPath = filePath.substring(5);
             // resolve components library path
             if (zuixConfig.app.libraryPath != null) {
-                if (zuixConfig.app.libraryPath.indexOf('://') > 0 || zuixConfig.app.libraryPath.startsWith('//')) {
-                    path = zuixConfig.app.libraryPath + path.substring(4);
+                if (isUrl(zuixConfig.app.libraryPath)) {
+                    filePath = url.resolve(zuixConfig.app.libraryPath, relPath);
                 } else {
-                    path = sourceFolder + '/' + zuixConfig.app.libraryPath + path.substring(4);
+                    filePath = path.join(sourceFolder, zuixConfig.app.libraryPath, relPath);
                 }
             } else {
-                path = LIBRARY_PATH_DEFAULT + path.substring(4);
+                filePath = url.resolve(LIBRARY_PATH_DEFAULT, relPath);
             }
             isLibraryPath = true;
         }
-        path = isLibraryPath ? path : sourceFolder + '/' + zuixConfig.app.resourcePath + '/' + path;
+        filePath = isLibraryPath ? filePath : path.join(sourceFolder, zuixConfig.app.resourcePath, filePath);
     }
     return {
         lib: isLibraryPath,
-        path: path
+        path: filePath
     };
+}
+
+function resolveResourcePath(file, resourcePath) {
+    if (!isUrl(resourcePath)) {
+        if (resourcePath.startsWith('.')) {
+            resourcePath = path.resolve(path.dirname(file), resourcePath);
+        } else {
+            resourcePath = path.join(zuixConfig.build.input, resourcePath);
+        }
+        if (!fs.existsSync(resourcePath)) {
+            resourcePath = path.join(zuixConfig.build.output, resourcePath);
+        }
+    }
+    return resourcePath;
 }
 
 function isBundled(list, path) {
@@ -302,34 +307,38 @@ function getBundleItem(bundle, path) {
 }
 
 function generateApp(sourceFolder, data) {
+    // reset bundle
+    zuixBundle.viewList.length = 0;
+    zuixBundle.styleList.length = 0;
+    zuixBundle.controllerList.length = 0;
+    zuixBundle.assetList.length = 0;
     const dom = createBundle(sourceFolder, data);
     if (dom != null) {
-
         if (zuixConfig.build.bundle.zuix !== false) {
             let bundleViews = '<!-- zUIx inline resource resourceBundle -->';
-            zuixBundle.viewList.forEach(function (v) {
+            zuixBundle.viewList.forEach(function(v) {
                 if (v.bundle) {
-                    let path = resolveAppPath(sourceFolder, v.path);
-                    path = path.lib ? path.path : v.path;
-                    const content = util.format('<div data-ui-view="%s">\n%s\n</div>', path, v.content);
+                    let resourcePath = resolveAppPath('/', v.path);
+                    resourcePath = resourcePath.lib ? resourcePath.path : v.path;
+                    const content = util.format('<div data-ui-view="%s">\n%s\n</div>', resourcePath, v.content);
                     bundleViews += util.format('\n<!--{[%s]}-->\n%s', v.path, content);
                 }
                 stats[v.path] = stats[v.path] || {};
                 stats[v.path].view = true;
             });
             let resourceBundle = [];
-            zuixBundle.controllerList.forEach(function (s) {
+            zuixBundle.controllerList.forEach(function(s) {
                 // TODO: ensure it ends with ';'
-                let path = resolveAppPath(sourceFolder, s.path);
-                path = path.lib ? path.path : s.path;
-                getBundleItem(resourceBundle, path).controller = s.content;
+                let resourcePath = resolveAppPath('/', s.path);
+                resourcePath = resourcePath.lib ? resourcePath.path : s.path;
+                getBundleItem(resourceBundle, resourcePath).controller = s.content;
                 stats[s.path] = stats[s.path] || {};
                 stats[s.path].controller = true;
             });
-            zuixBundle.styleList.forEach(function (s) {
-                let path = resolveAppPath(sourceFolder, s.path);
-                path = path.lib ? path.path : s.path;
-                getBundleItem(resourceBundle, path).css = s.content;
+            zuixBundle.styleList.forEach(function(s) {
+                let resourcePath = resolveAppPath('/', s.path);
+                resourcePath = resourcePath.lib ? resourcePath.path : s.path;
+                getBundleItem(resourceBundle, resourcePath).css = s.content;
                 stats[s.path] = stats[s.path] || {};
                 stats[s.path].css = true;
             });
@@ -350,14 +359,14 @@ function generateApp(sourceFolder, data) {
 
         if (zuixConfig.build.bundle.js !== false) {
             // TODO: report in final summary
-            zuixBundle.assetList.forEach(function (a) {
+            zuixBundle.assetList.forEach(function(a) {
                 stats[a.path] = stats[a.path] || {};
                 stats[a.path].script = true;
             });
         }
         if (zuixConfig.build.bundle.css !== false) {
             // TODO: report in final summary
-            zuixBundle.assetList.forEach(function (a) {
+            zuixBundle.assetList.forEach(function(a) {
                 stats[a.path] = stats[a.path] || {};
                 stats[a.path].style = true;
             });
