@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "c29865361485f38733f24cadf4e499d5"
+    "revision": "5a2f8a880d56f0fdafb0ac8c9d6d05af"
   },
   {
     "url": "app/controllers/content_loader.js",
@@ -97,7 +97,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "84e87696cc8790a2d95af6d5c529f17c"
+    "revision": "e4f01492b9cbaf5c59d0356ef9e77548"
   },
   {
     "url": "index.js",
@@ -105,15 +105,15 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
-    "revision": "2bee21872f78a29d249fe8d731853d7e"
+    "revision": "daf3014760a1ad146d1552cda2b48ab3"
   },
   {
     "url": "js/mdl/material.js",
-    "revision": "b50a9d9f625f6eb4e09c40957f2e4e02"
+    "revision": "e2ff1b08544fdef6afe46d6bf9425ba9"
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
+    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
   },
   {
     "url": "js/mdl/material.min.js",
