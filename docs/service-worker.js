@@ -65,19 +65,19 @@ self.__precacheManifest = [
   },
   {
     "url": "content/about.html",
-    "revision": "14e81589212437a769ff449231477b70"
+    "revision": "dbf13c3e19b1093259ef6e2bd9fa1aa9"
   },
   {
     "url": "content/docs/content_files.html",
-    "revision": "4dfa1b1c8e2f16195412db17dc5e73f9"
+    "revision": "fab85b18c951dc43a49275f6fedd451b"
   },
   {
     "url": "content/docs/side_menu.html",
-    "revision": "04e8f73f0b960e40b3c79fc71f6f2c2b"
+    "revision": "f31a04f74681428b1b75e65d5967bd19"
   },
   {
     "url": "content/docs/theme.html",
-    "revision": "e17d2cfb0a43c9adbbc34b65f3798d07"
+    "revision": "3a731221e132535461645cce0349bd3c"
   },
   {
     "url": "css/animate.css",
@@ -105,15 +105,15 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
-    "revision": "4dfad3cb6c678cb2e5aaedd81ebe8b46"
+    "revision": "2bee21872f78a29d249fe8d731853d7e"
   },
   {
     "url": "js/mdl/material.js",
-    "revision": "60f3ee61721d5bbac709fad9c239f2ac"
+    "revision": "b50a9d9f625f6eb4e09c40957f2e4e02"
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "45d2af18d4499a5d70c7bdfc932f9bbf"
+    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
   },
   {
     "url": "js/mdl/material.min.js",
@@ -157,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "d1c5d94d44d17e5619a1404eab20f862"
+    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
   },
   {
     "url": "js/zuix/zuix.min.js",
