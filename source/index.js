@@ -120,7 +120,7 @@ var siteOptions = {
 
 // Load AnimateCSS extension
 
-zuix.$.ZxQuery.prototype.animateCss  = function (animationName, param1, param2){}; // // forward declaration (kind of)
+zuix.$.ZxQuery.prototype.animateCss = function(animationName, param1, param2) {}; // forward declaration (kind of)
 zuix.using('component', '@lib/extensions/animate_css', function(res, ctx) {
     console.log("AnimateCSS extension loaded.", res, ctx);
 });
