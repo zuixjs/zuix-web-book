@@ -34,8 +34,12 @@ module.exports = function (site, cb) {
         page.app = zuixConfig.app;
         // Adjust {{root} to relative path
         page.root = page.root.substring(3);
-        if (page.root.length > 0)
+        if (page.root.length > 0) {
             page.root += '/';
+        }
+        // TODO: !IMPORTANT! never use {{root}}, use {{base}} instead
+        // TODO: !IMPORTANT! using {{root}} can cause SWIG call stack overflow
+        page.base = page.root;
         return page;
     });
     cb(null, site);

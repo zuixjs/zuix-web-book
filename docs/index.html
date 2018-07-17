@@ -514,7 +514,7 @@ pre.code-toolbar > .toolbar span:focus {
 </style>
 
     <!-- ZUIX -->
-    <script src="js/zuix.min.js"></script>
+    <script src="js/zuix.js"></script>
 
     <style>[data-ui-view]:not([data-ui-include]):not([data-ui-load]) { display: none; }</style>
 </head>
@@ -526,7 +526,7 @@ pre.code-toolbar > .toolbar span:focus {
         <a data-ui-field="menu-button" class="menu-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
             <i class="material-icons">menu</i>
         </a>
-        <div class="logo truncate"><a title="A zUIx website" class="mdl-color-text--white" target="_self" href="https://github.com/genielabs/zuix-web-template">WebBook</a></div>
+        <div class="logo truncate">WebBook</div>
     </div>
     <div self="sm-hide" class="sharing">
         <div data-ui-load="@lib/components/social_sharing" data-ui-priority="-1" layout="row center-center">
@@ -535,7 +535,7 @@ pre.code-toolbar > .toolbar span:focus {
         </div>
     </div>
 </div>
-<div layout="row center-center" class="second-row mdl-color--primary mdl-color-text--white">
+<div layout="row center-center" class="second-row mdl-color--green-50 mdl-color-text--black">
     <div data-ui-field="header-title" class="subtitle truncate">Welcome</div>
 </div>
 
@@ -548,11 +548,11 @@ pre.code-toolbar > .toolbar span:focus {
 
     </main>
 
-    <div data-ui-load="@lib/controllers/drawer_layout" data-ui-options="siteOptions.drawerLayout">
+    <div data-ui-load="@lib/controllers/drawer_layout" data-ui-options="siteOptions.drawerLayout" class="mdl-color--yellow-100">
 
         <div data-ui-include="layout/side_menu" data-ui-field="side-menu" class="side-menu mdl-shadow--8dp" layout="column center-spread" data-ui-view="layout/side_menu">
-<h2>WebBook</h2>
-<div self="size-x1" data-ui-field="menu" class="side-menu mdl-color--white">
+<h2 class="mdl-color--primary-dark mdl-color-text--white">WebBook</h2>
+<div self="size-x1" data-ui-field="menu" class="side-menu mdl-color--green-50 mdl-color-text--black">
 </div>
 
 </div>
@@ -717,7 +717,7 @@ div[data-ui-field="content-pages"] {
     bottom: 0;
 }
 div[data-ui-field="content-pages"] .page {
-    padding-top: 72px;
+    padding-top: 0;
     padding-bottom: 112px;
     background: white;
     min-height: 100vh;
@@ -893,15 +893,15 @@ var siteOptions = {
             'drawer:open': sideMenuOpen,
             'drawer:close': sideMenuClose,
             'layout:change': function (e) {
-                const autoHide = e.detail.smallScreen;
-                autoHidingMenu = autoHide;
-                if (autoHide) {
+                autoHidingMenu = e.detail.smallScreen;
+                if (autoHidingMenu) {
                     pageContainer
                         .removeClass('main-side-menu main-side-menu-pull')
                         .addClass('main-side-menu-off')
                         .css('margin-left', '0');
                     headerTitle.css('margin-left', '0');
                     menuButton.show();
+                    showHeader();
                 } else {
                     pageContainer
                         .removeClass('main-side-menu-off main-side-menu')
@@ -909,6 +909,7 @@ var siteOptions = {
                         .css('margin-left', siteOptions.drawerLayout.drawerWidth+'px');
                     headerTitle.css('margin-left', siteOptions.drawerLayout.drawerWidth+'px');
                     menuButton.hide();
+                    hideHeader();
                 }
                 if (sideMenuPanel != null) sideMenuPanel.lock(!autoHidingMenu);
             }
@@ -923,13 +924,13 @@ var siteOptions = {
         on: {
             'path:change': showPage,
             'scroll:change': function (e, data) {
-                switch (data.event) {
-                    case 'hit-top':
-                        // reached top of page
-                        showHeader();
-                        break;
-                    case 'scroll':
-                        if (pageContainer.hasClass('main-side-menu-off')) {
+                if (pageContainer.hasClass('main-side-menu-off')) {
+                    switch (data.event) {
+                        case 'hit-top':
+                            // reached top of page
+                            showHeader();
+                            break;
+                        case 'scroll':
                             if (data.info.shift.y < 0) {
                                 // scrolling up
                                 hideHeader();
@@ -937,12 +938,12 @@ var siteOptions = {
                                 // scrolling down
                                 showHeader();
                             }
-                        }
-                        break;
-                    case 'hit-bottom':
-                        // reached end of page
-                        showHeader();
-                        break;
+                            break;
+                        case 'hit-bottom':
+                            // reached end of page
+                            showHeader();
+                            break;
+                    }
                 }
             }
         },
@@ -1070,9 +1071,6 @@ function fetchFromObject(obj, prop) {
 }
 
 function sideMenuOpen(e, status) {
-    if (!status.smallScreen) {
-        showHeader();
-    }
     // animate menu button
     menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('arrow_back').animateCss('rotateIn', { duration: '0.25s' });
@@ -1258,11 +1256,11 @@ function hideHeader() {
   },
   {
     "componentId": "layout/header",
-    "css": ". {\n    position: fixed;\n    left: 0;\n    right: 0;\n    z-index: 10;\n}\n\n.first-row {\n    height: 64px;\n    width: 100%;\n}\n.second-row {\n    font-size: 80%;\n    height: 32px;\n    width: 100%;\n    text-align: center;\n    text-transform: uppercase;\n    display: none;\n}\n\n.title .menu-toggle {\n    width: 56px;\n    text-align: center;\n    margin-right: 8px;\n    cursor: pointer;\n}\n.sharing {\n    margin-right: 16px;\n    font-size:120%;\n}\n\n.logo {\n    font-weight: 400;\n    font-size: 200%;\n    line-height: 200%;\n    padding-left: 16px;\n    padding-right: 16px;\n}\n.logo-caption {\n    font-size: 80%;\n}\n\n.subtitle {\n    font-size: 120%;\n    line-height: 200%;\n    padding-left: 16px;\n    padding-right: 16px;\n    color:black;\n}\n\ndiv[data-ui-field=\"header-roller\"] {\n    position: absolute;\n    left:0;right:0;bottom:0;\n    height: 32px;\n    text-align: center;\n}\n\n@media only screen and (max-width: 640px) {\n    .logo {\n        font-size: 160%;\n    }\n    .subtitle {\n        font-size: 110%;\n    }\n}\n@media only screen and (max-width: 800px) {\n    .second-row {\n        display: block;\n    }\n}"
+    "css": ". {\n    position: fixed;\n    left: 0;\n    right: 0;\n    z-index: 10;\n}\n\n.first-row {\n    height: 64px;\n    width: 100%;\n}\n.second-row {\n    font-size: 80%;\n    height: 32px;\n    width: 100%;\n    text-align: center;\n    text-transform: uppercase;\n    display: none;\n}\n\n.title .menu-toggle {\n    width: 56px;\n    text-align: center;\n    margin-right: 8px;\n    cursor: pointer;\n}\n.sharing {\n    margin-right: 16px;\n    font-size:120%;\n}\n\n.logo {\n    font-family: 'Roboto Condensed', serif !important;\n    font-weight: 400;\n    font-size: 200%;\n    line-height: 200%;\n    padding-left: 16px;\n    padding-right: 16px;\n}\n.logo-caption {\n    font-size: 80%;\n}\n\n.subtitle {\n    font-size: 120%;\n    line-height: 200%;\n    padding-left: 16px;\n    padding-right: 16px;\n}\n\ndiv[data-ui-field=\"header-roller\"] {\n    position: absolute;\n    left:0;right:0;bottom:0;\n    height: 32px;\n    text-align: center;\n}\n\n@media only screen and (max-width: 640px) {\n    .logo {\n        font-size: 160%;\n    }\n    .subtitle {\n        font-size: 110%;\n    }\n}\n@media only screen and (max-width: 800px) {\n    .second-row {\n        display: block;\n    }\n}"
   },
   {
     "componentId": "layout/side_menu",
-    "css": ". {\n    top:0; left:0; min-height: 100vh;\n    overflow: visible;\n}\n\nh2 {\n    background: whitesmoke;\n    margin:  0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    text-align: center;\n}\n\n.side-menu {\n    overflow-y: auto;\n    padding: 24px 8px 48px 0;\n    font-family: 'Roboto Condensed', serif !important;\n    font-size: 110%;\n    z-index: 10;\n}\n\n.side-menu .material-icons {\n    font-size: 150%;\n    margin-right: 16px;\n}\n\n.side-menu a {\n    padding: 12px 8px 12px 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n.side-menu a.sub_item {\n    padding: 0 8px 0 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n/*\n.side-menu a:hover {\n    background-color: rgba(132, 184, 209, 0.5);\n    color: #101035;\n}\n*/\n.side-menu a.sub_item span {\n    margin-left: 16px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 26px;\n    font-size: 90%;\n    border-left: dotted 3px rgba(150,150,150,0.5);\n}\n.current .side-menu a.sub_item span {\n    border-left: solid 3px rgb(200, 200, 0);\n}\n\na.current span {\n    font-weight: bold;\n}\na.sub_item.current span {\n    font-weight: bold;\n    border-left: solid 3px rgb(200, 200, 0);\n}\n.current i {\n    color: rgb(200, 200, 0) !important;\n    font-weight: bolder;\n}\n"
+    "css": ". {\n    top:0; left:0; min-height: 100vh;\n    overflow: visible;\n}\n\nh2 {\n    margin:  0;\n    padding-top: 8px;\n    padding-bottom: 8px;\n    text-align: center;\n}\n\n.side-menu {\n    overflow-y: auto;\n    padding: 24px 8px 48px 0;\n    font-family: 'Roboto Condensed', serif !important;\n    font-size: 110%;\n    z-index: 10;\n}\n\n.side-menu .material-icons {\n    font-size: 150%;\n    margin-right: 16px;\n}\n\n.side-menu a {\n    padding: 8px 8px 8px 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n.side-menu a.sub_item {\n    padding: 0 8px 0 24px;\n    color: rgba(255, 255, 255, 0.8);\n}\n/*\n.side-menu a:hover {\n    background-color: rgba(132, 184, 209, 0.5);\n    color: #101035;\n}\n*/\n.side-menu a.sub_item span {\n    margin-left: 16px;\n    padding-top: 10px;\n    padding-bottom: 10px;\n    padding-left: 26px;\n    font-size: 90%;\n    border-left: dotted 3px rgba(150,150,150,0.5);\n}\n.current .side-menu a.sub_item span {\n    border-left: solid 3px rgb(200, 200, 0);\n}\n\na.current span {\n    font-weight: bold;\n}\na.sub_item.current span {\n    font-weight: bold;\n    border-left: solid 3px rgb(200, 200, 0);\n}\n.current i {\n    color: rgb(200, 200, 0) !important;\n    font-weight: bolder;\n}\n"
   }
 ])</script>
 </body></html>

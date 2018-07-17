@@ -139,7 +139,7 @@ div[data-ui-field="content-pages"] {
     bottom: 0;
 }
 div[data-ui-field="content-pages"] .page {
-    padding-top: 72px;
+    padding-top: 0;
     padding-bottom: 112px;
     background: white;
     min-height: 100vh;

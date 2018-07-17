@@ -31,15 +31,15 @@ var siteOptions = {
             'drawer:open': sideMenuOpen,
             'drawer:close': sideMenuClose,
             'layout:change': function (e) {
-                const autoHide = e.detail.smallScreen;
-                autoHidingMenu = autoHide;
-                if (autoHide) {
+                autoHidingMenu = e.detail.smallScreen;
+                if (autoHidingMenu) {
                     pageContainer
                         .removeClass('main-side-menu main-side-menu-pull')
                         .addClass('main-side-menu-off')
                         .css('margin-left', '0');
                     headerTitle.css('margin-left', '0');
                     menuButton.show();
+                    showHeader();
                 } else {
                     pageContainer
                         .removeClass('main-side-menu-off main-side-menu')
@@ -47,6 +47,7 @@ var siteOptions = {
                         .css('margin-left', siteOptions.drawerLayout.drawerWidth+'px');
                     headerTitle.css('margin-left', siteOptions.drawerLayout.drawerWidth+'px');
                     menuButton.hide();
+                    hideHeader();
                 }
                 if (sideMenuPanel != null) sideMenuPanel.lock(!autoHidingMenu);
             }
@@ -61,13 +62,13 @@ var siteOptions = {
         on: {
             'path:change': showPage,
             'scroll:change': function (e, data) {
-                switch (data.event) {
-                    case 'hit-top':
-                        // reached top of page
-                        showHeader();
-                        break;
-                    case 'scroll':
-                        if (pageContainer.hasClass('main-side-menu-off')) {
+                if (pageContainer.hasClass('main-side-menu-off')) {
+                    switch (data.event) {
+                        case 'hit-top':
+                            // reached top of page
+                            showHeader();
+                            break;
+                        case 'scroll':
                             if (data.info.shift.y < 0) {
                                 // scrolling up
                                 hideHeader();
@@ -75,12 +76,12 @@ var siteOptions = {
                                 // scrolling down
                                 showHeader();
                             }
-                        }
-                        break;
-                    case 'hit-bottom':
-                        // reached end of page
-                        showHeader();
-                        break;
+                            break;
+                        case 'hit-bottom':
+                            // reached end of page
+                            showHeader();
+                            break;
+                    }
                 }
             }
         },
@@ -208,9 +209,6 @@ function fetchFromObject(obj, prop) {
 }
 
 function sideMenuOpen(e, status) {
-    if (!status.smallScreen) {
-        showHeader();
-    }
     // animate menu button
     menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
         this.find('i').html('arrow_back').animateCss('rotateIn', { duration: '0.25s' });
