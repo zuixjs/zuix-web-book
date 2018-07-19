@@ -3,7 +3,7 @@
 <img src="images/banners/about.jpg" alt="cover" class="mdl-shadow--8dp" style="max-width:100%">
 <div class="vertical-spacer-16"></div>
 
-A ready to use webapp template powered by
+A ready to use web app template powered by
 [zUIx](https://genielabs.github.io/zuix).
 Site structure and content management are based on a simple configuration file.
 
@@ -14,7 +14,7 @@ Site structure and content management are based on a simple configuration file.
 - Component-based web development with lazy-loading facility
 - Integrated build system with resource packing
 - Progressive Web App, also works offline
-- Framework Agnostic
+- Framework agnostic
 
 ### UI Setup
 
