@@ -25,7 +25,7 @@ self.__precacheManifest = [
   },
   {
     "url": "app/controllers/content_loader.js",
-    "revision": "bbe987438cd8c0c500bc125273de9ea2"
+    "revision": "8de4219bfaac3d4009bccbe340a029c4"
   },
   {
     "url": "app/layout/header.css",
@@ -97,7 +97,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "33292085b6be4f556fb8ac4883e43b8a"
+    "revision": "cb1bf59f0573460ba6535ab6fbaee669"
   },
   {
     "url": "index.js",
@@ -105,11 +105,11 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
-    "revision": "2bee21872f78a29d249fe8d731853d7e"
+    "revision": "daf3014760a1ad146d1552cda2b48ab3"
   },
   {
     "url": "js/mdl/material.js",
-    "revision": "b50a9d9f625f6eb4e09c40957f2e4e02"
+    "revision": "e2ff1b08544fdef6afe46d6bf9425ba9"
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
@@ -157,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
+    "revision": "630e5b6805eeddd575fa2948502254d3"
   },
   {
     "url": "js/zuix/zuix.min.js",
