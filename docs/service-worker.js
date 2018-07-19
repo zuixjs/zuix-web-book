@@ -57,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "app/templates/mdl_card.html",
-    "revision": "61f9c04d0602223d14da9df3ffcefd14"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "config.js",
@@ -129,7 +129,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/prism/prism.js",
-    "revision": "1a7c3a75daca45e74ca45b4efa3b1bca"
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "js/zuix-bundler.js",
@@ -174,7 +174,42 @@ self.__precacheManifest = [
   {
     "url": "workbox-sw.js",
     "revision": "ed25dc64f757df940d68d70073faac6c"
+  },
+  {
+    "url": "images/banners/about.jpg",
+    "revision": "b7a56c60596902441413e7dcb87f4c68"
+  },
+  {
+    "url": "images/banners/content-files.jpg",
+    "revision": "93f11286e6f8a8fe2d555fc4b37d7bad"
+  },
+  {
+    "url": "images/banners/mdl-banner.jpg",
+    "revision": "748bd081c6adbf2db02d8350c89ec372"
+  },
+  {
+    "url": "images/banners/side-menu.jpg",
+    "revision": "b3b0c55128d87ca3efa5290eb61f682e"
+  },
+  {
+    "url": "images/card_cover.jpg",
+    "revision": "056b0eb64ac30441bd6aca8e3798286b"
+  },
+  {
+    "url": "images/github.png",
+    "revision": "bc0550c0fe9c550342b069ada1b33272"
+  },
+  {
+    "url": "images/lighthouse_score.png",
+    "revision": "296a96f22ac35d6653648986e4671192"
+  },
+  {
+    "url": "images/menu_template_preview_1.png",
+    "revision": "f7eaf15c9b4dc3e25a3ca16da5e6e0e1"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerRoute(/\.(?:png|jpg|jpeg|svg)$/, workbox.strategies.cacheFirst({ cacheName: "images", plugins: [new workbox.expiration.Plugin({"maxEntries":50,"purgeOnQuotaError":false})] }), 'GET');
+workbox.routing.registerRoute(/\.(?:html|json|js|css)$/, workbox.strategies.cacheFirst({ cacheName: "default", plugins: [new workbox.expiration.Plugin({"maxEntries":50,"purgeOnQuotaError":false})] }), 'GET');
