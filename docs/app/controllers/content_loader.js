@@ -69,6 +69,7 @@ zuix.controller(function (cp) {
                             c.view().setAttribute('data-id', item.id);
                             zuix.$(container).append(c.view());
                             callback(c, isLast);
+console.log('@@@', item, item.list);
                             if (item.list != null) {
                                 list(item.list, c.view(), function () {
                                    // TODO: ...

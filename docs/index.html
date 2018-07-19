@@ -513,84 +513,6 @@ pre.code-toolbar > .toolbar span:focus {
 /*{% endraw %}*/
 </style>
 
-    <!-- Site Config -->
-    <script>//{% raw %}
-var siteConfig = {
-
-    content: [
-        {
-            id: 'about',
-            template: 'layout/side_menu_item',
-            data: {
-                title: 'About',
-                icon: 'info_outline',
-                link: '#/about',
-                file: 'content/about.html'
-            }
-        },
-        {
-            id: 'docs',
-            template: 'layout/side_menu_item',
-            data: {
-                title: 'Documentation',
-                icon: 'import_contacts',
-                link: '#/docs/content_files'
-            },
-            list: [
-                {
-                    id: 'content_files',
-                    template: 'layout/side_menu_subitem',
-                    data: {
-                        title: 'Content',
-                        link: '#/docs/content_files',
-                        file: 'content/docs/content_files.html'
-                    }
-                },
-                {
-                    id: 'side_menu',
-                    template: 'layout/side_menu_subitem',
-                    data: {
-                        title: 'Side menu',
-                        link: '#/docs/side_menu',
-                        file: 'content/docs/side_menu.html'
-                    }
-                },
-                {
-                    id: 'theme',
-                    template: 'layout/side_menu_subitem',
-                    data: {
-                        title: 'Theme',
-                        link: '#/docs/theme',
-                        file: 'content/docs/theme.html'
-                    }
-                }
-
-            ]
-        },
-        {
-            id: 'kit',
-            template: 'layout/side_menu_item',
-            data: {
-                title: 'Kit',
-                icon: 'extension',
-                link: 'https://genielabs.github.io/zkit'
-            }
-        }
-    ],
-
-    strings: {
-        startPage: '#/about',
-        baseUrl: '/',
-        title: 'Website Demo'
-    }
-
-
-};
-if (typeof module !== 'undefined') {
-    module.exports = siteConfig;
-}
-//{% endraw %}</script>
-
     <!-- zUIx -->
     <script src="js/zuix.min.js"></script>
 
@@ -836,6 +758,82 @@ div[data-ui-field="content-pages"] .page img {
 
 /*{% endraw %}*/
 </style>
+    <script>//{% raw %}
+var siteConfig = {
+
+    content: [
+        {
+            id: 'about',
+            template: 'layout/side_menu_item',
+            data: {
+                title: 'About',
+                icon: 'info_outline',
+                link: '#/about',
+                file: 'content/about.html'
+            }
+        },
+        {
+            id: 'docs',
+            template: 'layout/side_menu_item',
+            data: {
+                title: 'Documentation',
+                icon: 'import_contacts',
+                link: '#/docs/content_files'
+            },
+            list: [
+                {
+                    id: 'content_files',
+                    template: 'layout/side_menu_subitem',
+                    data: {
+                        title: 'Content',
+                        link: '#/docs/content_files',
+                        file: 'content/docs/content_files.html'
+                    }
+                },
+                {
+                    id: 'side_menu',
+                    template: 'layout/side_menu_subitem',
+                    data: {
+                        title: 'Side menu',
+                        link: '#/docs/side_menu',
+                        file: 'content/docs/side_menu.html'
+                    }
+                },
+                {
+                    id: 'theme',
+                    template: 'layout/side_menu_subitem',
+                    data: {
+                        title: 'Theme',
+                        link: '#/docs/theme',
+                        file: 'content/docs/theme.html'
+                    }
+                }
+
+            ]
+        },
+        {
+            id: 'kit',
+            template: 'layout/side_menu_item',
+            data: {
+                title: 'Kit',
+                icon: 'extension',
+                link: 'https://genielabs.github.io/zkit'
+            }
+        }
+    ],
+
+    strings: {
+        startPage: '#/about',
+        baseUrl: '/',
+        title: 'Website Demo'
+    }
+
+
+};
+if (typeof module !== 'undefined') {
+    module.exports = siteConfig;
+}
+//{% endraw %}</script>
     <script src="config.js"></script>
     <script>//{% raw %}
 // Store a global reference to elements of site structure
@@ -1259,7 +1257,7 @@ function hideHeader() {
   },
   {
     "componentId": "controllers/content_loader",
-    "controller": "zuix.controller(function (cp) {\n\n    cp.init = function () {\n        this.options().css = false;\n        this.options().html = false;\n    };\n\n    cp.create = function () {\n        window.onhashchange = function () {\n            navigate();\n        };\n        cp.expose('data', data);\n        cp.expose('path', getCurrentPath);\n        cp.expose('list', list);\n        cp.expose('getContent', getContent);\n        cp.expose('navigate', navigate);\n    };\n\n\n    // this is the JSON site data\n    let contentTree = null;\n\n    const dummyController = zuix.controller(function(ctrl){});\n    const contentController = zuix.controller(function(contentCtrl){\n        contentCtrl.create = function () {\n            contentCtrl.view().hide();\n            zuix.load('@lib/controllers/scroll_helper', {\n                view: contentCtrl.view(),\n                ready: function (scrollCtx) {\n                    const watchList = contentCtrl.options().watchList;\n                    if (watchList != null)\n                        scrollCtx.watch(watchList.filter, watchList.callback);\n                    scrollCtx.on('scroll:change', function (e, data) {\n                        // route event through the main context\n                        // `cp` is the main `content_loader` context\n                        data.page = contentCtrl;\n                        cp.trigger('scroll:change', data);\n                    });\n                }\n            })\n        };\n    });\n\n    function data(d) {\n        if (d != null)\n            contentTree = d;\n        return contentTree;\n    }\n\n    function getCurrentPath() {\n        if (window.location.hash.length > 0)\n            return window.location.hash;\n        return '';\n    }\n\n    function list(items, container, callback) {\n        zuix.$.each(items, function (k, v) {\n            (function(item, isLast) {\n                const itemId = v.id+'['+item.template+']';\n                const ctx = zuix.context(itemId);\n                if (ctx == null) {\n                    zuix.load(item.template, {\n                        contextId: itemId,\n                        css: false,\n                        braces: { data: item.data },\n                        controller: dummyController,\n                        ready: function (c) {\n                            c.options().data = item;\n                            c.view().setAttribute('data-id', item.id);\n                            zuix.$(container).append(c.view());\n                            callback(c, isLast);\n                            if (item.list != null) {\n                                list(item.list, c.view(), function () {\n                                   // TODO: ...\n                                });\n                            }\n                        }\n                    });\n                } else {\n                    callback(ctx, isLast);\n                }\n            })(v, k == items.length - 1);\n        });\n    }\n\n    function getContent(data, callback) {\n        const path = '../'+data.file;\n        // exit if no content path specified\n        if (path == null || path.length == 0) return;\n        const content = zuix.context(path);\n        if (content == null) {\n            zuix.load(path, {\n                contextId: path,\n                wrapContent: true,\n                prism: true,\n                //braces: { data: data },\n                css: false,\n                cext: '',\n                controller: contentController,\n                ready: function (c) {\n                    // extend context with 'watch' method\n                    c.watch = function (filter, fn) {\n                        c.options().watchList = {\n                            filter: filter,\n                            callback: fn\n                        }\n                    };\n                    callback(c, true);\n                    // TODO: zuix.componentize(c.view());\n                },\n                error: function(err) {\n                    //document.location.replace('404.html');\n                }\n            });\n        } else {\n            callback(content, false);\n        }\n    }\n\n    function navigate() {\n        const path = getCurrentPath();\n        cp.trigger('path:change', path);\n    }\n\n});\n"
+    "controller": "zuix.controller(function (cp) {\n\n    cp.init = function () {\n        this.options().css = false;\n        this.options().html = false;\n    };\n\n    cp.create = function () {\n        window.onhashchange = function () {\n            navigate();\n        };\n        cp.expose('data', data);\n        cp.expose('path', getCurrentPath);\n        cp.expose('list', list);\n        cp.expose('getContent', getContent);\n        cp.expose('navigate', navigate);\n    };\n\n\n    // this is the JSON site data\n    let contentTree = null;\n\n    const dummyController = zuix.controller(function(ctrl){});\n    const contentController = zuix.controller(function(contentCtrl){\n        contentCtrl.create = function () {\n            contentCtrl.view().hide();\n            zuix.load('@lib/controllers/scroll_helper', {\n                view: contentCtrl.view(),\n                ready: function (scrollCtx) {\n                    const watchList = contentCtrl.options().watchList;\n                    if (watchList != null)\n                        scrollCtx.watch(watchList.filter, watchList.callback);\n                    scrollCtx.on('scroll:change', function (e, data) {\n                        // route event through the main context\n                        // `cp` is the main `content_loader` context\n                        data.page = contentCtrl;\n                        cp.trigger('scroll:change', data);\n                    });\n                }\n            })\n        };\n    });\n\n    function data(d) {\n        if (d != null)\n            contentTree = d;\n        return contentTree;\n    }\n\n    function getCurrentPath() {\n        if (window.location.hash.length > 0)\n            return window.location.hash;\n        return '';\n    }\n\n    function list(items, container, callback) {\n        zuix.$.each(items, function (k, v) {\n            (function(item, isLast) {\n                const itemId = v.id+'['+item.template+']';\n                const ctx = zuix.context(itemId);\n                if (ctx == null) {\n                    zuix.load(item.template, {\n                        contextId: itemId,\n                        css: false,\n                        braces: { data: item.data },\n                        controller: dummyController,\n                        ready: function (c) {\n                            c.options().data = item;\n                            c.view().setAttribute('data-id', item.id);\n                            zuix.$(container).append(c.view());\n                            callback(c, isLast);\nconsole.log('@@@', item, item.list);\n                            if (item.list != null) {\n                                list(item.list, c.view(), function () {\n                                   // TODO: ...\n                                });\n                            }\n                        }\n                    });\n                } else {\n                    callback(ctx, isLast);\n                }\n            })(v, k == items.length - 1);\n        });\n    }\n\n    function getContent(data, callback) {\n        const path = '../'+data.file;\n        // exit if no content path specified\n        if (path == null || path.length == 0) return;\n        const content = zuix.context(path);\n        if (content == null) {\n            zuix.load(path, {\n                contextId: path,\n                wrapContent: true,\n                prism: true,\n                //braces: { data: data },\n                css: false,\n                cext: '',\n                controller: contentController,\n                ready: function (c) {\n                    // extend context with 'watch' method\n                    c.watch = function (filter, fn) {\n                        c.options().watchList = {\n                            filter: filter,\n                            callback: fn\n                        }\n                    };\n                    callback(c, true);\n                    // TODO: zuix.componentize(c.view());\n                },\n                error: function(err) {\n                    //document.location.replace('404.html');\n                }\n            });\n        } else {\n            callback(content, false);\n        }\n    }\n\n    function navigate() {\n        const path = getCurrentPath();\n        cp.trigger('path:change', path);\n    }\n\n});\n"
   },
   {
     "componentId": "layout/header",
