@@ -513,7 +513,85 @@ pre.code-toolbar > .toolbar span:focus {
 /*{% endraw %}*/
 </style>
 
-    <!-- ZUIX -->
+    <!-- Site Config -->
+    <script>//{% raw %}
+var siteConfig = {
+
+    content: [
+        {
+            id: 'about',
+            template: 'layout/side_menu_item',
+            data: {
+                title: 'About',
+                icon: 'info_outline',
+                link: '#/about',
+                file: 'content/about.html'
+            }
+        },
+        {
+            id: 'docs',
+            template: 'layout/side_menu_item',
+            data: {
+                title: 'Documentation',
+                icon: 'import_contacts',
+                link: '#/docs/content_files'
+            },
+            list: [
+                {
+                    id: 'content_files',
+                    template: 'layout/side_menu_subitem',
+                    data: {
+                        title: 'Content',
+                        link: '#/docs/content_files',
+                        file: 'content/docs/content_files.html'
+                    }
+                },
+                {
+                    id: 'side_menu',
+                    template: 'layout/side_menu_subitem',
+                    data: {
+                        title: 'Side menu',
+                        link: '#/docs/side_menu',
+                        file: 'content/docs/side_menu.html'
+                    }
+                },
+                {
+                    id: 'theme',
+                    template: 'layout/side_menu_subitem',
+                    data: {
+                        title: 'Theme',
+                        link: '#/docs/theme',
+                        file: 'content/docs/theme.html'
+                    }
+                }
+
+            ]
+        },
+        {
+            id: 'kit',
+            template: 'layout/side_menu_item',
+            data: {
+                title: 'Kit',
+                icon: 'extension',
+                link: 'https://genielabs.github.io/zkit'
+            }
+        }
+    ],
+
+    strings: {
+        startPage: '#/about',
+        baseUrl: '/',
+        title: 'Website Demo'
+    }
+
+
+};
+if (typeof module !== 'undefined') {
+    module.exports = siteConfig;
+}
+//{% endraw %}</script>
+
+    <!-- zUIx -->
     <script src="js/zuix.min.js"></script>
 
     <style>[data-ui-view]:not([data-ui-include]):not([data-ui-load]) { display: none; }</style>
@@ -758,82 +836,6 @@ div[data-ui-field="content-pages"] .page img {
 
 /*{% endraw %}*/
 </style>
-    <script>//{% raw %}
-var siteConfig = {
-
-    content: [
-        {
-            id: 'about',
-            template: 'layout/side_menu_item',
-            data: {
-                title: 'About',
-                icon: 'info_outline',
-                link: '#/about',
-                file: 'content/about.html'
-            }
-        },
-        {
-            id: 'docs',
-            template: 'layout/side_menu_item',
-            data: {
-                title: 'Documentation',
-                icon: 'import_contacts',
-                link: '#/docs/content_files'
-            },
-            list: [
-                {
-                    id: 'content_files',
-                    template: 'layout/side_menu_subitem',
-                    data: {
-                        title: 'Content',
-                        link: '#/docs/content_files',
-                        file: 'content/docs/content_files.html'
-                    }
-                },
-                {
-                    id: 'side_menu',
-                    template: 'layout/side_menu_subitem',
-                    data: {
-                        title: 'Side menu',
-                        link: '#/docs/side_menu',
-                        file: 'content/docs/side_menu.html'
-                    }
-                },
-                {
-                    id: 'theme',
-                    template: 'layout/side_menu_subitem',
-                    data: {
-                        title: 'Theme',
-                        link: '#/docs/theme',
-                        file: 'content/docs/theme.html'
-                    }
-                }
-
-            ]
-        },
-        {
-            id: 'kit',
-            template: 'layout/side_menu_item',
-            data: {
-                title: 'Kit',
-                icon: 'extension',
-                link: 'https://genielabs.github.io/zkit'
-            }
-        }
-    ],
-
-    strings: {
-        startPage: '#/about',
-        baseUrl: '/',
-        title: 'Website Demo'
-    }
-
-
-};
-if (typeof module !== 'undefined') {
-    module.exports = siteConfig;
-}
-//{% endraw %}</script>
     <script src="config.js"></script>
     <script>//{% raw %}
 // Store a global reference to elements of site structure
@@ -925,6 +927,7 @@ var siteOptions = {
         },
         ready: function (ctx) {
             contentLoader = ctx;
+console.log('!!!', siteConfig);
             contentLoader.data(siteConfig);
             let showDelay = 0;
             contentLoader.list(
@@ -1003,7 +1006,7 @@ zuix.hook('html:parse', function (data) {
 
 });
 
-console.log('!!!', siteConfig);
+
 // Index content items
 let index = 0;
 zuix.$.each(siteConfig.content, function (k, v) {

@@ -87,6 +87,7 @@ var siteOptions = {
         },
         ready: function (ctx) {
             contentLoader = ctx;
+console.log('!!!', siteConfig);
             contentLoader.data(siteConfig);
             let showDelay = 0;
             contentLoader.list(
@@ -165,7 +166,7 @@ zuix.hook('html:parse', function (data) {
 
 });
 
-console.log('!!!', siteConfig);
+
 // Index content items
 let index = 0;
 zuix.$.each(siteConfig.content, function (k, v) {

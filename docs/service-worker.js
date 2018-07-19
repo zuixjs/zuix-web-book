@@ -97,11 +97,11 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "d5b4436574ee62f306798ecc45e18079"
+    "revision": "c4e09f769ee986d5cdeda4ffbaff9e84"
   },
   {
     "url": "index.js",
-    "revision": "c07b79ce723addd729a843430ef35ee3"
+    "revision": "76e88bf90439617d2cee139d334bfc0e"
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
@@ -157,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "630e5b6805eeddd575fa2948502254d3"
+    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
   },
   {
     "url": "js/zuix/zuix.min.js",
@@ -181,15 +181,15 @@ self.__precacheManifest = [
   },
   {
     "url": "images/banners/content-files.jpg",
-    "revision": "cf35262e560cf8c9b00d8df5e346f420"
+    "revision": "93f11286e6f8a8fe2d555fc4b37d7bad"
   },
   {
     "url": "images/banners/mdl-banner.jpg",
-    "revision": "2719730af09506f3104f4fc44bf29647"
+    "revision": "748bd081c6adbf2db02d8350c89ec372"
   },
   {
     "url": "images/banners/side-menu.jpg",
-    "revision": "b9ee631dc4355f8148c57e616af55fc5"
+    "revision": "b3b0c55128d87ca3efa5290eb61f682e"
   },
   {
     "url": "images/card_cover.jpg",
