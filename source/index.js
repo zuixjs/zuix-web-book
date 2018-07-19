@@ -165,7 +165,7 @@ zuix.hook('html:parse', function (data) {
 
 });
 
-
+console.log('!!!', siteConfig);
 // Index content items
 let index = 0;
 zuix.$.each(siteConfig.content, function (k, v) {

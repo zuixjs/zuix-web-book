@@ -57,7 +57,7 @@ self.__precacheManifest = [
   },
   {
     "url": "app/templates/mdl_card.html",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "61f9c04d0602223d14da9df3ffcefd14"
   },
   {
     "url": "config.js",
@@ -97,23 +97,23 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "b6774b0fbc34834f7fdc7b0c16360c30"
+    "revision": "d5b4436574ee62f306798ecc45e18079"
   },
   {
     "url": "index.js",
-    "revision": "275b5148ab52098ef95ec522862d8643"
+    "revision": "c07b79ce723addd729a843430ef35ee3"
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
-    "revision": "2bee21872f78a29d249fe8d731853d7e"
+    "revision": "daf3014760a1ad146d1552cda2b48ab3"
   },
   {
     "url": "js/mdl/material.js",
-    "revision": "b50a9d9f625f6eb4e09c40957f2e4e02"
+    "revision": "e2ff1b08544fdef6afe46d6bf9425ba9"
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
+    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
   },
   {
     "url": "js/mdl/material.min.js",
@@ -129,7 +129,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/prism/prism.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+    "revision": "1a7c3a75daca45e74ca45b4efa3b1bca"
   },
   {
     "url": "js/zuix-bundler.js",
@@ -157,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
+    "revision": "630e5b6805eeddd575fa2948502254d3"
   },
   {
     "url": "js/zuix/zuix.min.js",
@@ -181,15 +181,15 @@ self.__precacheManifest = [
   },
   {
     "url": "images/banners/content-files.jpg",
-    "revision": "93f11286e6f8a8fe2d555fc4b37d7bad"
+    "revision": "cf35262e560cf8c9b00d8df5e346f420"
   },
   {
     "url": "images/banners/mdl-banner.jpg",
-    "revision": "748bd081c6adbf2db02d8350c89ec372"
+    "revision": "2719730af09506f3104f4fc44bf29647"
   },
   {
     "url": "images/banners/side-menu.jpg",
-    "revision": "b3b0c55128d87ca3efa5290eb61f682e"
+    "revision": "b9ee631dc4355f8148c57e616af55fc5"
   },
   {
     "url": "images/card_cover.jpg",
