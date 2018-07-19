@@ -59,6 +59,7 @@ var siteOptions = {
         }
     },
     contentLoader: {
+        contextId: 'content-loader',
         on: {
             'path:change': showPage,
             'scroll:change': function(e, data) {
@@ -92,24 +93,26 @@ var siteOptions = {
     },
     menuView: {
         ready: function(ctx) {
-            let showDelay = 0;
-            contentLoader.list(
-                // the list items to load
-                siteConfig.content,
-                // the container where to append items
-                zuix.field('menu', ctx.view()),
-                // the callback function to call once each item is loaded
-                function(c, eol) {
-                    // animate menu item once its loaded
-                    zuix.$(c.view())
-                        .animateCss('bounceInLeft', { delay: showDelay+'s' });
-                    showDelay += 0.1;
-                    // load page content once menu has completed loading
-                    if (eol) {setTimeout(function(){
-                        contentLoader.navigate();
-                    }, 100);}
-                }
-            );
+            zuix.context('content-loader', function() {
+                let showDelay = 0;
+                contentLoader.list(
+                    // the list items to load
+                    siteConfig.content,
+                    // the container where to append items
+                    zuix.field('menu', ctx.view()),
+                    // the callback function to call once each item is loaded
+                    function(c, eol) {
+                        // animate menu item once its loaded
+                        zuix.$(c.view())
+                            .animateCss('bounceInLeft', { delay: showDelay+'s' });
+                        showDelay += 0.1;
+                        // load page content once menu has completed loading
+                        if (eol) {setTimeout(function(){
+                            contentLoader.navigate();
+                        }, 100);}
+                    }
+                );
+            });
         }
     },
     imageCarousel: {
