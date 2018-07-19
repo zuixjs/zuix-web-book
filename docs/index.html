@@ -531,7 +531,7 @@ pre.code-toolbar > .toolbar span:focus {
 
     <div data-ui-load="@lib/controllers/drawer_layout" data-ui-options="siteOptions.drawerLayout" class="mdl-color--yellow-100">
 
-        <div data-ui-include="layout/side_menu" data-ui-field="side-menu" class="side-menu mdl-shadow--8dp" layout="column center-spread"></div>
+        <div data-ui-include="layout/side_menu" data-ui-options="siteOptions.menuView" class="side-menu mdl-shadow--8dp" layout="column center-spread"></div>
 
     </div>
 
@@ -846,7 +846,7 @@ let headerTitle;
 let menuButton;
 headerElement.on('component:ready', function() {
     headerTitle = zuix.field('header-title');
-    menuButton = zuix.field('menu-button').on('click', function () {
+    menuButton = zuix.field('menu-button').on('click', function() {
         sideMenuPanel.toggle();
     });
 });
@@ -868,7 +868,7 @@ var siteOptions = {
         on: {
             'drawer:open': sideMenuOpen,
             'drawer:close': sideMenuClose,
-            'layout:change': function (e) {
+            'layout:change': function(e) {
                 autoHidingMenu = e.detail.smallScreen;
                 if (autoHidingMenu) {
                     pageContainer
@@ -890,7 +890,7 @@ var siteOptions = {
                 if (sideMenuPanel != null) sideMenuPanel.lock(!autoHidingMenu);
             }
         },
-        ready: function (ctx) {
+        ready: function(ctx) {
             // store a global reference to the side-menu navigator component
             sideMenuPanel = ctx;
             sideMenuPanel.lock(!autoHidingMenu);
@@ -899,7 +899,7 @@ var siteOptions = {
     contentLoader: {
         on: {
             'path:change': showPage,
-            'scroll:change': function (e, data) {
+            'scroll:change': function(e, data) {
                 if (pageContainer.hasClass('main-side-menu-off')) {
                     switch (data.event) {
                         case 'hit-top':
@@ -923,16 +923,19 @@ var siteOptions = {
                 }
             }
         },
-        ready: function (ctx) {
+        ready: function(ctx) {
             contentLoader = ctx;
-console.log('!!!', siteConfig);
             contentLoader.data(siteConfig);
+        }
+    },
+    menuView: {
+        ready: function(ctx) {
             let showDelay = 0;
             contentLoader.list(
                 // the list items to load
                 siteConfig.content,
                 // the container where to append items
-                zuix.field('menu'),
+                zuix.field('menu', ctx.view()),
                 // the callback function to call once each item is loaded
                 function(c, eol) {
                     // animate menu item once its loaded
@@ -943,7 +946,8 @@ console.log('!!!', siteConfig);
                     if (eol) {setTimeout(function(){
                         contentLoader.navigate();
                     }, 100);}
-                });
+                }
+            );
         }
     },
     imageCarousel: {
@@ -966,7 +970,7 @@ zuix.using('component', '@lib/extensions/animate_css', function(res, ctx) {
 
 // Add hooks for custom content processing
 
-zuix.hook('html:parse', function (data) {
+zuix.hook('html:parse', function(data) {
 
     if (this.options().wrapContent === true) {
         data.content = '<div class="page content-padding mdl-shadow--2dp" self="size-xlarge">'+data.content+'</div>';
@@ -979,11 +983,11 @@ zuix.hook('html:parse', function (data) {
         }
     }
 
-}).hook('view:process', function (view) {
+}).hook('view:process', function(view) {
 
     // Prism code syntax highlighter
     if (this.options().prism && typeof Prism !== 'undefined') {
-        view.find('code').each(function (i, block) {
+        view.find('code').each(function(i, block) {
             this.addClass('language-javascript');
             Prism.highlightElement(block);
         });
@@ -998,7 +1002,7 @@ zuix.hook('html:parse', function (data) {
     if (/*this.options().mdl &&*/ typeof componentHandler !== 'undefined')
         componentHandler.upgradeElements(view.get());
 
-}).hook('component:ready', function (ctx) {
+}).hook('component:ready', function(ctx) {
 
     console.log("Component loaded", ctx);
 
@@ -1007,10 +1011,10 @@ zuix.hook('html:parse', function (data) {
 
 // Index content items
 let index = 0;
-zuix.$.each(siteConfig.content, function (k, v) {
+zuix.$.each(siteConfig.content, function(k, v) {
     v.index = index++;
     if (v.list != null) {
-        zuix.$.each(v.list, function (k1, v1) {
+        zuix.$.each(v.list, function(k1, v1) {
             v1.index = index++;
         });
     }
@@ -1021,7 +1025,7 @@ zuix.$.each(siteConfig.content, function (k, v) {
 
 
 function parseBraces(content, braces) {
-    return zuix.$.replaceBraces(content, function (varName) {
+    return zuix.$.replaceBraces(content, function(varName) {
         if (varName.indexOf('{-') >= 0) {
             // ignore braces var if starting with '-'
             return varName.replace('{-', '{');
@@ -1049,13 +1053,13 @@ function fetchFromObject(obj, prop) {
 
 function sideMenuOpen(e, status) {
     // animate menu button
-    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
+    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function() {
         this.find('i').html('arrow_back').animateCss('rotateIn', { duration: '0.25s' });
     }).addClass('reverse');
 }
 function sideMenuClose(e, status) {
     // animate menu button
-    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
+    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function() {
         this.find('i').html('menu').animateCss('rotateIn', { duration: '0.25s' });
     });
     menuButton.removeClass('reverse');
@@ -1063,8 +1067,9 @@ function sideMenuClose(e, status) {
 
 function showPage(e, path) {
     // parse path or use default
-    if (path == null || path.length === 0)
+    if (path == null || path.length === 0) {
         path = siteConfig.strings.startPage;
+    }
     if (path.lastIndexOf('?') > 0) {
         // TODO: should parse query string, not used in this version though
         path = path.substring(0, path.lastIndexOf('?'));
@@ -1091,7 +1096,7 @@ function showPage(e, path) {
     });
     // update the title bar and highlight current menu item
     zuix.$('.side-menu div > a').removeClass('current');
-    zuix.$.each(path, function (k, v) {
+    zuix.$.each(path, function(k, v) {
         zuix.$('.side-menu div[data-id="' + v + '"] > a').addClass('current');
     });
     zuix.field('header-title').html(item.data.title);
@@ -1107,7 +1112,7 @@ function revealPage(pageContext) {
             directionOut = 'Right';
             directionIn = 'Left';
         }
-        zuix.$(oldPage.view()).animateCss('fadeOut'+directionOut, { duration: crossFadeDuration }, function () {
+        zuix.$(oldPage.view()).animateCss('fadeOut'+directionOut, { duration: crossFadeDuration }, function() {
             if (oldPage !== currentPage) this.hide();
         });
     }
@@ -1132,7 +1137,7 @@ function getItemFromPath(path) {
     let item = null;
     let list = siteConfig.content;
     for(let p = 0; p < path.length; p++) {
-        zuix.$.each(list, function (k, v) {
+        zuix.$.each(list, function(k, v) {
             if (v.id === path[p]) {
                 item = v;
                 list = item.list;
@@ -1257,7 +1262,7 @@ function hideHeader() {
   },
   {
     "componentId": "controllers/content_loader",
-    "controller": "zuix.controller(function (cp) {\n\n    cp.init = function () {\n        this.options().css = false;\n        this.options().html = false;\n    };\n\n    cp.create = function () {\n        window.onhashchange = function () {\n            navigate();\n        };\n        cp.expose('data', data);\n        cp.expose('path', getCurrentPath);\n        cp.expose('list', list);\n        cp.expose('getContent', getContent);\n        cp.expose('navigate', navigate);\n    };\n\n\n    // this is the JSON site data\n    let contentTree = null;\n\n    const dummyController = zuix.controller(function(ctrl){});\n    const contentController = zuix.controller(function(contentCtrl){\n        contentCtrl.create = function () {\n            contentCtrl.view().hide();\n            zuix.load('@lib/controllers/scroll_helper', {\n                view: contentCtrl.view(),\n                ready: function (scrollCtx) {\n                    const watchList = contentCtrl.options().watchList;\n                    if (watchList != null)\n                        scrollCtx.watch(watchList.filter, watchList.callback);\n                    scrollCtx.on('scroll:change', function (e, data) {\n                        // route event through the main context\n                        // `cp` is the main `content_loader` context\n                        data.page = contentCtrl;\n                        cp.trigger('scroll:change', data);\n                    });\n                }\n            })\n        };\n    });\n\n    function data(d) {\n        if (d != null)\n            contentTree = d;\n        return contentTree;\n    }\n\n    function getCurrentPath() {\n        if (window.location.hash.length > 0)\n            return window.location.hash;\n        return '';\n    }\n\n    function list(items, container, callback) {\n        zuix.$.each(items, function (k, v) {\n            (function(item, isLast) {\n                const itemId = v.id+'['+item.template+']';\n                const ctx = zuix.context(itemId);\n                if (ctx == null) {\n                    zuix.load(item.template, {\n                        contextId: itemId,\n                        css: false,\n                        braces: { data: item.data },\n                        controller: dummyController,\n                        ready: function (c) {\n                            c.options().data = item;\n                            c.view().setAttribute('data-id', item.id);\n                            zuix.$(container).append(c.view());\n                            callback(c, isLast);\n                            if (item.list != null) {\nconsole.log('@@@', item, item.list, c.view());\n                                list(item.list, c.view(), function(c, isLast) {\n                                   // TODO: ...\n                                    console.log('!!!', c, isLast);\n                                });\n                            }\n                        }\n                    });\n                } else {\n                    callback(ctx, isLast);\n                }\n            })(v, k == items.length - 1);\n        });\n    }\n\n    function getContent(data, callback) {\n        const path = '../'+data.file;\n        // exit if no content path specified\n        if (path == null || path.length == 0) return;\n        const content = zuix.context(path);\n        if (content == null) {\n            zuix.load(path, {\n                contextId: path,\n                wrapContent: true,\n                prism: true,\n                //braces: { data: data },\n                css: false,\n                cext: '',\n                controller: contentController,\n                ready: function (c) {\n                    // extend context with 'watch' method\n                    c.watch = function (filter, fn) {\n                        c.options().watchList = {\n                            filter: filter,\n                            callback: fn\n                        }\n                    };\n                    callback(c, true);\n                    // TODO: zuix.componentize(c.view());\n                },\n                error: function(err) {\n                    //document.location.replace('404.html');\n                }\n            });\n        } else {\n            callback(content, false);\n        }\n    }\n\n    function navigate() {\n        const path = getCurrentPath();\n        cp.trigger('path:change', path);\n    }\n\n});\n"
+    "controller": "zuix.controller(function (cp) {\n\n    cp.init = function () {\n        this.options().css = false;\n        this.options().html = false;\n    };\n\n    cp.create = function () {\n        window.onhashchange = function () {\n            navigate();\n        };\n        cp.expose('data', data);\n        cp.expose('path', getCurrentPath);\n        cp.expose('list', list);\n        cp.expose('getContent', getContent);\n        cp.expose('navigate', navigate);\n    };\n\n\n    // this is the JSON site data\n    let contentTree = null;\n\n    const dummyController = zuix.controller(function(ctrl){});\n    const contentController = zuix.controller(function(contentCtrl){\n        contentCtrl.create = function () {\n            contentCtrl.view().hide();\n            zuix.load('@lib/controllers/scroll_helper', {\n                view: contentCtrl.view(),\n                ready: function (scrollCtx) {\n                    const watchList = contentCtrl.options().watchList;\n                    if (watchList != null)\n                        scrollCtx.watch(watchList.filter, watchList.callback);\n                    scrollCtx.on('scroll:change', function (e, data) {\n                        // route event through the main context\n                        // `cp` is the main `content_loader` context\n                        data.page = contentCtrl;\n                        cp.trigger('scroll:change', data);\n                    });\n                }\n            })\n        };\n    });\n\n    function data(d) {\n        if (d != null)\n            contentTree = d;\n        return contentTree;\n    }\n\n    function getCurrentPath() {\n        if (window.location.hash.length > 0)\n            return window.location.hash;\n        return '';\n    }\n\n    function list(items, container, callback) {\n        zuix.$.each(items, function (k, v) {\n            (function(item, isLast) {\n                const itemId = v.id+'['+item.template+']';\n                const ctx = zuix.context(itemId);\n                if (ctx == null) {\n                    zuix.load(item.template, {\n                        contextId: itemId,\n                        css: false,\n                        braces: { data: item.data },\n                        controller: dummyController,\n                        ready: function (c) {\n                            c.options().data = item;\n                            c.view().setAttribute('data-id', item.id);\n                            zuix.$(container).append(c.view());\n                            callback(c, isLast);\n                            if (item.list != null) {\n                                list(item.list, c.view(), function(c, isLast) {\n                                   // TODO: ...\n                                });\n                            }\n                        }\n                    });\n                } else {\n                    callback(ctx, isLast);\n                }\n            })(v, k == items.length - 1);\n        });\n    }\n\n    function getContent(data, callback) {\n        const path = '../'+data.file;\n        // exit if no content path specified\n        if (path == null || path.length == 0) return;\n        const content = zuix.context(path);\n        if (content == null) {\n            zuix.load(path, {\n                contextId: path,\n                wrapContent: true,\n                prism: true,\n                //braces: { data: data },\n                css: false,\n                cext: '',\n                controller: contentController,\n                ready: function (c) {\n                    // extend context with 'watch' method\n                    c.watch = function (filter, fn) {\n                        c.options().watchList = {\n                            filter: filter,\n                            callback: fn\n                        }\n                    };\n                    callback(c, true);\n                    // TODO: zuix.componentize(c.view());\n                },\n                error: function(err) {\n                    //document.location.replace('404.html');\n                }\n            });\n        } else {\n            callback(content, false);\n        }\n    }\n\n    function navigate() {\n        const path = getCurrentPath();\n        cp.trigger('path:change', path);\n    }\n\n});\n"
   },
   {
     "componentId": "layout/header",

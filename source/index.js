@@ -8,7 +8,7 @@ let headerTitle;
 let menuButton;
 headerElement.on('component:ready', function() {
     headerTitle = zuix.field('header-title');
-    menuButton = zuix.field('menu-button').on('click', function () {
+    menuButton = zuix.field('menu-button').on('click', function() {
         sideMenuPanel.toggle();
     });
 });
@@ -30,7 +30,7 @@ var siteOptions = {
         on: {
             'drawer:open': sideMenuOpen,
             'drawer:close': sideMenuClose,
-            'layout:change': function (e) {
+            'layout:change': function(e) {
                 autoHidingMenu = e.detail.smallScreen;
                 if (autoHidingMenu) {
                     pageContainer
@@ -52,7 +52,7 @@ var siteOptions = {
                 if (sideMenuPanel != null) sideMenuPanel.lock(!autoHidingMenu);
             }
         },
-        ready: function (ctx) {
+        ready: function(ctx) {
             // store a global reference to the side-menu navigator component
             sideMenuPanel = ctx;
             sideMenuPanel.lock(!autoHidingMenu);
@@ -61,7 +61,7 @@ var siteOptions = {
     contentLoader: {
         on: {
             'path:change': showPage,
-            'scroll:change': function (e, data) {
+            'scroll:change': function(e, data) {
                 if (pageContainer.hasClass('main-side-menu-off')) {
                     switch (data.event) {
                         case 'hit-top':
@@ -85,16 +85,19 @@ var siteOptions = {
                 }
             }
         },
-        ready: function (ctx) {
+        ready: function(ctx) {
             contentLoader = ctx;
-console.log('!!!', siteConfig);
             contentLoader.data(siteConfig);
+        }
+    },
+    menuView: {
+        ready: function(ctx) {
             let showDelay = 0;
             contentLoader.list(
                 // the list items to load
                 siteConfig.content,
                 // the container where to append items
-                zuix.field('menu'),
+                zuix.field('menu', ctx.view()),
                 // the callback function to call once each item is loaded
                 function(c, eol) {
                     // animate menu item once its loaded
@@ -105,7 +108,8 @@ console.log('!!!', siteConfig);
                     if (eol) {setTimeout(function(){
                         contentLoader.navigate();
                     }, 100);}
-                });
+                }
+            );
         }
     },
     imageCarousel: {
@@ -128,7 +132,7 @@ zuix.using('component', '@lib/extensions/animate_css', function(res, ctx) {
 
 // Add hooks for custom content processing
 
-zuix.hook('html:parse', function (data) {
+zuix.hook('html:parse', function(data) {
 
     if (this.options().wrapContent === true) {
         data.content = '<div class="page content-padding mdl-shadow--2dp" self="size-xlarge">'+data.content+'</div>';
@@ -141,11 +145,11 @@ zuix.hook('html:parse', function (data) {
         }
     }
 
-}).hook('view:process', function (view) {
+}).hook('view:process', function(view) {
 
     // Prism code syntax highlighter
     if (this.options().prism && typeof Prism !== 'undefined') {
-        view.find('code').each(function (i, block) {
+        view.find('code').each(function(i, block) {
             this.addClass('language-javascript');
             Prism.highlightElement(block);
         });
@@ -160,7 +164,7 @@ zuix.hook('html:parse', function (data) {
     if (/*this.options().mdl &&*/ typeof componentHandler !== 'undefined')
         componentHandler.upgradeElements(view.get());
 
-}).hook('component:ready', function (ctx) {
+}).hook('component:ready', function(ctx) {
 
     console.log("Component loaded", ctx);
 
@@ -169,10 +173,10 @@ zuix.hook('html:parse', function (data) {
 
 // Index content items
 let index = 0;
-zuix.$.each(siteConfig.content, function (k, v) {
+zuix.$.each(siteConfig.content, function(k, v) {
     v.index = index++;
     if (v.list != null) {
-        zuix.$.each(v.list, function (k1, v1) {
+        zuix.$.each(v.list, function(k1, v1) {
             v1.index = index++;
         });
     }
@@ -183,7 +187,7 @@ zuix.$.each(siteConfig.content, function (k, v) {
 
 
 function parseBraces(content, braces) {
-    return zuix.$.replaceBraces(content, function (varName) {
+    return zuix.$.replaceBraces(content, function(varName) {
         if (varName.indexOf('{-') >= 0) {
             // ignore braces var if starting with '-'
             return varName.replace('{-', '{');
@@ -211,13 +215,13 @@ function fetchFromObject(obj, prop) {
 
 function sideMenuOpen(e, status) {
     // animate menu button
-    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
+    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function() {
         this.find('i').html('arrow_back').animateCss('rotateIn', { duration: '0.25s' });
     }).addClass('reverse');
 }
 function sideMenuClose(e, status) {
     // animate menu button
-    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function () {
+    menuButton.animateCss('rotateOut', { duration: '0.25s' }, function() {
         this.find('i').html('menu').animateCss('rotateIn', { duration: '0.25s' });
     });
     menuButton.removeClass('reverse');
@@ -225,8 +229,9 @@ function sideMenuClose(e, status) {
 
 function showPage(e, path) {
     // parse path or use default
-    if (path == null || path.length === 0)
+    if (path == null || path.length === 0) {
         path = siteConfig.strings.startPage;
+    }
     if (path.lastIndexOf('?') > 0) {
         // TODO: should parse query string, not used in this version though
         path = path.substring(0, path.lastIndexOf('?'));
@@ -253,7 +258,7 @@ function showPage(e, path) {
     });
     // update the title bar and highlight current menu item
     zuix.$('.side-menu div > a').removeClass('current');
-    zuix.$.each(path, function (k, v) {
+    zuix.$.each(path, function(k, v) {
         zuix.$('.side-menu div[data-id="' + v + '"] > a').addClass('current');
     });
     zuix.field('header-title').html(item.data.title);
@@ -269,7 +274,7 @@ function revealPage(pageContext) {
             directionOut = 'Right';
             directionIn = 'Left';
         }
-        zuix.$(oldPage.view()).animateCss('fadeOut'+directionOut, { duration: crossFadeDuration }, function () {
+        zuix.$(oldPage.view()).animateCss('fadeOut'+directionOut, { duration: crossFadeDuration }, function() {
             if (oldPage !== currentPage) this.hide();
         });
     }
@@ -294,7 +299,7 @@ function getItemFromPath(path) {
     let item = null;
     let list = siteConfig.content;
     for(let p = 0; p < path.length; p++) {
-        zuix.$.each(list, function (k, v) {
+        zuix.$.each(list, function(k, v) {
             if (v.id === path[p]) {
                 item = v;
                 list = item.list;

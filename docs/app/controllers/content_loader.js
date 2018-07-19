@@ -70,10 +70,8 @@ zuix.controller(function (cp) {
                             zuix.$(container).append(c.view());
                             callback(c, isLast);
                             if (item.list != null) {
-console.log('@@@', item, item.list, c.view());
                                 list(item.list, c.view(), function(c, isLast) {
                                    // TODO: ...
-                                    console.log('!!!', c, isLast);
                                 });
                             }
                         }

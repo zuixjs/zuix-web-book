@@ -25,7 +25,7 @@ self.__precacheManifest = [
   },
   {
     "url": "app/controllers/content_loader.js",
-    "revision": "8de4219bfaac3d4009bccbe340a029c4"
+    "revision": "678b2198197dca1ef8809969dba2e182"
   },
   {
     "url": "app/layout/header.css",
@@ -97,11 +97,11 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "cb1bf59f0573460ba6535ab6fbaee669"
+    "revision": "2d2dd13c1a7cba146e9f26c4a50f13e9"
   },
   {
     "url": "index.js",
-    "revision": "76e88bf90439617d2cee139d334bfc0e"
+    "revision": "69e70ea8d4c1cfdd1518d91ac6ede003"
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
@@ -113,7 +113,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
+    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
   },
   {
     "url": "js/mdl/material.min.js",
@@ -157,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "630e5b6805eeddd575fa2948502254d3"
+    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
   },
   {
     "url": "js/zuix/zuix.min.js",
@@ -185,11 +185,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/banners/mdl-banner.jpg",
-    "revision": "2719730af09506f3104f4fc44bf29647"
+    "revision": "748bd081c6adbf2db02d8350c89ec372"
   },
   {
     "url": "images/banners/side-menu.jpg",
-    "revision": "b9ee631dc4355f8148c57e616af55fc5"
+    "revision": "b3b0c55128d87ca3efa5290eb61f682e"
   },
   {
     "url": "images/card_cover.jpg",
