@@ -42,26 +42,34 @@ them with your favourite ones.
 This project requires [Node.js/npm](https://www.npmjs.com/get-npm) to be installed.
 
 
-### Usage
+## Installation
 
 Download or clone this repository
 
-     git clone https://github.com/genielabs/zuix-web-template.git
-     cd zuix-web-template.git
+     git clone https://github.com/genielabs/zuix-web-book.git
+     cd zuix-web-book.git
 
 Install development dependencies
 
     npm install
 
+
+## Build system
+
+This template is based on [zuix-web-starter](https://github.com/genemars/zuix-web-starter)
+build system.
+
+### Usage
+
 Start local web server
 
     npm start
 
-Start auto-rebuild script (watch file tree for changes and auto-rebuild)
+Start auto-build script (watch file tree for changes and auto-rebuild)
 
     npm run watch
 
-Manual building
+Or manual building
 
     npm run build
 
@@ -70,8 +78,12 @@ generated in the `./docs` folder.
 This setting can be changed by modifying the `./config/default.json` file.
 
 
+### Configuration options
+
+The default configuration is read from `config/default.json`:
+See [zuix-web-starter](https://github.com/genemars/zuix-web-starter) repository
+for all features and documentation.
+
+
 ![zUIx build system](https://genielabs.github.io/zuix-web-book/images/gifs/zuix-build.gif)
 
-
-This template is built on [zuix-web-starter](https://github.com/genemars/zuix-web-starter)
-build system. See its repository for all features and documentation.

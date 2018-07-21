@@ -35,6 +35,50 @@ them with your favourite ones.
 - Prism<br/>
   [http://prismjs.com](http://prismjs.com)
 
+
+### Installation
+
+Download or clone this repository
+
+     git clone https://github.com/genielabs/zuix-web-book.git
+     cd zuix-web-book.git
+
+Install development dependencies
+
+    npm install
+
+
+### Build system
+
+This template is based on [zuix-web-starter](https://github.com/genemars/zuix-web-starter)
+build system.
+
+#### Usage
+
+Start local web server
+
+    npm start
+
+Start auto-build script (watch file tree for changes and auto-rebuild)
+
+    npm run watch
+
+Or manual building
+
+    npm run build
+
+website source files are located in the `./source` folder and are
+generated in the `./docs` folder.
+This setting can be changed by modifying the `./config/default.json` file.
+
+
+### Configuration options
+
+The default configuration is read from `config/default.json`:
+See [zuix-web-starter](https://github.com/genemars/zuix-web-starter) repository
+for all features and documentation.
+
+
 ### Lighthouse PWA report
 
 ![LightHouse Score](https://genielabs.github.io/zuix-web-book/images/lighthouse_score.png)

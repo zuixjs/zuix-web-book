@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "content/about.html",
-    "revision": "b82812f0f9fdd9e9163e6baaa74a8a69"
+    "revision": "03e42e214b588b614a92668ccd5415f3"
   },
   {
     "url": "content/docs/content_files.html",
@@ -97,7 +97,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "b4b16b2b2162c0b968ab6f8ffce3cbec"
+    "revision": "d8eb9b3bc556596a730ad0849646a5ab"
   },
   {
     "url": "index.js",
@@ -189,11 +189,11 @@ self.__precacheManifest = [
   },
   {
     "url": "images/banners/side-menu.jpg",
-    "revision": "b3b0c55128d87ca3efa5290eb61f682e"
+    "revision": "b9ee631dc4355f8148c57e616af55fc5"
   },
   {
     "url": "images/gifs/zuix-build.gif",
-    "revision": "a4aff907d70c86aa9bde346b3ad5527a"
+    "revision": "9272952e14b8634c6c3590ac17cc955e"
   },
   {
     "url": "images/icons/desktop/android-chrome-192x192.png",
