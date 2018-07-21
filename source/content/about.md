@@ -9,16 +9,16 @@ Site structure and content management are based on a simple configuration file.
 
 ### Features
 
-- Responsive design, best fit all device sizes
-- Markdown, Front Matter, Swig Templates
+- Responsive layout design, best fit all device sizes
+- Mixed mode content authoring: HTML / Markdown / Front Matter / Swig Templates
 - Component-based web development with lazy-loading facility
-- Integrated build system with resource packing
+- Integrated build system and resource packing
 - Progressive Web App, also works offline
 - Framework agnostic
 
 ### UI Setup
 
-#### Layout
+#### Layout & Animations
 
 - Flex Layout Attribute (FLA)<br/>
   [http://progressivered.com/fla](http://progressivered.com/fla)
@@ -34,7 +34,6 @@ them with your favourite ones.
   [https://getmdl.io](https://getmdl.io)
 - Prism<br/>
   [http://prismjs.com](http://prismjs.com)
-
 
 ### Lighthouse PWA report
 

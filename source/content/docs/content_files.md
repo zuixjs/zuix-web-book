@@ -11,10 +11,6 @@ file extension.
 In order to be visible in the side menu, each file must also have an entry in the
 [./source/site_config.js](https://github.com/genielabs/zuix-web-template/blob/master/source/site_config.js#L1)
 configuration file, which is described in the next chapter.
-Each entry comes with an `id` field that can be then used in the URL
-to load an entry content.
-Each entry may also contain a list of sub-items like it happens with the
-`Documentation` section of this site menu,
 
 
 ### Content loading

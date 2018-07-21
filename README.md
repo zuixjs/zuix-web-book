@@ -1,35 +1,46 @@
 ## WebBook Template
 
-A ready to use webapp template powered by
+A ready to use web app template powered by
 [zUIx](https://genielabs.github.io/zuix).
 Site structure and content management are based on a simple configuration file.
 
 ![LightHouse Score](https://genielabs.github.io/zuix-web-book/images/lighthouse_score.png)
 
+
 ### Features
 
-- Responsive design, best fit all device sizes
-- Markdown, Front Matter, Swig Templates
+- Responsive layout design, best fit all device sizes
+- Mixed mode content authoring: HTML / Markdown / Front Matter / Swig Templates
 - Component-based web development with lazy-loading facility
-- Integrated build system with resource packing
-- Progressive Web App, can also work offline
-- Also featuring
-    - Material Design Lite<br/>
-      [https://getmdl.io](https://getmdl.io)
-    - Flex Layout Attribute (FLA)<br/>
-      [http://progressivered.com/fla](http://progressivered.com/fla)
-    - AnimateCSS<br/>
-      [https://daneden.github.io/animate.css](https://daneden.github.io/animate.css)
-    - Prism<br/>
-      [http://prismjs.com](http://prismjs.com)
-    - ...and off course zUIx for component-based development :)<br/>
-      [http://zuix.it](https://genielabs.github.io/zuix)
+- Integrated build system and resource packing
+- Progressive Web App, also works offline
+- Framework agnostic
 
-<!-- TODO: wip - Generated application consist of a single .html file that can be opened locally, without a web server -->
+
+### UI Setup
+
+#### Layout & Animations
+
+- Flex Layout Attribute (FLA)<br/>
+  [http://progressivered.com/fla](http://progressivered.com/fla)
+- AnimateCSS<br/>
+  [https://daneden.github.io/animate.css](https://daneden.github.io/animate.css)
+
+#### User Interface
+
+The following libraries are installed by default but feel free to replace
+them with your favourite ones.
+
+- Material Design Lite<br/>
+  [https://getmdl.io](https://getmdl.io)
+- Prism<br/>
+  [http://prismjs.com](http://prismjs.com)
+
 
 ## Prerequisites
 
 This project requires [Node.js/npm](https://www.npmjs.com/get-npm) to be installed.
+
 
 ### Usage
 
@@ -58,5 +69,9 @@ website source files are located in the `./source` folder and are
 generated in the `./docs` folder.
 This setting can be changed by modifying the `./config/default.json` file.
 
-This template is built on [zuix-web-starter](https://github.com/genemars/zuix-web-starter),
-see its repository for all features and documentation.
+
+![zUIx build system](https://genielabs.github.io/zuix-web-book/images/gifs/zuix-build.gif)
+
+
+This template is built on [zuix-web-starter](https://github.com/genemars/zuix-web-starter)
+build system. See its repository for all features and documentation.

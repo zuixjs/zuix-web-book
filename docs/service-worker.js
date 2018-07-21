@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "c29865361485f38733f24cadf4e499d5"
+    "revision": "d192726332dd00875b0d5bf92d3feb7c"
   },
   {
     "url": "app/controllers/content_loader.js",
@@ -65,11 +65,11 @@ self.__precacheManifest = [
   },
   {
     "url": "content/about.html",
-    "revision": "0425f634fb0146c41343ecdb0161e8cd"
+    "revision": "b82812f0f9fdd9e9163e6baaa74a8a69"
   },
   {
     "url": "content/docs/content_files.html",
-    "revision": "fab85b18c951dc43a49275f6fedd451b"
+    "revision": "2f5b44c506e4e07ce8d46a7b66097c13"
   },
   {
     "url": "content/docs/side_menu.html",
@@ -97,7 +97,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "a3342ce6eeca2f291924c749dc77620e"
+    "revision": "b4b16b2b2162c0b968ab6f8ffce3cbec"
   },
   {
     "url": "index.js",
@@ -105,7 +105,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
-    "revision": "daf3014760a1ad146d1552cda2b48ab3"
+    "revision": "2bee21872f78a29d249fe8d731853d7e"
   },
   {
     "url": "js/mdl/material.js",
@@ -157,7 +157,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/zuix/zuix.js",
-    "revision": "630e5b6805eeddd575fa2948502254d3"
+    "revision": "4b5c494b8a1259cc0e992e7fd7973afd"
   },
   {
     "url": "js/zuix/zuix.min.js",
@@ -165,7 +165,7 @@ self.__precacheManifest = [
   },
   {
     "url": "manifest.json",
-    "revision": "de8b1bc31250b8b6e3f63d84bf3cd9d7"
+    "revision": "acc8842916250ef3359d72add1941b7c"
   },
   {
     "url": "site_config.js",
@@ -181,23 +181,79 @@ self.__precacheManifest = [
   },
   {
     "url": "images/banners/content-files.jpg",
-    "revision": "93f11286e6f8a8fe2d555fc4b37d7bad"
+    "revision": "cf35262e560cf8c9b00d8df5e346f420"
   },
   {
     "url": "images/banners/mdl-banner.jpg",
-    "revision": "748bd081c6adbf2db02d8350c89ec372"
+    "revision": "2719730af09506f3104f4fc44bf29647"
   },
   {
     "url": "images/banners/side-menu.jpg",
     "revision": "b3b0c55128d87ca3efa5290eb61f682e"
   },
   {
-    "url": "images/card_cover.jpg",
-    "revision": "056b0eb64ac30441bd6aca8e3798286b"
+    "url": "images/gifs/zuix-build.gif",
+    "revision": "a4aff907d70c86aa9bde346b3ad5527a"
   },
   {
-    "url": "images/github.png",
-    "revision": "bc0550c0fe9c550342b069ada1b33272"
+    "url": "images/icons/desktop/android-chrome-192x192.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/android-chrome-512x512.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/apple-touch-icon.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/favicon-16x16.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/favicon-32x32.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/mstile-150x150.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/safari-pinned-tab.svg",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/icon-128x128.png",
+    "revision": "69f3f1f3f956bb71f35ce66b7717e1a0"
+  },
+  {
+    "url": "images/icons/icon-144x144.png",
+    "revision": "45e24db8671c41ca95c440df0cadf2a3"
+  },
+  {
+    "url": "images/icons/icon-152x152.png",
+    "revision": "e0867fd6e9bc25afd831b1eabdd83f8d"
+  },
+  {
+    "url": "images/icons/icon-192x192.png",
+    "revision": "cf383c3d4500d31884326cc9d53a8c3a"
+  },
+  {
+    "url": "images/icons/icon-384x384.png",
+    "revision": "19007d16c73f442f44c926beddc34637"
+  },
+  {
+    "url": "images/icons/icon-512x512.png",
+    "revision": "274298ed7162d12352fa836d3a2cb11e"
+  },
+  {
+    "url": "images/icons/icon-72x72.png",
+    "revision": "919cb6b3e8a1b5d0c963921dba0e4388"
+  },
+  {
+    "url": "images/icons/icon-96x96.png",
+    "revision": "5547ad1a33334c0f5c04f6de1f6d2c52"
   },
   {
     "url": "images/lighthouse_score.png",

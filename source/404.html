@@ -8,12 +8,12 @@
         @import url(http://fonts.googleapis.com/css?family=Bree+Serif|Source+Sans+Pro:300,400);
 
         *{
-            maring: 0;
+            margin: 0;
             padding: 0;
         }
         body{
             font-family: 'Source Sans Pro', sans-serif;
-            background: #3f6eb3;
+            background: white;
             color: #1f3759;
         }
         a:link{
@@ -25,11 +25,11 @@
             text-decoration: none;
         }
         a:hover{
-            color: #9fb7d9;
+            color: #2d7c1e;
             text-decoration: none;
         }
         a:visited{
-            color: #1f3759;
+            color: #2d7c1e;
             text-decoration: none;
         }
 
@@ -60,16 +60,15 @@
         }
 
         #logo {
-            font-family: 'Lobster', cursive;
             font-weight: 400;
             font-size: 200%;
-            color: white;
+            color: #398422;
             margin: 1em;
             float: left;
             display: block;
         }
         #logo a {
-            color: white;
+            color: #398422;
         }
         nav{
             float: right;
@@ -85,6 +84,9 @@
         #main-body{
             text-align: center;
         }
+        #main-body p {
+            margin: 16px;
+        }
 
         .enormous-font{
             font-size: 10em;
@@ -96,7 +98,7 @@
         hr{
             width: 25%;
             height: 1px;
-            background: #1f3759;
+            background: #ebffff;
             border: 0px;
         }
 
@@ -109,7 +111,7 @@
 <div id="content">
     <header>
         <div id="logo">
-            <a href="index.html">Simple Site Template</a>
+            <a href="index.html">{{app.title}}</a>
         </div>
     </header>
 
@@ -121,7 +123,7 @@
         <p class="big-font">The page you are looking for does not exist; it may have been moved, or removed altogether.</p>
         <hr>
         <p class="big-font">
-            Perhaps you can return back to the site’s <a href="index.html" class="underline">homepage</a> and see if you can find what you are looking for.
+            Perhaps you can return back to the site’s <a href="{{root}}index.html" class="underline">homepage</a> and see if you can find what you are looking for.
         </p>
     </div>
 </div>
