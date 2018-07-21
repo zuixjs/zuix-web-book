@@ -4,7 +4,7 @@ A ready to use web app template powered by
 [zUIx](https://genielabs.github.io/zuix).
 Site structure and content management are based on a simple configuration file.
 
-![LightHouse Score](https://genielabs.github.io/zuix-web-book/images/lighthouse_score.png)
+![LightHouse Score](https://genielabs.github.io/zuix-web-book/images/lighthouse_score.jpg)
 
 
 ### Features
@@ -16,8 +16,12 @@ Site structure and content management are based on a simple configuration file.
 - Progressive Web App, also works offline
 - Framework agnostic
 
+### Demo & Docs
 
-### UI Setup
+https://genielabs.github.io/zuix-web-book
+
+
+### UI setup
 
 #### Layout & Animations
 

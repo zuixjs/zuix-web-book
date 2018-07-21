@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "content/about.html",
-    "revision": "cc0f7b71057a2ef8447a59af0ebd4e01"
+    "revision": "ff71b3ce5cd6e2aed6396769cf207d8b"
   },
   {
     "url": "content/docs/content_files.html",
@@ -113,7 +113,7 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
+    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
   },
   {
     "url": "js/mdl/material.min.js",
@@ -181,19 +181,47 @@ self.__precacheManifest = [
   },
   {
     "url": "images/banners/content-files.jpg",
-    "revision": "93f11286e6f8a8fe2d555fc4b37d7bad"
+    "revision": "cf35262e560cf8c9b00d8df5e346f420"
   },
   {
     "url": "images/banners/mdl-banner.jpg",
-    "revision": "748bd081c6adbf2db02d8350c89ec372"
+    "revision": "2719730af09506f3104f4fc44bf29647"
   },
   {
     "url": "images/banners/side-menu.jpg",
-    "revision": "b3b0c55128d87ca3efa5290eb61f682e"
+    "revision": "b9ee631dc4355f8148c57e616af55fc5"
   },
   {
     "url": "images/gifs/zuix-build.gif",
-    "revision": "9272952e14b8634c6c3590ac17cc955e"
+    "revision": "a4aff907d70c86aa9bde346b3ad5527a"
+  },
+  {
+    "url": "images/icons/desktop/android-chrome-192x192.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/android-chrome-512x512.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/apple-touch-icon.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/favicon-16x16.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/favicon-32x32.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/mstile-150x150.png",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  {
+    "url": "images/icons/desktop/safari-pinned-tab.svg",
+    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/icons/icon-128x128.png",
@@ -230,10 +258,6 @@ self.__precacheManifest = [
   {
     "url": "images/lighthouse_score.jpg",
     "revision": "54f5379968222c634978e3d05ab496b4"
-  },
-  {
-    "url": "images/lighthouse_score.png",
-    "revision": "296a96f22ac35d6653648986e4671192"
   },
   {
     "url": "images/menu_template_preview_1.png",

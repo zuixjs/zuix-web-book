@@ -16,7 +16,7 @@ Site structure and content management are based on a simple configuration file.
 - Progressive Web App, also works offline
 - Framework agnostic
 
-### UI Setup
+### UI setup
 
 #### Layout & Animations
 
