@@ -81,7 +81,7 @@ for all features and documentation.
 
 ### Lighthouse PWA report
 
-![LightHouse Score](https://genielabs.github.io/zuix-web-book/images/lighthouse_score.png)
+![LightHouse Score](https://genielabs.github.io/zuix-web-book/images/lighthouse_score.jpg)
 
 ### Got any question or request?
 

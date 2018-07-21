@@ -65,7 +65,7 @@ self.__precacheManifest = [
   },
   {
     "url": "content/about.html",
-    "revision": "03e42e214b588b614a92668ccd5415f3"
+    "revision": "cc0f7b71057a2ef8447a59af0ebd4e01"
   },
   {
     "url": "content/docs/content_files.html",
@@ -105,15 +105,15 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
-    "revision": "2bee21872f78a29d249fe8d731853d7e"
+    "revision": "daf3014760a1ad146d1552cda2b48ab3"
   },
   {
     "url": "js/mdl/material.js",
-    "revision": "b50a9d9f625f6eb4e09c40957f2e4e02"
+    "revision": "e2ff1b08544fdef6afe46d6bf9425ba9"
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
-    "revision": "701b49acef871ef13bcbbd95b4ac33fe"
+    "revision": "67a24452f8ec6ef4449b7ee030e16ac6"
   },
   {
     "url": "js/mdl/material.min.js",
@@ -181,47 +181,19 @@ self.__precacheManifest = [
   },
   {
     "url": "images/banners/content-files.jpg",
-    "revision": "cf35262e560cf8c9b00d8df5e346f420"
+    "revision": "93f11286e6f8a8fe2d555fc4b37d7bad"
   },
   {
     "url": "images/banners/mdl-banner.jpg",
-    "revision": "2719730af09506f3104f4fc44bf29647"
+    "revision": "748bd081c6adbf2db02d8350c89ec372"
   },
   {
     "url": "images/banners/side-menu.jpg",
-    "revision": "b9ee631dc4355f8148c57e616af55fc5"
+    "revision": "b3b0c55128d87ca3efa5290eb61f682e"
   },
   {
     "url": "images/gifs/zuix-build.gif",
     "revision": "9272952e14b8634c6c3590ac17cc955e"
-  },
-  {
-    "url": "images/icons/desktop/android-chrome-192x192.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/android-chrome-512x512.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/apple-touch-icon.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/favicon-16x16.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/favicon-32x32.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/mstile-150x150.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/safari-pinned-tab.svg",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
     "url": "images/icons/icon-128x128.png",
@@ -254,6 +226,10 @@ self.__precacheManifest = [
   {
     "url": "images/icons/icon-96x96.png",
     "revision": "5547ad1a33334c0f5c04f6de1f6d2c52"
+  },
+  {
+    "url": "images/lighthouse_score.jpg",
+    "revision": "54f5379968222c634978e3d05ab496b4"
   },
   {
     "url": "images/lighthouse_score.png",
