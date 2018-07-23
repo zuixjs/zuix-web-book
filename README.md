@@ -86,8 +86,7 @@ This setting can be changed by modifying the `./config/default.json` file.
 
 The default configuration is read from `config/default.json`:
 See [zuix-web-starter](https://github.com/genemars/zuix-web-starter) repository
-for all features and documentation.
+for all features and documentation of the build system.
 
 
 ![zUIx build system](https://genielabs.github.io/zuix-web-book/images/gifs/zuix-build.gif)
-

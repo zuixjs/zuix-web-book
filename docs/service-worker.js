@@ -77,7 +77,7 @@ self.__precacheManifest = [
   },
   {
     "url": "content/docs/theme.html",
-    "revision": "3a731221e132535461645cce0349bd3c"
+    "revision": "cbb9260cc195d5593328de67376a8cd8"
   },
   {
     "url": "css/animate.css",
@@ -97,7 +97,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "d8eb9b3bc556596a730ad0849646a5ab"
+    "revision": "50fcc01d0300d1f6084fe8f3a588ba40"
   },
   {
     "url": "index.js",
@@ -105,11 +105,11 @@ self.__precacheManifest = [
   },
   {
     "url": "js/mdl/material.green-pink.min.css",
-    "revision": "daf3014760a1ad146d1552cda2b48ab3"
+    "revision": "2bee21872f78a29d249fe8d731853d7e"
   },
   {
     "url": "js/mdl/material.js",
-    "revision": "e2ff1b08544fdef6afe46d6bf9425ba9"
+    "revision": "b50a9d9f625f6eb4e09c40957f2e4e02"
   },
   {
     "url": "js/mdl/material.light_green-pink.min.css",
@@ -181,15 +181,15 @@ self.__precacheManifest = [
   },
   {
     "url": "images/banners/content-files.jpg",
-    "revision": "cf35262e560cf8c9b00d8df5e346f420"
+    "revision": "93f11286e6f8a8fe2d555fc4b37d7bad"
   },
   {
     "url": "images/banners/mdl-banner.jpg",
-    "revision": "2719730af09506f3104f4fc44bf29647"
+    "revision": "748bd081c6adbf2db02d8350c89ec372"
   },
   {
     "url": "images/banners/side-menu.jpg",
-    "revision": "b9ee631dc4355f8148c57e616af55fc5"
+    "revision": "b3b0c55128d87ca3efa5290eb61f682e"
   },
   {
     "url": "images/gifs/zuix-build.gif",
@@ -201,26 +201,6 @@ self.__precacheManifest = [
   },
   {
     "url": "images/icons/desktop/android-chrome-512x512.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/apple-touch-icon.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/favicon-16x16.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/favicon-32x32.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/mstile-150x150.png",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
-    "url": "images/icons/desktop/safari-pinned-tab.svg",
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {

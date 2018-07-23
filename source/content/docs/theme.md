@@ -3,7 +3,7 @@
 <img src="images/banners/mdl-banner.jpg" alt="cover" class="mdl-shadow--8dp" style="max-width:100%">
 <div class="vertical-spacer-16"></div>
 
-This site is based on **Material Design Lite**. So, content pages can include
+This template is preconfigured with **Material Design Lite**. So, content pages can include
 any component or style that is part of MDL.
 
 - [Components](https://getmdl.io/components/)
