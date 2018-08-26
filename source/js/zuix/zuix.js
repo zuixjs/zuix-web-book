@@ -1,7 +1,9 @@
+/* zUIx v0.4.9-55 18.08.13 12:53:05 */
+
 /** @typedef {Zuix} window.zuix */!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.zuix=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +22,7 @@
  *
  *  This file is part of
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -125,7 +127,7 @@ module.exports = function(callback) {
 },{}],2:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -144,7 +146,7 @@ module.exports = function(callback) {
  *
  *  This file is part of
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -279,7 +281,7 @@ module.exports = function(ctx) {
 },{}],3:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -298,7 +300,7 @@ module.exports = function(ctx) {
  *
  *  This file is part of
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -400,7 +402,7 @@ module.exports = TaskQueue;
 },{"./Logger":2}],4:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -419,7 +421,7 @@ module.exports = TaskQueue;
  *
  *  This file is part of
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -526,6 +528,20 @@ module.exports = {
             // TODO: should warn when clone is not possible
         }
         return temp;
+    },
+
+    hasPassiveEvents: function hasPassiveEvents() {
+        let supportsPassive = false;
+        try {
+            const opts = Object.defineProperty({}, 'passive', {
+                get: function() {
+                    supportsPassive = true;
+                }
+            });
+            window.addEventListener('testPassive', null, opts);
+            window.removeEventListener('testPassive', null, opts);
+        } catch (e) {}
+        return supportsPassive;
     }
 
 };
@@ -533,7 +549,7 @@ module.exports = {
 },{}],5:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -552,7 +568,7 @@ module.exports = {
  *
  *  This file is part of
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -595,23 +611,14 @@ const util = _dereq_('./Util.js');
  */
 
 /** @private */
-let supportsPassive = false;
-try {
-    const opts = Object.defineProperty({}, 'passive', {
-        get: function() {
-            supportsPassive = true;
-        }
-    });
-    window.addEventListener('testPassive', null, opts);
-    window.removeEventListener('testPassive', null, opts);
-} catch (e) {}
+let supportsPassive = util.hasPassiveEvents();
 
 /** @private */
 const _zuix_events_mapping = [];
 function routeEvent(e) {
     triggerEventHandlers(this, e.type, e);
 }
-function addEventHandler(el, path, handler) {
+function addEventHandler(el, path, handler, options) {
     let found = false;
     z$.each(_zuix_events_mapping, function() {
         if (this.element === el && this.path === path && this.handler === handler) {
@@ -621,8 +628,8 @@ function addEventHandler(el, path, handler) {
         }
     });
     if (!found) {
-        _zuix_events_mapping.push({element: el, path: path, handler: handler});
-        el.addEventListener(path, routeEvent, supportsPassive ? {passive: true} : false);
+        _zuix_events_mapping.push({element: el, path: path, handler: handler, opgions: options});
+        el.addEventListener(path, routeEvent, supportsPassive && (options == null || options.passive !== false) ? {passive: true} : false);
     }
 }
 function removeEventHandler(el, path, handler) {
@@ -879,9 +886,14 @@ ZxQuery.prototype.one = function(eventPath, eventHandler) {
  */
 ZxQuery.prototype.on = function(eventPath, eventHandler) {
     const events = eventPath.match(/\S+/g) || [];
+    let options;
+    if (typeof eventHandler !== 'function') {
+        options = eventHandler;
+        eventHandler = options.handler;
+    }
     this.each(function(k, el) {
         z$.each(events, function(k, ev) {
-            addEventHandler(el, ev, eventHandler);
+            addEventHandler(el, ev, eventHandler, options);
         });
     });
     return this;
@@ -1321,7 +1333,7 @@ z$.wrapElement = function(containerTag, element) {
     return container;
 };
 z$.wrapCss = function(wrapperRule, css) {
-    const wrapReX = /((.*){([^{}]|((.*){([^}]+)[}]))*})/g;
+    const wrapReX = /(([a-zA-Z0-9\240-\377=:-_\n,.@]+.*){([^{}]|((.*){([^}]+)[}]))*})/g;
     let wrappedCss = '';
     let ruleMatch;
     // remove comments
@@ -1329,8 +1341,9 @@ z$.wrapCss = function(wrapperRule, css) {
     do {
         ruleMatch = wrapReX.exec(css);
         if (ruleMatch && ruleMatch.length > 1) {
-            const ruleParts = ruleMatch[2];
+            let ruleParts = ruleMatch[2];
             if (ruleParts != null && ruleParts.length > 0) {
+                ruleParts = ruleParts.replace(/\n/g, '');
                 const classes = ruleParts.split(',');
                 let isMediaQuery = false;
                 z$.each(classes, function(k, v) {
@@ -1630,7 +1643,7 @@ module.exports = z$;
 /*!
  * @license
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1648,7 +1661,7 @@ module.exports = z$;
 /**
  *
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -1676,7 +1689,7 @@ module.exports = z$;
 },{"./zuix/Zuix.js":12}],7:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1694,7 +1707,7 @@ module.exports = z$;
 /*
  *
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -1729,7 +1742,7 @@ module.exports = function(root) {
 },{}],8:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1748,7 +1761,7 @@ module.exports = function(root) {
  *
  *  This file is part of
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -2001,14 +2014,14 @@ ComponentContext.prototype.style = function(css) {
         // store original unparsed css (might be useful for debugging)
         this._css = css;
 
-        // nest the CSS inside [data-ui-component='<componentId>']
-        // so that the style is only applied to this component type
-        css = z$.wrapCss('['+_optionAttributes.dataUiComponent+'="' + this.componentId + '"]:not(.zuix-css-ignore)', css);
-
         // trigger `css:parse` hook before assigning content to the view
         const hookData = {content: css};
         this.trigger(this, 'css:parse', hookData);
         css = hookData.content;
+
+        // nest the CSS inside [data-ui-component='<componentId>']
+        // so that the style is only applied to this component type
+        css = z$.wrapCss('['+_optionAttributes.dataUiComponent+'="' + this.componentId + '"]:not(.zuix-css-ignore)', css);
 
         // output css
         this._style = z$.appendCss(css, this._style, this.componentId);
@@ -2378,7 +2391,7 @@ module.exports = ComponentContext;
 },{"../helpers/Logger":2,"../helpers/Util":4,"../helpers/ZxQuery":5,"./OptionAttributes":11}],9:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2397,7 +2410,7 @@ module.exports = ComponentContext;
  *
  *  This file is part of
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -2407,7 +2420,7 @@ module.exports = ComponentContext;
 const _optionAttributes =
     _dereq_('./OptionAttributes')();
 
-const LIBRARY_PATH_DEFAULT = 'https://genielabs.github.io/zkit/lib'; // CORS works only over HTTPS
+const LIBRARY_PATH_DEFAULT = 'https://zuixjs.github.io/zkit/lib/'; // CORS works only over HTTPS
 
 /**
  * TODO: describe this...
@@ -2797,10 +2810,13 @@ function loadInline(element) {
 }
 
 function resolvePath(path) {
-    const config = zuix.store('config');
+    let config = zuix.store('config');
+    if (config != null && config[location.host] != null) {
+        config = config[location.host];
+    }
     const libraryPath = config != null && config.libraryPath != null ? config.libraryPath : LIBRARY_PATH_DEFAULT;
     if (path.startsWith('@lib/')) {
-        path = libraryPath+path.substring(4);
+        path = libraryPath+path.substring(5);
     }
     return path;
 }
@@ -2907,7 +2923,7 @@ function lazyElementCheck(element) {
 },{"../helpers/Logger":2,"../helpers/Util":4,"../helpers/ZxQuery":5,"./../helpers/AsynChain":1,"./OptionAttributes":11}],10:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2926,7 +2942,7 @@ function lazyElementCheck(element) {
  *
  *  This file is part of
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -3351,7 +3367,7 @@ module.exports = ContextController;
 },{"../helpers/ZxQuery":5}],11:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3370,7 +3386,7 @@ module.exports = ContextController;
  *
  *  This file is part of
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  */
@@ -3415,7 +3431,7 @@ module.exports = function(root) {
 },{}],12:[function(_dereq_,module,exports){
 /*
  * Copyright 2015-2017 G-Labs. All Rights Reserved.
- *         https://genielabs.github.io/zuix
+ *         https://zuixjs.github.io/zuix
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3433,7 +3449,7 @@ module.exports = function(root) {
 /*
  *
  *  zUIx, Javascript library for component-based development.
- *        https://genielabs.github.io/zuix
+ *        https://zuixjs.github.io/zuix
  *
  * @author Generoso Martello <generoso@martello.com>
  *
@@ -3693,7 +3709,10 @@ function load(componentId, options) {
 }
 
 function getResourcePath(path) {
-    const config = zuix.store('config');
+    let config = zuix.store('config');
+    if (config != null && config[location.host] != null) {
+        config = config[location.host];
+    }
     path = _componentizer.resolvePath(path);
     if (!path.startsWith('//') && path.indexOf('://') < 0) {
         path = (config != null && config.resourcePath != null ? config.resourcePath : '') + path;
@@ -4043,7 +4062,10 @@ function createComponent(context, task) {
                 initController(context._c);
             });
         }
-        z$(context.view()).attr(_optionAttributes.dataUiContext, context.contextId);
+        const v = z$(context.view());
+        if (v.attr(_optionAttributes.dataUiContext) == null) {
+            v.attr(_optionAttributes.dataUiContext, context.contextId);
+        }
 
         _log.d(context.componentId, 'component:initializing');
         if (util.isFunction(context.controller())) {

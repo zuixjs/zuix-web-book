@@ -1,10 +1,10 @@
 ## WebBook Template
 
 A ready to use web app template powered by
-[zUIx](https://genielabs.github.io/zuix).
+[zUIx](https://zuixjs.github.io/zuix).
 Site structure and content management are based on a simple configuration file.
 
-![LightHouse Score](https://genielabs.github.io/zuix-web-book/images/lighthouse_score.jpg)
+![LightHouse Score](https://zuixjs.github.io/zuix-web-book/images/lighthouse_score.jpg)
 
 
 ### Features
@@ -18,7 +18,7 @@ Site structure and content management are based on a simple configuration file.
 
 ### Demo & Docs
 
-https://genielabs.github.io/zuix-web-book
+https://zuixjs.github.io/zuix-web-book
 
 
 ### UI setup
@@ -50,7 +50,7 @@ This project requires [Node.js/npm](https://www.npmjs.com/get-npm) to be install
 
 Download or clone this repository
 
-     git clone https://github.com/genielabs/zuix-web-book.git
+     git clone https://github.com/zuixjs/zuix-web-book.git
      cd zuix-web-book.git
 
 Install development dependencies
@@ -60,7 +60,7 @@ Install development dependencies
 
 ## Build system
 
-This template is based on [zuix-web-starter](https://github.com/genemars/zuix-web-starter)
+This template is based on [zuix-web-starter](https://github.com/zuixjs/zuix-web-starter)
 build system.
 
 ### Usage
@@ -85,8 +85,8 @@ This setting can be changed by modifying the `./config/default.json` file.
 ### Configuration options
 
 The default configuration is read from `config/default.json`:
-See [zuix-web-starter](https://github.com/genemars/zuix-web-starter) repository
+See [zuix-web-starter](https://github.com/zuixjs/zuix-web-starter) repository
 for all features and documentation of the build system.
 
 
-![zUIx build system](https://genielabs.github.io/zuix-web-book/images/gifs/zuix-build.gif)
+![zUIx build system](https://zuixjs.github.io/zuix-web-book/images/gifs/zuix-build.gif)

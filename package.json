@@ -25,10 +25,10 @@
   "author": "G-Labs",
   "contributors": [],
   "license": "MIT",
-  "homepage": "https://github.com/genielabs",
+  "homepage": "https://github.com/zuixjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/genielabs/zuix-web-template"
+    "url": "https://github.com/zuixjs/zuix-web-template"
   },
   "devDependencies": {
     "chokidar": "^2.0.4",

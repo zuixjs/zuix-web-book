@@ -9,7 +9,7 @@ and [HTML](https://wikipedia.org/wiki/HTML) code regardless of the `.md` or `.ht
 file extension.
 
 In order to be visible in the side menu, each file must also have an entry in the
-[./source/site_config.js](https://github.com/genielabs/zuix-web-template/blob/master/source/site_config.js#L1)
+[./source/site_config.js](https://github.com/zuixjs/zuix-web-template/blob/master/source/site_config.js#L1)
 configuration file, which is described in the next chapter.
 
 
@@ -70,5 +70,5 @@ already filled in and placed all the contents of your website, you can
 continue to improve its look, usability and functionality without ever
 touching the pages where the content is placed.
 
-Refer to [zUIx](https://genielabs.github.io/zuix) website for
+Refer to [zUIx](https://zuixjs.github.io/zuix) website for
 a complete documentation about this topic.

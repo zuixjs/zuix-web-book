@@ -12,10 +12,10 @@ any component or style that is part of MDL.
 
 
 Inclusion of custom fonts and MDL files are, as usual, located in the `head`
-section of the [./source/index.html](https://github.com/genielabs/zuix-web-template/blob/master/source/index.html#L35)
+section of the [./source/index.html](https://github.com/zuixjs/zuix-web-template/blob/master/source/index.html#L35)
 file.
 
 There you can edit fonts and MDL css style to suite your need.
 
-To apply fonts or other custom style classes, use the [./source/index.css](https://github.com/genielabs/zuix-web-template/blob/master/source/index.css#L1)
+To apply fonts or other custom style classes, use the [./source/index.css](https://github.com/zuixjs/zuix-web-template/blob/master/source/index.css#L1)
 file.

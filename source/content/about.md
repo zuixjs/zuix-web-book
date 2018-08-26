@@ -4,7 +4,7 @@
 <div class="vertical-spacer-16"></div>
 
 A ready to use web app template powered by
-[zUIx](https://genielabs.github.io/zuix).
+[zUIx](https://zuixjs.github.io/zuix).
 Site structure and content management are based on a simple configuration file.
 
 ### Features
@@ -40,7 +40,7 @@ them with your favourite ones.
 
 Download or clone this repository
 
-     git clone https://github.com/genielabs/zuix-web-book.git
+     git clone https://github.com/zuixjs/zuix-web-book.git
      cd zuix-web-book.git
 
 Install development dependencies
@@ -50,7 +50,7 @@ Install development dependencies
 
 ### Build system
 
-This template is based on [zuix-web-starter](https://github.com/genemars/zuix-web-starter)
+This template is based on [zuix-web-starter](https://github.com/zuixjs/zuix-web-starter)
 build system.
 
 #### Usage
@@ -75,7 +75,7 @@ This setting can be changed by modifying the `./config/default.json` file.
 ### Configuration options
 
 The default configuration is read from `config/default.json`:
-See [zuix-web-starter](https://github.com/genemars/zuix-web-starter) repository
+See [zuix-web-starter](https://github.com/zuixjs/zuix-web-starter) repository
 for all features and documentation.
 
 
@@ -85,4 +85,4 @@ for all features and documentation.
 
 ### Got any question or request?
 
-File a ticket via the repository [issue tracker](https://github.com/genielabs/zuix-web-template/issues).
+File a ticket via the repository [issue tracker](https://github.com/zuixjs/zuix-web-template/issues).

@@ -4,10 +4,10 @@
         "title": "WebBook",
         "googleSiteId": "UA-123-456",
         "resourcePath": "app/",
-        "libraryPath": "https://genielabs.github.io/zkit/lib/",
-        "genielabs.github.io": {
+        "libraryPath": "https://zuixjs.github.io/zkit/lib/",
+        "zuixjs.github.io": {
                 "resourcePath": "/zuix-web-book/app/",
-                "libraryPath": "https://genielabs.github.io/zkit/lib/"
+                "libraryPath": "https://zuixjs.github.io/zkit/lib/"
         }
 });
 

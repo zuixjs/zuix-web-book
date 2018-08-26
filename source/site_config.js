@@ -56,7 +56,7 @@ var siteConfig = {
             data: {
                 title: 'Kit',
                 icon: 'extension',
-                link: 'https://genielabs.github.io/zkit'
+                link: 'https://zuixjs.github.io/zkit'
             }
         }
     ],
