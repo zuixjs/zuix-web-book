@@ -1,8 +1,16 @@
+
+## This template has been replaced by the newer `zuix-web-starter`
+
+&gt;&gt;&gt; [NEW REPOSITORY](https://github.com/zuixjs/zuix-web-starter) <<<
+
+---
+
 ## WebBook Template
 
 A ready to use web app template powered by
 [zUIx](https://zuixjs.github.io/zuix).
 Site structure and content management are based on a simple configuration file.
+
 
 ![LightHouse Score](https://zuixjs.github.io/zuix-web-book/images/lighthouse_score.jpg)
 
